@@ -1,0 +1,14 @@
+{
+    "consoleSwitch":"Console",
+    "portsListTitle":"List of ports",
+    "connectButton":"Connect",
+    "themeTitle":"Theme",
+    "lightThemeSwitch":"Light",
+    "darkThemeSwitch":"Dark",
+    "devToolsOnSwitch":"On",
+    "devToolsOffSwitch":"Off",
+    "polskiSwitch":"Polski",
+    "englishSwitch":"English",
+    "devModeTitle":"Dev mode",
+    "languageTitle": "Language"
+}

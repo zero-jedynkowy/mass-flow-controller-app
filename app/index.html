@@ -10,10 +10,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button type="button" class="btn btn-warning" id="consoleSwitch">Konsola</button>
+  <button type="button" class="btn btn-warning language" id="consoleSwitch">Konsola</button>
+  
+  
+  
   <div class="container-fluid text-center" id="chooseDeviceWindow">
     <div class="text-center row deviceTitleParent">
-      <div class="col-12 deviceTitle">Lista portów</div>
+      <div class="col-12 deviceTitle language" id="portsListTitle">Lista portów</div>
     </div>
     <div class="text-center row">
       <div class="col-8 leftPanel align-self-stretch">
@@ -34,36 +37,36 @@
         </div>
       </div>
       <div class="col-4 rightPanel">
-        <button type="button" class="w-100 btn btn-primary menuButton fs-5" id="connectButton">Połącz</button>
+        <button type="button" class="w-100 btn btn-primary menuButton fs-5 language" id="connectButton">Połącz</button>
         <div class="w-100 allMenu">
-        <div class="w-100 menuSectionTitle">Motyw</div>
+        <div class="w-100 menuSectionTitle language" id="themeTitle">Motyw</div>
         <div class="w-100 btn-group-vertical menuButton" role="group" aria-label="Vertical radio toggle button group">
           <input type="radio" class="btn-check" name="vbtn-radio" id="lightTheme" autocomplete="off" checked>
-          <label class="btn btn-outline-danger" for="lightTheme">Jasny</label>
+          <label class="btn btn-outline-danger language" for="lightTheme" id="lightThemeSwitch">Jasny</label>
           <input type="radio" class="btn-check" name="vbtn-radio" id="darkTheme" autocomplete="off">
-          <label class="btn btn-outline-danger" for="darkTheme">Ciemny</label>
+          <label class="btn btn-outline-danger language" for="darkTheme" id="darkThemeSwitch">Ciemny</label>
         </div>
         
-        <div class="w-100 menuSectionTitle">Tryb deweloperski</div>
+        <div class="w-100 menuSectionTitle language" id="devModeTitle">Tryb deweloperski</div>
         
         <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
           <input type="radio" class="btn-check" name="btnradio1" id="devToolsOn" autocomplete="off">
-          <label class="btn btn-outline-primary" for="devToolsOn">Włącz</label>
+          <label class="btn btn-outline-primary language" for="devToolsOn" id="devToolsOnSwitch">Włącz</label>
         
           <input type="radio" class="btn-check" name="btnradio1" id="devToolsOff" autocomplete="off" checked>
-          <label class="btn btn-outline-primary" for="devToolsOff">Wyłącz</label>
+          <label class="btn btn-outline-primary language" for="devToolsOff" id="devToolsOffSwitch">Wyłącz</label>
         
 
         </div>
         
-        <div class="w-100 menuSectionTitle">Język</div>
+        <div class="w-100 menuSectionTitle language" id="languageTitle">Język</div>
 
         <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
-          <label class="btn btn-outline-primary" for="btnradio3">Polski</label>
+          <input type="radio" class="btn-check" name="btnradio2" id="polski" autocomplete="off" checked>
+          <label class="btn btn-outline-primary language" for="polski" id="polskiSwitch">Polski</label>
         
-          <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-          <label class="btn btn-outline-primary" for="btnradio4">English</label>
+          <input type="radio" class="btn-check" name="btnradio2" id="english" autocomplete="off">
+          <label class="btn btn-outline-primary language" for="english" id="englishSwitch">English</label>
         
 
         </div>

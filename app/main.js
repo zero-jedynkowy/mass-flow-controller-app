@@ -1,7 +1,21 @@
-const {app, BrowserWindow} = require('electron/main')
+const {app, BrowserWindow, ipcMain} = require('electron/main')
 const path = require('node:path')
+const settings = require("electron-settings")
+
+settings.configure(
+{
+  atomicSave: true,
+  numSpaces: 2,
+  prettify: true
+})
 
 
+
+if(settings.getSync("language") == null || settings.getSync("theme") == null)
+{
+  settings.setSync("language", "english")
+  settings.setSync("theme", "light")
+}
 
 function createWindow () 
 {
@@ -21,12 +35,11 @@ function createWindow ()
     }
   })
   win.loadFile('index.html')
-  // .then(() => {window.webContents.send('mainWindow', win); })
+  win.settings = settings
   
   require("@electron/remote/main").initialize();
   const mainRemote = require("@electron/remote/main");
   mainRemote.enable(win.webContents);
-  // win.webContents.openDevTools()
 }
 
 app.whenReady().then(() => 
@@ -48,4 +61,3 @@ app.on('window-all-closed', () =>
     app.quit()
   }
 })
-

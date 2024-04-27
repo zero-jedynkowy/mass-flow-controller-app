@@ -23,5 +23,9 @@
     "@electron/remote": "^2.1.2",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1"
+  },
+  "build":
+  {
+    "extraResources": ["./languages/**"]
   }
 }
