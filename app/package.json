@@ -1,0 +1,26 @@
+{
+  "name": "mass-flow-controller-app",
+  "version": "1.0.0",
+  "description": "An app for controlling the mass flow controller",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "keywords": [
+    "Mass",
+    "Flow",
+    "Controller",
+    "App"
+  ],
+  "author": "Karol Ambroziński",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.1",
+    "lato-font": "^3.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1"
+  }
+}

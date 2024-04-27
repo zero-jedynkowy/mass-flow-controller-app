@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mass Flow Controller App</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <link rel="stylesheet" href="/node_modules/lato-font/css/lato-font.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container-fluid text-center">
+    <div class="text-center row deviceTitleParent">
+      <div class="col-12 deviceTitle">Lista portów</div>
+    </div>
+    <div class="text-center row">
+      <div class="col-8 leftPanel align-self-stretch">
+        <div class="h-100 w-100 rounded-2  devicesList">
+          <div class="h-100 list-group  overflow-auto">
+            <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+              The current link item
+            </a> -->
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li>
+            <li class="list-group-item">And a fifth one</li>
+            <!-- <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+            <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled link item</a> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-4 rightPanel">
+        <button type="button" class="w-100 btn btn-primary menuButton fs-5" id="connectButton">Połącz</button>
+        <div class="w-100 allMenu">
+        <div class="w-100 menuSectionTitle">Motyw</div>
+        <div class="w-100 btn-group-vertical menuButton" role="group" aria-label="Vertical radio toggle button group">
+          <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+          <label class="btn btn-outline-danger" for="vbtn-radio1">Jasny</label>
+          <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+          <label class="btn btn-outline-danger" for="vbtn-radio2">Ciemny</label>
+        </div>
+        
+        <div class="w-100 menuSectionTitle">Tryb deweloperski</div>
+        
+        <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio1" id="btnradio1" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="btnradio1">Włącz</label>
+        
+          <input type="radio" class="btn-check" name="btnradio1" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio2">Wyłącz</label>
+        
+
+        </div>
+        
+        <div class="w-100 menuSectionTitle">Język</div>
+
+        <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="btnradio3">Polski</label>
+        
+          <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio4">English</label>
+        
+
+        </div>
+        
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./renderer.js"></script>
+</html>
+
+
+<!-- <ul class="devicesList overflow-auto list-group border border-bottom-2">
+</ul> -->
