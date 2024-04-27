@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Mass Flow Controller App</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
-    <link rel="stylesheet" href="/node_modules/lato-font/css/lato-font.css">
+    <link rel="stylesheet" href="node_modules/lato-font/css/lato-font.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container-fluid text-center">
+  <button type="button" class="btn btn-warning" id="consoleSwitch">Konsola</button>
+  <div class="container-fluid text-center" id="chooseDeviceWindow">
     <div class="text-center row deviceTitleParent">
       <div class="col-12 deviceTitle">Lista portów</div>
     </div>
@@ -37,20 +38,20 @@
         <div class="w-100 allMenu">
         <div class="w-100 menuSectionTitle">Motyw</div>
         <div class="w-100 btn-group-vertical menuButton" role="group" aria-label="Vertical radio toggle button group">
-          <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
-          <label class="btn btn-outline-danger" for="vbtn-radio1">Jasny</label>
-          <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
-          <label class="btn btn-outline-danger" for="vbtn-radio2">Ciemny</label>
+          <input type="radio" class="btn-check" name="vbtn-radio" id="lightTheme" autocomplete="off" checked>
+          <label class="btn btn-outline-danger" for="lightTheme">Jasny</label>
+          <input type="radio" class="btn-check" name="vbtn-radio" id="darkTheme" autocomplete="off">
+          <label class="btn btn-outline-danger" for="darkTheme">Ciemny</label>
         </div>
         
         <div class="w-100 menuSectionTitle">Tryb deweloperski</div>
         
         <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio1" id="btnradio1" autocomplete="off" checked>
-          <label class="btn btn-outline-primary" for="btnradio1">Włącz</label>
+          <input type="radio" class="btn-check" name="btnradio1" id="devToolsOn" autocomplete="off">
+          <label class="btn btn-outline-primary" for="devToolsOn">Włącz</label>
         
-          <input type="radio" class="btn-check" name="btnradio1" id="btnradio2" autocomplete="off">
-          <label class="btn btn-outline-primary" for="btnradio2">Wyłącz</label>
+          <input type="radio" class="btn-check" name="btnradio1" id="devToolsOff" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="devToolsOff">Wyłącz</label>
         
 
         </div>
@@ -72,6 +73,7 @@
     </div>
   </div>
 </body>
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./renderer.js"></script>
 </html>
 

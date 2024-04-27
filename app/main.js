@@ -1,6 +1,8 @@
 const {app, BrowserWindow} = require('electron/main')
 const path = require('node:path')
 
+
+
 function createWindow () 
 {
   const win = new BrowserWindow(
@@ -12,10 +14,18 @@ function createWindow ()
     
     webPreferences: 
     {
-      preload: path.join(__dirname, 'preload.js')
+      // preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      enableRemoteModule: true, 
+      contextIsolation: false
     }
   })
   win.loadFile('index.html')
+  // .then(() => {window.webContents.send('mainWindow', win); })
+  
+  require("@electron/remote/main").initialize();
+  const mainRemote = require("@electron/remote/main");
+  mainRemote.enable(win.webContents);
   // win.webContents.openDevTools()
 }
 

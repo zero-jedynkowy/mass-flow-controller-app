@@ -7,6 +7,11 @@ body, html
     height: 100%;
 }
 
+#chooseDeviceWindow
+{
+  display: none;
+}
+
 .deviceTitle
 {
     font-size: 3rem;
@@ -133,4 +138,11 @@ body, html
 .allMenu
 {
     margin-top: 6rem;
+}
+
+#consoleSwitch
+{
+  position: fixed;
+  display: none;
+  margin: 2rem;
 }
