@@ -1,10 +1,14 @@
 const remote = window.require("@electron/remote");
 const currentWindow = remote.getCurrentWindow();
 const {ipcRenderer} = require('electron');
-$ = currentWindow.jQuery = require('jquery');
+const {bootstrap} = require('bootstrap')
+window.$ = window.jQuery = require('jquery');
+const { SerialPort } = require('serialport')
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const { equal } = require('assert');
 const settings = currentWindow.settings;
+
 
 // SETTINGS
 

@@ -146,3 +146,10 @@ body, html
   display: none;
   margin: 2rem;
 }
+
+.deviceListElement
+{
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 1.3rem 0 1.3rem 0;
+}
