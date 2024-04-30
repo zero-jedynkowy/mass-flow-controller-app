@@ -40,11 +40,15 @@ const settings = currentWindow.settings;
         {
             document.querySelector("html").setAttribute("data-bs-theme", "dark")
             settings.setSync("theme", "dark")
+            document.querySelector("#devicesList").classList.remove("bg-dark")
+            document.querySelector("#devicesList").classList.add("bg-light")
         }
         else
         {
             document.querySelector("html").removeAttribute("data-bs-theme")
             settings.setSync("theme", "light")
+            document.querySelector("#devicesList").classList.remove("bg-light")
+            document.querySelector("#devicesList").classList.add("bg-dark")
         }
     }
 
@@ -102,11 +106,83 @@ const settings = currentWindow.settings;
     }
 }
 
+let ports = []
+let portsKeys = []
+let newPortsKeys = []   
+let tempPortName;
+let tempObj;
+
+// DEVICES
+{
+    
+    let parent = document.querySelector("#devicesListContent")
+   
+    function markDevice(event)
+    {
+        
+        let x = document.querySelector(".marked")
+        if(x != null)
+        {
+            x.classList.remove("marked")
+            x.classList.remove("bg-primary")
+        }
+        event.target.classList.add("marked")
+        event.target.classList.add("bg-primary")
+    }
+
+    function updateDevicesList()
+    {
+        SerialPort.list().then((newPorts) =>
+        {
+            console.log(newPorts)
+            newPortsKeys = []
+            for(let i=0; i<newPorts.length; i++)
+            {
+                tempPortName = newPorts[i].path
+                newPortsKeys.push(tempPortName)
+                if(!portsKeys.includes(tempPortName))
+                {
+                    portsKeys.unshift(tempPortName)
+                    ports.unshift(newPorts[i])
+                    tempObj = document.createElement("li")
+                    tempObj.classList.add("list-group-item")
+                    tempObj.classList.add("deviceListElement")
+                    tempObj.innerHTML = tempPortName
+                    tempObj.addEventListener("click", markDevice)
+                    let temp = document.querySelectorAll(".deviceListElement")
+                    if(temp.length == 0)
+                    {
+                        $(tempObj).hide().appendTo("#devicesListContent").fadeIn(1000);
+                    }
+                    else
+                    {
+                        $(tempObj).hide().insertBefore(temp[0]).fadeIn(1000);
+                    }
+                }
+            }
+            for(let i=0; i<ports.length; i++)
+            {
+                if(!newPortsKeys.includes(portsKeys[i]))
+                {
+                    ports.splice(i, 1);
+                    portsKeys.splice(i, 1);
+                    
+                    $(document.querySelectorAll(".deviceListElement")[i]).animate({  
+                        padding: '0',
+                        'font-size': '0',
+                      }, 500, () =>{$(document.querySelectorAll(".deviceListElement")[i]).remove()})
+                    // document.querySelectorAll(".deviceListElement")[i]
+                }
+            }
+        })
+    }
+}
+
 // CONNECT
 {
     function connectToDevice()
     {
-
+        
     }
 }
 
@@ -124,4 +200,7 @@ $(document).ready(function()
     document.querySelector("#lightThemeSwitcher").addEventListener("click", changeTheme)
     $("#chooseDeviceFrame").fadeIn(1000)
     setLeftPanelHeight()
+    setInterval(async () => {
+        await updateDevicesList()
+    }, 1000)
 });

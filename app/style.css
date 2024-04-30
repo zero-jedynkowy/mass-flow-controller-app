@@ -52,7 +52,7 @@ body, html
 #devicesList
 {
     padding: 5px;
-    background-color: rgb(180, 180, 180);
+    /* background-color: rgb(180, 180, 180); */
 }
 
 .deviceListElement
@@ -60,6 +60,21 @@ body, html
   font-weight: bold;
   font-size: 1.2rem;
   padding: 1.3rem 0 1.3rem 0;
+  margin-bottom: 0.5rem;
+  border: 0;
+  border-radius: 7px;
+}
+
+.deviceListElement
+{
+  cursor: pointer;
+}
+
+.deviceListElement:hover
+{
+  opacity:0.8;
+  transition: all .4s ease;
+-webkit-transition: all .4s ease;
 }
 
 .chooseDeviceMenu
