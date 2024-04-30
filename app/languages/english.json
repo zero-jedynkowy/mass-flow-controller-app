@@ -1,14 +1,14 @@
 {
-    "consoleSwitch":"Console",
+    "consoleSwitcher":"Console",
     "portsListTitle":"List of ports",
     "connectButton":"Connect",
     "themeTitle":"Theme",
-    "lightThemeSwitch":"Light",
-    "darkThemeSwitch":"Dark",
-    "devToolsOnSwitch":"On",
-    "devToolsOffSwitch":"Off",
-    "polskiSwitch":"Polski",
-    "englishSwitch":"English",
+    "lightThemeSwitcherTitle":"Light",
+    "darkThemeSwitcherTitle":"Dark",
+    "devToolsOnSwitcherTitle":"On",
+    "devToolsOffSwitcherTitle":"Off",
+    "languageSwitcher1Title":"Polski",
+    "languageSwitcher2Title":"English",
     "devModeTitle":"Dev mode",
     "languageTitle": "Language"
 }

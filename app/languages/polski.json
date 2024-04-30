@@ -1,14 +1,14 @@
 {
-    "consoleSwitch":"Konsola",
+    "consoleSwitcher":"Konsola",
     "portsListTitle":"Lista portów",
     "connectButton":"Połacz",
     "themeTitle":"Motyw",
-    "lightThemeSwitch":"Jasny",
-    "darkThemeSwitch":"Ciemny",
-    "devToolsOnSwitch":"Włącz",
-    "devToolsOffSwitch":"Wyłacz",
+    "lightThemeSwitcherTitle":"Jasny",
+    "darkThemeSwitcherTitle":"Ciemny",
+    "devToolsOnSwitcherTitle":"Włącz",
+    "devToolsOffSwitcherTitle":"Wyłacz",
     "devModeTitle":"Tryb deweloperski",
     "languageTitle": "Język",
-    "polskiSwitch":"Polski",
-    "englishSwitch":"English"
+    "languageSwitcher1Title":"Polski",
+    "languageSwitcher2Title":"English"
 }

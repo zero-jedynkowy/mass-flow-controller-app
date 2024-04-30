@@ -10,21 +10,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button type="button" class="btn btn-warning language" id="consoleSwitch">Konsola</button>
+  <button type="button" class="btn btn-warning language" id="consoleSwitcher"></button>
   
   
   
-  <div class="container-fluid text-center" id="chooseDeviceWindow">
-    <div class="text-center row deviceTitleParent">
-      <div class="col-12 deviceTitle language" id="portsListTitle">Lista portów</div>
+  <!-- CHOOSING THE DEVICE TO CONTROLE -->
+  <div class="container-fluid text-center" id="chooseDeviceFrame">
+    <div class="text-center row" id="portsListTitleParent">
+      <div class="col-12 language" id="portsListTitle">Lista portów</div>
     </div>
     <div class="text-center row">
       <div class="col-8 leftPanel align-self-stretch">
-        <div class="h-100 w-100 rounded-2  devicesList">
-          <div class="h-100 list-group  overflow-auto">
-            <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-              The current link item
-            </a> -->
+        <div class="h-100 w-100 rounded-2" id="devicesList">
+          <div class="h-100 list-group overflow-auto">
             <li class="list-group-item deviceListElement">An item</li>
             <li class="list-group-item deviceListElement">An item</li>
             <li class="list-group-item deviceListElement">An item</li>
@@ -36,56 +34,41 @@
             <li class="list-group-item deviceListElement">An item</li>
             <li class="list-group-item deviceListElement">An item</li>
             <li class="list-group-item deviceListElement">An item</li>
-            <!-- <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-            <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled link item</a> -->
           </div>
         </div>
       </div>
       <div class="col-4 rightPanel">
-        <button type="button" class="w-100 btn btn-primary menuButton fs-5 language" id="connectButton">Połącz</button>
-        <div class="w-100 allMenu">
-        <div class="w-100 menuSectionTitle language" id="themeTitle">Motyw</div>
-        <div class="w-100 btn-group-vertical menuButton" role="group" aria-label="Vertical radio toggle button group">
-          <input type="radio" class="btn-check" name="vbtn-radio" id="lightTheme" autocomplete="off" checked>
-          <label class="btn btn-outline-danger language" for="lightTheme" id="lightThemeSwitch">Jasny</label>
-          <input type="radio" class="btn-check" name="vbtn-radio" id="darkTheme" autocomplete="off">
-          <label class="btn btn-outline-danger language" for="darkTheme" id="darkThemeSwitch">Ciemny</label>
-        </div>
+        <button type="button" class="w-100 btn btn-primary chooseDeviceMenuButton fs-5 language" id="connectButton">Połącz</button>
+        <div class="w-100 chooseDeviceMenu">
+          
+          <div class="w-100 menuSectionTitle language" id="themeTitle">Motyw</div>
+          <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio0" id="lightThemeSwitcher" autocomplete="off">
+            <label class="btn btn-outline-primary language" for="lightThemeSwitcher" id="lightThemeSwitcherTitle">Jasny</label>
+            <input type="radio" class="btn-check" name="btnradio0" id="darkThemeSwitcher" autocomplete="off" checked>
+            <label class="btn btn-outline-primary language" for="darkThemeSwitcher" id="darkThemeSwitcherTitle">Ciemny</label>
+          </div>
+          
+          <div class="w-100 menuSectionTitle language" id="devModeTitle">Tryb deweloperski</div>
+          <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio1" id="devToolsOnSwitcher" autocomplete="off">
+            <label class="btn btn-outline-primary language" for="devToolsOnSwitcher" id="devToolsOnSwitcherTitle">Włącz</label>
+            <input type="radio" class="btn-check" name="btnradio1" id="devToolsOffSwitcher" autocomplete="off" checked>
+            <label class="btn btn-outline-primary language" for="devToolsOffSwitcher" id="devToolsOffSwitcherTitle">Wyłącz</label>
+          </div>
         
-        <div class="w-100 menuSectionTitle language" id="devModeTitle">Tryb deweloperski</div>
-        
-        <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio1" id="devToolsOn" autocomplete="off">
-          <label class="btn btn-outline-primary language" for="devToolsOn" id="devToolsOnSwitch">Włącz</label>
-        
-          <input type="radio" class="btn-check" name="btnradio1" id="devToolsOff" autocomplete="off" checked>
-          <label class="btn btn-outline-primary language" for="devToolsOff" id="devToolsOffSwitch">Wyłącz</label>
-        
-
-        </div>
-        
-        <div class="w-100 menuSectionTitle language" id="languageTitle">Język</div>
-
-        <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio2" id="polski" autocomplete="off" checked>
-          <label class="btn btn-outline-primary language" for="polski" id="polskiSwitch">Polski</label>
-        
-          <input type="radio" class="btn-check" name="btnradio2" id="english" autocomplete="off">
-          <label class="btn btn-outline-primary language" for="english" id="englishSwitch">English</label>
-        
-
-        </div>
+          <div class="w-100 menuSectionTitle language" id="languageTitle">Język</div>
+          <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio2" id="languageSwitcher1" autocomplete="off" checked>
+            <label class="btn btn-outline-primary language" for="languageSwitcher1" id="languageSwitcher1Title">Polski</label>
+            <input type="radio" class="btn-check" name="btnradio2" id="languageSwitcher2" autocomplete="off">
+            <label class="btn btn-outline-primary language" for="languageSwitcher2" id="languageSwitcher2Title">English</label>
+          </div>
         
       </div>
       </div>
     </div>
   </div>
 </body>
-<script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./renderer.js"></script>
 </html>
-
-
-<!-- <ul class="devicesList overflow-auto list-group border border-bottom-2">
-</ul> -->

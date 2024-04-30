@@ -16,23 +16,23 @@ function setSettings()
 {
     if(settings.getSync("theme") == "dark")
     {
-        changeTheme({target:{id: "darkTheme"}})
-        document.querySelector("#darkTheme").setAttribute("checked", "")
+        changeTheme({target:{id: "darkThemeSwitcher"}})
+        document.querySelector("#darkThemeSwitcher").setAttribute("checked", "")
     }
     else
     {
-        changeTheme({target:{id: "lightTheme"}})
-        document.querySelector("#lightTheme").setAttribute("checked", "")
+        changeTheme({target:{id: "lightThemeSwitcher"}})
+        document.querySelector("#lightThemeSwitcher").setAttribute("checked", "")
     }
     if(settings.getSync("language") == "english")
     {
-        changeLanguage({target: {id: "english"}})
-        document.querySelector("#english").setAttribute("checked", "")
+        changeLanguage({target: {id: "languageSwitcher2"}})
+        document.querySelector("#languageSwitcher2").setAttribute("checked", "")
     }
     else
     {
-        changeLanguage({target: {id: "polski"}})
-        document.querySelector("#polski").setAttribute("checked", "")
+        changeLanguage({target: {id: "languageSwitcher1"}})
+        document.querySelector("#languageSwitcher1").setAttribute("checked", "")
     }
 }
 
@@ -42,14 +42,14 @@ setSettings()
 
 function setLeftPanelHeight()
 {
-    let temp = document.querySelector(".deviceTitleParent").offsetHeight
+    let temp = document.querySelector("#portsListTitleParent").offsetHeight
     temp = document.querySelector("body").offsetHeight - temp
     document.querySelector(".leftPanel").style.height = temp + "px"
 }
 
 $(document).ready(function()
 { 
-    $("#chooseDeviceWindow").fadeIn(1000)
+    $("#chooseDeviceFrame").fadeIn(1000)
     setLeftPanelHeight()
 });
 
@@ -66,7 +66,7 @@ document.querySelector("#connectButton").addEventListener("click", connectToDevi
 
 function changeTheme(event)
 {
-    if(event.target.id == "darkTheme")
+    if(event.target.id == "darkThemeSwitcher")
     {
         document.querySelector("html").setAttribute("data-bs-theme", "dark")
         settings.setSync("theme", "dark")
@@ -78,32 +78,32 @@ function changeTheme(event)
     }
 }
 
-document.querySelector("#darkTheme").addEventListener("click", changeTheme)
-document.querySelector("#lightTheme").addEventListener("click", changeTheme)
+document.querySelector("#darkThemeSwitcher").addEventListener("click", changeTheme)
+document.querySelector("#lightThemeSwitcher").addEventListener("click", changeTheme)
 
 // DEV MODE
 
 function switchDevMode(event)
 {
-    if(event.target.id == "devToolsOn")
+    if(event.target.id == "devToolsOnSwitcher")
     {
         currentWindow.webContents.openDevTools()
-        $("#consoleSwitch").fadeIn(1000);
+        $("#consoleSwitcher").fadeIn(1000);
         currentWindow.resizable = true
     }
     else
     {
         currentWindow.webContents.closeDevTools()
         currentWindow.unmaximize()
-        $("#consoleSwitch").fadeOut(1000);
+        $("#consoleSwitcher").fadeOut(1000);
         currentWindow.setSize(800, 700)
         currentWindow.resizable = false
     }
 }
 
-document.querySelector("#consoleSwitch").addEventListener("click", (event) => {currentWindow.webContents.toggleDevTools()})
-document.querySelector("#devToolsOn").addEventListener("click", switchDevMode);
-document.querySelector("#devToolsOff").addEventListener("click", switchDevMode);
+document.querySelector("#consoleSwitcher").addEventListener("click", (event) => {currentWindow.webContents.toggleDevTools()})
+document.querySelector("#devToolsOnSwitcher").addEventListener("click", switchDevMode);
+document.querySelector("#devToolsOffSwitcher").addEventListener("click", switchDevMode);
 
 //language
 
@@ -111,7 +111,7 @@ function changeLanguage(event)
 {
     let content;
     let myPath;
-    if(event.target.id == "polski")
+    if(event.target.id == "languageSwitcher1")
     {
         myPath = path.join(__dirname, 'languages', 'polski.json');
         settings.setSync("language", "polski")
@@ -132,5 +132,5 @@ function changeLanguage(event)
     }
 }
 
-document.querySelector("#english").addEventListener("click", changeLanguage)
-document.querySelector("#polski").addEventListener("click", changeLanguage)
+document.querySelector("#languageSwitcher2").addEventListener("click", changeLanguage)
+document.querySelector("#languageSwitcher1").addEventListener("click", changeLanguage)
