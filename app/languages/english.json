@@ -9,6 +9,8 @@
     "devToolsOffSwitcherTitle":"Off",
     "languageSwitcher1Title":"Polski",
     "languageSwitcher2Title":"English",
-    "devModeTitle":"Dev mode",
-    "languageTitle": "Language"
+    "devModeTitle":"Developer mode",
+    "languageTitle": "Language",
+    "deviceAddedAlert": "A new device was added: ",
+    "deviceRemovedAlert": "A device was removed: "
 }

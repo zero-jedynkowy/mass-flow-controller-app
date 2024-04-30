@@ -1,7 +1,7 @@
 {
     "consoleSwitcher":"Konsola",
     "portsListTitle":"Lista portów",
-    "connectButton":"Połacz",
+    "connectButton":"Połącz",
     "themeTitle":"Motyw",
     "lightThemeSwitcherTitle":"Jasny",
     "darkThemeSwitcherTitle":"Ciemny",
@@ -10,5 +10,7 @@
     "devModeTitle":"Tryb deweloperski",
     "languageTitle": "Język",
     "languageSwitcher1Title":"Polski",
-    "languageSwitcher2Title":"English"
+    "languageSwitcher2Title":"English",
+    "deviceAddedAlert": "Dodano nowe urządzenie: ",
+    "deviceRemovedAlert": "Usunięto urządzenie: "
 }

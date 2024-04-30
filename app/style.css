@@ -4,6 +4,7 @@ body, html
     margin: 0;
     padding: 0;
     height: 100%;
+    font-weight: bold;
 }
 
 ::-webkit-scrollbar 
@@ -73,8 +74,8 @@ body, html
 .deviceListElement:hover
 {
   opacity:0.8;
-  transition: all .4s ease;
--webkit-transition: all .4s ease;
+  transition: all .2s ease;
+-webkit-transition: all .2s ease;
 }
 
 .chooseDeviceMenu
@@ -93,3 +94,8 @@ body, html
     text-align: left;
     font-size: 1.3rem;
 }
+
+/* .deviceAddedAlert, #deviceRemovedAlert
+{
+  padding: 1rem;
+} */

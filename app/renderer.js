@@ -1,12 +1,13 @@
 const remote = window.require("@electron/remote");
 const currentWindow = remote.getCurrentWindow();
 const {ipcRenderer} = require('electron');
-const {bootstrap} = require('bootstrap')
+const {bootstrap, Toast} = require('bootstrap')
 window.$ = window.jQuery = require('jquery');
 const { SerialPort } = require('serialport')
 const fs = require('fs');
 const path = require('path');
 const settings = currentWindow.settings;
+let languageContent;
 
 // SETTINGS
 {
@@ -85,12 +86,12 @@ const settings = currentWindow.settings;
             settings.setSync("language", "english")
         }
         let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
-        let myData = JSON.parse(rawData)
+        languageContent = JSON.parse(rawData)
         
         let components = document.querySelectorAll(".language")
         for(let i=0; i<components.length; i++)
         {
-            components[i].innerHTML = myData[components[i].id]
+            components[i].innerHTML = languageContent[components[i].id]
             console.log(components[i].innerHTML)
         }
     }
@@ -111,6 +112,8 @@ let portsKeys = []
 let newPortsKeys = []   
 let tempPortName;
 let tempObj;
+let isStartup = true
+
 
 // DEVICES
 {
@@ -120,14 +123,35 @@ let tempObj;
     function markDevice(event)
     {
         
-        let x = document.querySelector(".marked")
-        if(x != null)
-        {
-            x.classList.remove("marked")
-            x.classList.remove("bg-primary")
-        }
-        event.target.classList.add("marked")
-        event.target.classList.add("bg-primary")
+            let x = document.querySelector(".marked")
+            if(event.target.classList.contains("marked"))
+            {
+                x.classList.remove("marked")
+                    x.classList.remove("bg-primary")
+            }
+            else
+            {
+                if(x != null)
+                {
+                    x.classList.remove("marked")
+                    x.classList.remove("bg-primary")
+                }
+                event.target.classList.add("marked")
+                event.target.classList.add("bg-primary")
+            }
+        
+        
+    }
+
+    function createToast(toastClass, portName)
+    {
+        temp = document.createElement("div")
+        if(toastClass == "deviceAddedAlert") temp.classList.add("bg-success")
+        else temp.classList.add("bg-danger")
+        temp.classList.add("toast", toastClass, "p-3", "text-start", "text-white")
+        document.querySelector(".toast-container").appendChild(temp)
+        temp.innerHTML = languageContent[toastClass] + portName
+        $(temp).fadeIn(1000).delay(1000).fadeOut(1000, () => {$(temp).remove()})
     }
 
     function updateDevicesList()
@@ -158,23 +182,32 @@ let tempObj;
                     {
                         $(tempObj).hide().insertBefore(temp[0]).fadeIn(1000);
                     }
+                    if(!isStartup)
+                    {
+                        createToast("deviceAddedAlert", tempPortName)
+                    }
                 }
             }
+            
             for(let i=0; i<ports.length; i++)
             {
                 if(!newPortsKeys.includes(portsKeys[i]))
                 {
+                    createToast("deviceRemovedAlert", portsKeys[i])
                     ports.splice(i, 1);
                     portsKeys.splice(i, 1);
-                    
                     $(document.querySelectorAll(".deviceListElement")[i]).animate({  
                         padding: '0',
                         'font-size': '0',
                       }, 500, () =>{$(document.querySelectorAll(".deviceListElement")[i]).remove()})
-                    // document.querySelectorAll(".deviceListElement")[i]
                 }
             }
+            if(isStartup)
+            {
+                isStartup = false
+            }
         })
+        
     }
 }
 
