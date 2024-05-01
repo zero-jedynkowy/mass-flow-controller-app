@@ -92,7 +92,6 @@ let languageContent;
         for(let i=0; i<components.length; i++)
         {
             components[i].innerHTML = languageContent[components[i].id]
-            console.log(components[i].innerHTML)
         }
     }
 }
@@ -113,13 +112,86 @@ let newPortsKeys = []
 let tempPortName;
 let tempObj;
 let isStartup = true
-
+let rightClickLastElement = null
 
 // DEVICES
 {
     
     let parent = document.querySelector("#devicesListContent")
    
+    document.addEventListener("click", () => {
+        try
+        {
+            document.querySelector(".contextMenu").remove()
+        }
+        catch(error)
+        {
+
+        }
+    })
+
+    function showDetails()
+    {
+        $("#mainModalTitle").text(languageContent["modalDeviceMoreInformationTitle"])
+        $("#mainModalFooter").hide()
+        let x = ports[portsKeys.indexOf(rightClickLastElement)]
+        $("#mainModalContent").empty()
+        for(let a in Object.getOwnPropertyNames(x))
+        {
+            let y = document.createElement("p")
+            y.innerHTML = Object.getOwnPropertyNames(x)[a] + ": " + x[Object.getOwnPropertyNames(x)[a]]
+            y.innerHTML = y.innerHTML.charAt(0).toUpperCase() + y.innerHTML.slice(1);
+            console.log(y.innerHTML)
+            document.querySelector("#mainModalContent").appendChild(y)
+        }
+        $("#mainModal").modal("show")
+    }
+   
+    function deviceContextMenu(event)
+    {
+        if(event.which == 3)
+        {
+            try
+            {
+                document.querySelector(".contextMenu").remove()
+            }
+            catch(error){}
+            if(rightClickLastElement != event.target.innerHTML)
+            {
+                
+                let x = document.createElement("div")
+                x.innerHTML = languageContent["rightContextDetails"]
+                x.classList.add("contextMenu" )
+                x.classList.add("position-absolute", "w-auto", "h-auto", "p-3", "opacity-100", "bg-warning")
+                x.setAttribute("style", "top: " + event.pageY + "px; left: " + event.pageX + "px;" + "display: none;")
+                document.querySelector('.chooseDeviceMenu').appendChild(x)
+                $(".contextMenu").hide().show(1000)
+                $(".contextMenu").click(showDetails)
+                rightClickLastElement = event.target.innerHTML
+            }
+            else
+            {
+                try
+                {
+                    rightClickLastElement = null
+                    document.querySelector(".contextMenu").remove()
+                    
+                }
+                catch(error){}
+            }
+            
+        }
+        if(event.which == 1)
+        {
+            try
+            {
+                document.querySelector(".contextMenu").remove()
+            }
+            catch(error){}
+        }
+         
+    }
+
     function markDevice(event)
     {
         
@@ -139,8 +211,6 @@ let isStartup = true
                 event.target.classList.add("marked")
                 event.target.classList.add("bg-primary")
             }
-        
-        
     }
 
     function createToast(toastClass, portName)
@@ -158,7 +228,6 @@ let isStartup = true
     {
         SerialPort.list().then((newPorts) =>
         {
-            console.log(newPorts)
             newPortsKeys = []
             for(let i=0; i<newPorts.length; i++)
             {
@@ -173,14 +242,15 @@ let isStartup = true
                     tempObj.classList.add("deviceListElement")
                     tempObj.innerHTML = tempPortName
                     tempObj.addEventListener("click", markDevice)
+                    tempObj.addEventListener('mousedown', deviceContextMenu)
                     let temp = document.querySelectorAll(".deviceListElement")
                     if(temp.length == 0)
                     {
-                        $(tempObj).hide().appendTo("#devicesListContent").fadeIn(1000);
+                        $(tempObj).hide().appendTo("#devicesListContent").fadeIn(500);
                     }
                     else
                     {
-                        $(tempObj).hide().insertBefore(temp[0]).fadeIn(1000);
+                        $(tempObj).hide().insertBefore(temp[0]).fadeIn(500);
                     }
                     if(!isStartup)
                     {
@@ -215,7 +285,12 @@ let isStartup = true
 {
     function connectToDevice()
     {
-        
+        let x = document.querySelector(".marked")
+        if(x != null)
+        {
+            port = ports[portsKeys.indexOf(x.innerHTML)]
+            console.log(port)
+        }
     }
 }
 
@@ -231,7 +306,7 @@ $(document).ready(function()
     document.querySelector("#connectButton").addEventListener("click", connectToDevice);
     document.querySelector("#darkThemeSwitcher").addEventListener("click", changeTheme)
     document.querySelector("#lightThemeSwitcher").addEventListener("click", changeTheme)
-    $("#chooseDeviceFrame").fadeIn(1000)
+    $("#chooseDeviceFrame").fadeIn(500)
     setLeftPanelHeight()
     setInterval(async () => {
         await updateDevicesList()

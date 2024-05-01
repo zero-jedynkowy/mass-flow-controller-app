@@ -11,7 +11,23 @@
 </head>
 <body>
 
-  
+  <div class="modal fade" id="mainModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="mainModalTitle">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="mainModalContent">
+          
+        </div>
+        <div class="modal-footer" id="mainModalFooter">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="mainModalClose">Zamknij</button>
+          <button type="button" class="btn btn-primary" id="mainModalOK">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <button type="button" class="btn btn-warning language" id="consoleSwitcher"></button>
   
@@ -26,17 +42,7 @@
       <div class="col-8 leftPanel align-self-stretch">
         <div class="h-100 w-100 rounded-2" id="devicesList">
           <div class="h-100 list-group overflow-auto" id="devicesListContent">
-            <!-- <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li>
-            <li class="list-group-item deviceListElement">An item</li> -->
+  
           </div>
         </div>
       </div>
@@ -77,26 +83,6 @@
    
   <div class="toast-container bottom-0 end-0 p-3 position-fixed">
 
-    <!-- <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="successToastExample">
-      <div class="d-flex">
-        <div class="toast-body language" id="devicesAddedAlert">
-          Hello, world! This is a toast message.
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
-
-    <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="dangerToastExample">
-      <div class="d-flex">
-        <div class="toast-body language" id="devicesRemovedAlert">
-          Hello, world! This is a toast message.
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" data-bs-target=""></button>
-      </div>
-    </div> -->
-
-    
-
   </div>
     
 
@@ -106,9 +92,6 @@
   </div>
   
     
-
-
-
   </div>
 </body>
 <script src="./renderer.js"></script>

@@ -6,11 +6,13 @@
     "lightThemeSwitcherTitle":"Jasny",
     "darkThemeSwitcherTitle":"Ciemny",
     "devToolsOnSwitcherTitle":"Włącz",
-    "devToolsOffSwitcherTitle":"Wyłacz",
+    "devToolsOffSwitcherTitle":"Wyłącz",
     "devModeTitle":"Tryb deweloperski",
     "languageTitle": "Język",
     "languageSwitcher1Title":"Polski",
     "languageSwitcher2Title":"English",
     "deviceAddedAlert": "Dodano nowe urządzenie: ",
-    "deviceRemovedAlert": "Usunięto urządzenie: "
+    "deviceRemovedAlert": "Usunięto urządzenie: ",
+    "modalDeviceMoreInformationTitle": "Dodatkowe informacje",
+    "rightContextDetails": "Dodatkowe informacje"
 }

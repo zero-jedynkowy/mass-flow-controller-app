@@ -12,5 +12,7 @@
     "devModeTitle":"Developer mode",
     "languageTitle": "Language",
     "deviceAddedAlert": "A new device was added: ",
-    "deviceRemovedAlert": "A device was removed: "
+    "deviceRemovedAlert": "A device was removed: ",
+    "modalDeviceMoreInformationTitle": "Additional information",
+    "rightContextDetails": "Details"
 }

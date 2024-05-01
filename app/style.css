@@ -99,3 +99,11 @@ body, html
 {
   padding: 1rem;
 } */
+
+.contextMenu
+{
+  /* padding: 1rem; */
+  border-radius: 7px;
+  color: black;
+  cursor: pointer;
+}
