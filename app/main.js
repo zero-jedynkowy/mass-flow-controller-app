@@ -1,5 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron/main')
-const path = require('node:path')
+const {app, BrowserWindow} = require('electron/main')
 const settings = require("electron-settings")
 
 settings.configure(
@@ -8,8 +7,6 @@ settings.configure(
   numSpaces: 2,
   prettify: true
 })
-
-
 
 if(settings.getSync("language") == null || settings.getSync("theme") == null)
 {
@@ -25,7 +22,6 @@ function createWindow ()
     height: 700,
     autoHideMenuBar: true,
     resizable: false,
-    
     webPreferences: 
     {
       // preload: path.join(__dirname, 'preload.js'),
