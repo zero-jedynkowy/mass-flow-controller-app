@@ -1,109 +1,45 @@
 body, html
 {
-    font-family: 'Lato';
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-weight: bold;
+  font-family: 'Lato';
+  margin: 0;
+  padding: 0;
+  height: fit-content;
+  width: 100%;
+  font-weight: bold;
 }
 
 ::-webkit-scrollbar 
 {
   width: 0px;
+} 
+
+#mainContent
+{
+  padding: 2em;
+  height: 1000px;
 }
 
-::-webkit-scrollbar-track 
-{}
-
-::-webkit-scrollbar-thumb 
-{}
-
-::-webkit-scrollbar-thumb:hover 
-{} 
-
-#consoleSwitcher
+#showMenuButton
 {
-  position: fixed;
-  display: none;
-  margin: 2rem;
+  margin: 1em;
+  height: fit-content;
+  width: fit-content;
+  font-size: 1.2em;
 }
 
-#chooseDeviceFrame
+#sideBar
 {
-  display: none;
+  height: 100%;
 }
 
-#portsListTitle
+#menuTitle
 {
-    font-size: 3rem;
-    padding: 1rem;
-    margin: 1rem 0 1rem 0;
-}
-
-.leftPanel
-{
-    padding: 0 0 2rem 2rem;
-}
-
-.rightPanel
-{
-    padding: 0 2rem 2rem 2rem;
-}
-
-#devicesList
-{
-    padding: 5px;
-    /* background-color: rgb(180, 180, 180); */
-}
-
-.deviceListElement
-{
+  font-size: 2em;
   font-weight: bold;
-  font-size: 1.2rem;
-  padding: 1.3rem 0 1.3rem 0;
-  margin-bottom: 0.5rem;
-  border: 0;
-  border-radius: 7px;
+  padding: 1em 0 1em 0;
 }
 
-.deviceListElement
+.menuSmallBtn
 {
-  cursor: pointer;
-}
-
-.deviceListElement:hover
-{
-  opacity:0.8;
-  transition: all .2s ease;
--webkit-transition: all .2s ease;
-}
-
-.chooseDeviceMenu
-{
-    margin-top: 6rem;
-}
-
-.chooseDeviceMenuButton
-{
-    font-weight: bold;
-}
-
-.menuSectionTitle
-{
-    padding: 1.5rem 1rem 0.5rem 0rem;
-    text-align: left;
-    font-size: 1.3rem;
-}
-
-/* .deviceAddedAlert, #deviceRemovedAlert
-{
-  padding: 1rem;
-} */
-
-.contextMenu
-{
-  /* padding: 1rem; */
-  border-radius: 7px;
-  color: black;
-  cursor: pointer;
+  margin: 0 0 1em 1em;
 }

@@ -7,91 +7,51 @@
     <link rel="stylesheet" href="node_modules/@fontsource/lato/400.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div class="modal fade" id="mainModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="mainModalTitle">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="mainModalRightClose"></button>
-        </div>
-        <div class="modal-body" id="mainModalContent">
-          
-        </div>
-        <div class="modal-footer" id="mainModalFooter">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="mainModalClose">Zamknij</button>
-          <button type="button" class="btn btn-primary" id="mainModalOK">OK</button>
+  <div class="d-flex flex-column mb-2 h-100 w-100">
+    
+    <button type="button" class="btn border border-2 position-fixed top-0 end-0" id="showMenuButton">
+      <i class="bi bi-list"></i>
+    </button>
+      
+    <div class="d-flex align-content-start flex-wrap w-100">
+      <div id="menuPlaceHolder"></div>
+      <div id="mainContent">
+        <div class="container-fluid" id="devicePanel">
+          <!-- device panel -->
         </div>
       </div>
     </div>
-  </div>
 
-  <button type="button" class="btn btn-warning language" id="consoleSwitcher"></button>
-  
-  
-  
-  <!-- CHOOSING THE DEVICE TO CONTROLE -->
-  <div class="container-fluid text-center" id="chooseDeviceFrame">
-    <div class="text-center row" id="portsListTitleParent">
-      <div class="col-12 language" id="portsListTitle">Lista portów</div>
-    </div>
-    <div class="text-center row">
-      <div class="col-8 leftPanel align-self-stretch">
-        <div class="h-100 w-100 rounded-2" id="devicesList">
-          <div class="h-100 list-group overflow-auto" id="devicesListContent">
-  
-          </div>
-        </div>
-      </div>
-      <div class="col-4 rightPanel">
-        <button type="button" class="w-100 btn btn-primary chooseDeviceMenuButton fs-5 language" id="connectButton">Połącz</button>
-        <div class="w-100 chooseDeviceMenu">
+    <div class="bg-primary-subtle position-fixed" id="sideBar">
+      <div class="container-fluid p-0 m-0">
+        <div class="row justify-content-center w-100 align-center m-0" id="menuTitle">Lista portów</div>
+        <div class="d-flex flex-row w-100 m-0 p-0 position-absolute bottom-0 end-0">
           
-          <div class="w-100 menuSectionTitle language" id="themeTitle">Motyw</div>
-          <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio0" id="lightThemeSwitcher" autocomplete="off">
-            <label class="btn btn-outline-primary language" for="lightThemeSwitcher" id="lightThemeSwitcherTitle">Jasny</label>
-            <input type="radio" class="btn-check" name="btnradio0" id="darkThemeSwitcher" autocomplete="off" checked>
-            <label class="btn btn-outline-primary language" for="darkThemeSwitcher" id="darkThemeSwitcherTitle">Ciemny</label>
-          </div>
-          
-          <div class="w-100 menuSectionTitle language" id="devModeTitle">Tryb deweloperski</div>
-          <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio1" id="devToolsOnSwitcher" autocomplete="off">
-            <label class="btn btn-outline-primary language" for="devToolsOnSwitcher" id="devToolsOnSwitcherTitle">Włącz</label>
-            <input type="radio" class="btn-check" name="btnradio1" id="devToolsOffSwitcher" autocomplete="off" checked>
-            <label class="btn btn-outline-primary language" for="devToolsOffSwitcher" id="devToolsOffSwitcherTitle">Wyłącz</label>
-          </div>
+          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zmień motyw">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+
+          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zmień język">
+            <i class="bi bi-translate"></i>
+          </button>
+
+          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tryb deweloperski">
+            <i class="bi bi-tools"></i>
+          </button>
+            
+
+          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Informacje o programie">
+            <i class="bi bi-info-circle"></i>
+          </button>    
         
-          <div class="w-100 menuSectionTitle language" id="languageTitle">Język</div>
-          <div class="w-100 btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio2" id="languageSwitcher1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary language" for="languageSwitcher1" id="languageSwitcher1Title">Polski</label>
-            <input type="radio" class="btn-check" name="btnradio2" id="languageSwitcher2" autocomplete="off">
-            <label class="btn btn-outline-primary language" for="languageSwitcher2" id="languageSwitcher2Title">English</label>
-          </div>
         
-      </div>
+        </div>
       </div>
     </div>
-
-
-
-   
-  <div class="toast-container bottom-0 end-0 p-3 position-fixed">
-
-  </div>
-    
-
-
-    
-
-  </div>
-  
-    
   </div>
 </body>
 <script src="./renderer.js"></script>

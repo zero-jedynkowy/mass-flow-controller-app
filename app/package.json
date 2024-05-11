@@ -29,6 +29,7 @@
     "@fontsource/lato": "^5.0.21",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "electron-settings": "^4.0.4",
     "fns": "^1.0.0",
     "fs": "^0.0.1-security",
