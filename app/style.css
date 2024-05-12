@@ -8,6 +8,11 @@ body, html
   font-weight: bold;
 }
 
+body
+{
+  display: none;
+}
+
 ::-webkit-scrollbar 
 {
   width: 0px;
@@ -19,7 +24,7 @@ body, html
   height: 1000px;
 }
 
-#showMenuButton
+#showMenuButton, #consoleButton
 {
   margin: 1em;
   height: fit-content;
@@ -27,19 +32,115 @@ body, html
   font-size: 1.2em;
 }
 
+#consoleButton
+{
+  display: none;
+}
+
 #sideBar
 {
   height: 100%;
+  padding: 1.5em;
 }
 
 #menuTitle
 {
   font-size: 2em;
   font-weight: bold;
-  padding: 1em 0 1em 0;
+  padding: 0 0 1em 0;
+}
+
+#devicesList
+{
+  /* margin: 0 1.5em 0 1.5em; */
+  padding: 0em;
+  /* background-color: red; */
+  /* height: 20em */
+}
+
+#connectButton
+{
+  width: fit-content;
+  margin-right: 1em;
+  padding: 1em;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+#disconnectButton
+{
+  height: fit-content;
+  padding: 1em;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+#menuMainButtonsList
+{
+  margin: 1em 0 1em 0;
+}
+
+.menuSmallBtn:first-of-type
+{
+  margin-left: 0;
 }
 
 .menuSmallBtn
 {
-  margin: 0 0 1em 1em;
+  margin: 0 0 0 1em;
 }
+
+#deviceIdBlock
+{
+  margin-right: 1em;
+  padding: 1em;
+}
+
+#lastUpdateDateBlock
+{
+  padding: 1em;
+}
+
+/* #devicePanelTitle
+{
+  padding-top: 1em;
+  padding-bottom: 1em;
+} */
+
+.devicePanelTitles
+{
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.editButton
+{
+  margin: 0.5em;
+}
+
+.channelStatusSettingsBlock
+{
+  /* width: 25em;
+  height: 200px; */
+  /* margin-right: 1em; */
+}
+
+#channel1Block, #channel3Block
+{
+  margin: 0 1em 0 0;
+  height: fit-content;
+}
+
+#channel2Block, #channel4Block
+{
+  margin: 0 0 0 1em;
+  height: fit-content;
+}
+
+#channel4Block, #channel3Block
+{
+  margin-top: 1em;
+  height: fit-content;
+}
+
+/* overflow-auto */

@@ -10,49 +10,190 @@
     <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body> 
+
+  
+
   <div class="d-flex flex-column mb-2 h-100 w-100">
+
     
-    <button type="button" class="btn border border-2 position-fixed top-0 end-0" id="showMenuButton">
-      <i class="bi bi-list"></i>
-    </button>
       
     <div class="d-flex align-content-start flex-wrap w-100">
       <div id="menuPlaceHolder"></div>
       <div id="mainContent">
-        <div class="container-fluid" id="devicePanel">
-          <!-- device panel -->
+        <div class="container-fluid w-100" id="devicePanel m-0 p-0">
+          <div class="row"><p class="fs-1 devicePanelTitles">DEVICE PANEL</p></div>
+          <div class="row">
+            <div class="d-flex p-0 m-0">
+              <div class="flex-grow-1 alert alert-primary text-center" id="deviceIdBlock">
+                <p class="p-0 m-0">DEVICE ID</p>
+                <p class="p-0 m-0 fs-2">mass-flow-controller-v1</p>
+              </div>
+              <div class="alert alert-warning text-center" id="lastUpdateDateBlock">
+                <p class="p-0 m-0">LAST UPDATE</p>
+                <p class="p-0 m-0 fs-2">02:01:39</p>
+              </div>
+            </div>         
+          </div>
+          <div class="row"><p class="fs-1 devicePanelTitles">CHANNELS</p></div>
+          <div class="row">
+            <div class="alert alert-info " role="alert">
+              <p>ENABLE OR DISABLE CHANNELS</p>
+              <button type="button" class="btn bg-success-subtle position-absolute top-0 end-0 editButton border border-primary"><i class="bi bi-pencil-square"></i></button>
+              <div class="btn-group w-75" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btncheck1">CHANNEL 1</label>
+              
+                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btncheck2">CHANNEL 2</label>
+              
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btncheck3">CHANNEL 3</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btncheck4">CHANNEL 4</label>
+              </div>
+            </div>            
+          </div>
+          <div class="row">
+            <div class="d-flex flex-row m-0 p-0">
+              <div class="alert w-50 mr-2 alert-primary channelStatusSettingsBlock" role="alert" id="channel1Block">
+                <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+              </div> 
+              <div class="alert w-50  ml-2 alert-primary channelStatusSettingsBlock" role="alert"  id="channel2Block">
+                <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 2</p>
+              </div> 
+            </div>
+          </div>
+          <div class="row">
+            <div class="d-flex flex-row m-0 p-0" id="channelsList">
+              <div class="mr-2 alert w-50  alert-primary channelStatusSettingsBlock" role="alert"  id="channel3Block">
+                <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 3</p>
+              </div> 
+              <div class="ml-2  alert w-50 alert-primary channelStatusSettingsBlock" role="alert" id="channel4Block">
+                <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 4</p>
+              </div> 
+            </div>
+          </div>
+          
+          
+            
+            
+            
+            
+<!--             
+            <div class="alert alert-primary channelStatusSettingsBlock" role="alert">
+              <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+            </div> 
+
+            <div class="alert  alert-primary channelStatusSettingsBlock" role="alert">
+              <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+            </div>
+
+            <div class="alert  alert-primary channelStatusSettingsBlock" role="alert">
+              <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+            </div>
+
+            <div class="alert  alert-primary channelStatusSettingsBlock" role="alert">
+              <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+            </div> -->
+            <!-- <div class="d-flex p-0 m-0 mw-100">
+              
+
+              <div class="alert alert-primary channelStatusSettingsBlock" role="alert">
+                <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+              </div> 
+
+              <div class="alert alert-primary channelStatusSettingsBlock" role="alert">
+                <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+              </div> 
+
+              <div class="alert alert-primary channelStatusSettingsBlock" role="alert">
+                <p class="fs-2 w-100 p-0 m-0 text-center">CHANNEL 1</p>
+              </div> 
+              
+            </div> -->
+            
+                       
+          
         </div>
       </div>
     </div>
 
-    <div class="bg-primary-subtle position-fixed" id="sideBar">
-      <div class="container-fluid p-0 m-0">
-        <div class="row justify-content-center w-100 align-center m-0" id="menuTitle">Lista portów</div>
-        <div class="d-flex flex-row w-100 m-0 p-0 position-absolute bottom-0 end-0">
+    <div class="bg-primary-subtle position-fixed d-flex flex-column" id="sideBar">
+      <div class="row justify-content-center w-100 align-center m-0" id="menuTitle">List of ports</div>
+      <div class="flex-grow-1 rounded-2 overflow-auto bg-light-subtle" id="devicesList">
+        <div class="list-group overflow-auto">
+          <li class="list-group-item">An item</li> 
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+          <li class="list-group-item">A fourth item</li>
+          <!-- <li class="list-group-item">And a fifth one</li> 
+          <li class="list-group-item">An item</li>
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+          <li class="list-group-item">A fourth item</li>
+          <li class="list-group-item">And a fifth one</li> 
+          <li class="list-group-item">An item</li>
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+          <li class="list-group-item">A fourth item</li>
+          <li class="list-group-item">And a fifth one</li>           --> 
+        </div>
+      </div>
+      <div class="d-flex flex-row w-100 p-0" id="menuMainButtonsList">
+        <button type="button" class="btn btn-success w-fit w-100" id="connectButton">Connect</button>
+        <button type="button" class="btn btn-danger w-fit w-100" id="disconnectButton">Disconnect</button>
+      </div>
+        
+     
+      
+      
+      
+      
+      
+      
+
+        
+
+
+        
+
+        <div class="d-flex flex-row w-100 m-0 p-0 ">
           
-          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zmień motyw">
+          <button type="button" id="changeThemeButton" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Change theme">
             <i class="bi bi-moon-stars"></i>
           </button>
 
-          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Zmień język">
+          <button type="button" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Change a language">
             <i class="bi bi-translate"></i>
           </button>
 
-          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tryb deweloperski">
+          <button type="button" id="devModeButton" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Dev mode">
             <i class="bi bi-tools"></i>
           </button>
             
 
-          <button type="button" class="btn bg-info-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Informacje o programie">
+          <button type="button" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="About the program">
             <i class="bi bi-info-circle"></i>
           </button>    
-        
-        
+
         </div>
-      </div>
+
+        
+        
+      </div> 
     </div>
+
+    <button type="button" class="btn bg-primary-subtle border border-2 border-primary position-fixed top-0 end-0" id="showMenuButton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Show/hide the menu">
+      <i class="bi bi-list"></i>
+    </button>
+
   </div>
+
+  <button type="button" class="btn bg-danger-subtle border border-2 border-primary position-fixed top-0 end-0 position-absolute top-0 start-0" id="consoleButton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Show/hide the console">
+    <i class="bi bi-terminal"></i>
+  </button>
 </body>
 <script src="./renderer.js"></script>
 </html>

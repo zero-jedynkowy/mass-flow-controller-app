@@ -1,26 +1,31 @@
 const remote = window.require("@electron/remote");
 const currentWindow = remote.getCurrentWindow();
 let menuIsActive = false
+let isMenuAnimationActive = false;
 
 function showMenuButtonAction()
 {
-    menuIsActive = menuIsActive? false:true
-    if(menuIsActive)
+    if(isMenuAnimationActive == false)
     {
-        $("#sideBar").animate({"left":"0px"}, 500)
-    }
-    else
-    {
-        $("#sideBar").animate({"left": "-" + $("#sideBar").width().toString() + "px"}, 500, resizeWindowUpdater);
-        
+        if(!menuIsActive)
+        {
+            isMenuAnimationActive = true
+            $("#sideBar").animate({"left":"0px"}, 500, () => {isMenuAnimationActive = 0})
+        }
+        else
+        {
+            isMenuAnimationActive = true
+            $("#sideBar").animate({"left": "-" + $("#sideBar").outerWidth().toString() + "px"}, 500, () => {isMenuAnimationActive = 0});
+            
+        }
+        menuIsActive = menuIsActive? false:true
     }
 }
-
 
 function resizeWindowUpdater()
 {
     let size = currentWindow.getSize();
-    
+    console.log("sdasdada")
     if(size[0] < 1000)
     {
         $("#showMenuButton").fadeIn(250)
@@ -30,10 +35,11 @@ function resizeWindowUpdater()
         if(menuIsActive)
         {
             $("#sideBar").css("left", "0px")
+            menuIsActive = 1;
         }
         else
         {
-            $("#sideBar").css("left", "-" + $("#sideBar").width().toString() + "px");
+            $("#sideBar").css("left", "-" + $("#sideBar").outerWidth().toString() + "px");
         }
     }
     else

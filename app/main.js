@@ -1,18 +1,6 @@
 const {app, BrowserWindow} = require('electron/main')
 const settings = require("electron-settings")
 
-// settings.configure(
-// {
-//   atomicSave: true,
-//   numSpaces: 2,
-//   prettify: true
-// })
-
-// if(settings.getSync("language") == null || settings.getSync("theme") == null)
-// {
-//   settings.setSync("language", "english")
-//   settings.setSync("theme", "light")
-// }
 
 function createWindow () 
 {
@@ -29,9 +17,9 @@ function createWindow ()
       contextIsolation: false
     }
   })
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
   win.loadFile('index.html')
-  // win.settings = settings
+  win.settings = settings
   
   require("@electron/remote/main").initialize();
   const mainRemote = require("@electron/remote/main");
