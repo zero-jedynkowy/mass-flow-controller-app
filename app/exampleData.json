@@ -8,11 +8,3 @@
     "settedMaxLevels":[0.1, 0.1, 0.1, 0.1]
 }
 
-{
-    "channelID":1,
-    "currentLevel":150,
-    "isValveOpen":true,
-    "maxLevelMode":true,
-    "settedMaxLevel":0,
-    "manuallyValveControleMode":true,
-}
