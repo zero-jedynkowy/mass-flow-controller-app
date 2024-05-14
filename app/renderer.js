@@ -5,6 +5,7 @@ window.$ = window.jQuery = require('jquery');
 const {SerialPort} = require('serialport')
 const fs = require('fs');
 const path = require('path');
+const shell = require('electron').shell;
 
 
 
@@ -25,7 +26,7 @@ currentWindow.on("resize", myMenu.resizeWindowUpdater)
 $(document).ready(function()
 { 
     $("#showMenuButton").click(myMenu.showMenuButtonAction)
-    mySettings.applySettings()
+    
     
     
     $('#changeThemeButton').click(mySettings.changeTheme)
@@ -35,6 +36,16 @@ $(document).ready(function()
     $("#changeLanguage").click(mySettings.changeLanguageButtonAction)
     myMenu.resizeWindowUpdater()
     myDeviceConnection.startLoopRefreshDeviceList()
+    $("#moreSettingsButton").click(() => {$('#extraSettingsModal').modal('toggle')})
+    $("#aboutProgramButton").click(() => {$("#aboutProgramModal").modal("toggle")})
+    $("#channelsChartSwitcher").click(mySettings.switchChannelsChartButtonAction)
+    mySettings.applySettings()
+
+    $(document).on('click', 'a[href^="http"]', function(event) {
+        event.preventDefault();
+        shell.openExternal(this.href);
+    });
+
     $("body").fadeIn(1000)
 });
 

@@ -223,6 +223,24 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.6.0.tgz#3c7c9c46e678feefe7a2e5bb609d3dbd665ffb3f"
   integrity sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==
 
+"@stdlib/string-base-format-interpolate@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@stdlib/string-base-format-interpolate/-/string-base-format-interpolate-0.2.1.tgz#56ab9ba5d227ca3b9b2f2f15ea98954ade3130a5"
+  integrity sha512-Uxz89eUi4m9yao4VjsqXIxLIF7qDmqEAH0e+XBRWRGC2zx6DhmK2kLnaU0xW69+VJPn3dq4itxq0oryw2E+qIQ==
+
+"@stdlib/string-base-format-tokenize@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@stdlib/string-base-format-tokenize/-/string-base-format-tokenize-0.2.1.tgz#02362c81dbb079c53649a6838e8d85aad8bb3a13"
+  integrity sha512-3Ut96pmCgEFArrdwXKm1q0j1FOqTnG/uOsh24uYNU/ABRsMOOajRlAjCCdQv9f8P916qPrSnF1V3Pd18LAaksg==
+
+"@stdlib/string-format@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@stdlib/string-format/-/string-format-0.2.1.tgz#00b8c978439ff7216416bcfb45593e0f88b36a15"
+  integrity sha512-+HpXkEJ0Z4gthH5KicXvRRJiCiCTSrKzM+mS8N6vwaAD+OG+Oq8Cn43XBD1ic/UHROI9un42MruF1ZLlkSmdOw==
+  dependencies:
+    "@stdlib/string-base-format-interpolate" "^0.2.1"
+    "@stdlib/string-base-format-tokenize" "^0.2.1"
+
 "@szmarczak/http-timer@^4.0.5":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-4.0.6.tgz#b4a914bb62e7c272d4e5989fe4440f812ab1d807"

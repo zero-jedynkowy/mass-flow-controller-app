@@ -4,7 +4,9 @@
         "menuTitle":"URZĄDZENIA",
         "noDevicesPlaceholder": "Brak urządzeń",
         "connectButton":"Połącz",
-        "disconnectButton":"Rozłącz"
+        "disconnectButton":"Rozłącz",
+        "extraSettingsModalTitle": "Dodatkowe ustawienia",
+        "channelsChartSwitcherTitle": "Pokaż wykres przepływu kanałów"
     },
 
     "tooltip":

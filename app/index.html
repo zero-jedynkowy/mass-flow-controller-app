@@ -178,6 +178,41 @@
 
   <!-- <button type="button" class="btn btn-warning position-fixed bottom-0 end-0 m-3 fs-4"><i class="bi bi-arrow-repeat"></i>&nbsp;Set settings</button> -->
 
+  <div class="modal fade" id="extraSettingsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="extraSettingsModalTitle">Additional settings</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-row w-100 fs-6">
+          <div class="form-check form-switch form-check-reverse">
+            <input class="form-check-input" type="checkbox" id="channelsChartSwitcher">
+            <label class="form-check-label" for="channelsChartSwitcher" id="channelsChartSwitcherTitle">Show the chart of the channels</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="aboutProgramModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="aboutProgramModalTitle">About the program</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column w-100 fs-6">
+          <p id="projectTitleModalTitle">Project's title: Mass Flow Controller App</p>
+          <p id="projectAuthorModalTitle">Author: Karol Ambroziński</p>
+          <p id="projectRepositoryTitle">Project's repository: 
+            <a id="projectRepositoryLink" href="https://github.com/zero-jedynkowy/mass-flow-controller-app">[CLICK TO OPEN IN BROWSER]</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   </body>
 
   <script src="./renderer.js"></script>

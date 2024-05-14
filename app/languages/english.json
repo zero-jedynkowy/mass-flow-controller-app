@@ -4,7 +4,9 @@
         "menuTitle":"DEVICES",
         "noDevicesPlaceholder": "No devices",
         "connectButton":"Connect",
-        "disconnectButton":"Disconnect"
+        "disconnectButton":"Disconnect",
+        "extraSettingsModalTitle": "Additional settings",
+        "channelsChartSwitcherTitle": "Show the chart of the channels"
     },
 
     "tooltip":

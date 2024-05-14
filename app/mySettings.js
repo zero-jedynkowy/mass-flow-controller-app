@@ -1,6 +1,7 @@
 const remote = window.require("@electron/remote");
 const currentWindow = remote.getCurrentWindow();
 const bootstrap = require('bootstrap')
+var format = require( '@stdlib/string-format' );
 
 const settings = currentWindow.settings;
 let isDevModeOn = false
@@ -17,28 +18,14 @@ function initSettings()
         prettify: true
     })
 
-    if(settings.getSync("language") == null || settings.getSync("theme") == null)
+    if(settings.getSync("language") == null || settings.getSync("theme") == null || settings.getSync("channelsChart") == null)
     {
         settings.setSync("language", "english")
         settings.setSync("theme", "light")
+        settings.setSync("channelsChart", false)
     }
 }
 
-function applySettings()
-{
-    let theme = settings.getSync("theme") == "dark"? 'dark':'light'
-    document.querySelector("html").setAttribute('data-bs-theme', theme)
-    if(theme == 'dark')
-    {
-        $('#changeThemeButton').find('i').removeClass("bi-moon-stars")
-        $('#changeThemeButton').find('i').addClass("bi-brightness-high")
-    }
-    else
-    {
-        $('#changeThemeButton').find('i').addClass("bi-moon-stars")
-        $('#changeThemeButton').find('i').removeClass("bi-brightness-high")
-    }
-}
 
 function changeTheme()
 {
@@ -110,9 +97,41 @@ function changeLanguage(newLanguage)
     }
 }
 
+function switchChannelsChart(newValue)
+{
+    settings.setSync("channelsChart", newValue)
+    if(settings.getSync("channelsChart")) $("#channelsChartSwitcher").attr("checked", "")
+    else $("#channelsChartSwitcher").removeAttr("checked")
+}
+
+function switchChannelsChartButtonAction()
+{
+    let newValue = settings.getSync("channelsChart")? false:true
+    switchChannelsChart(newValue)
+}
+
+function applySettings()
+{
+    let theme = settings.getSync("theme") == "dark"? 'dark':'light'
+    document.querySelector("html").setAttribute('data-bs-theme', theme)
+    if(theme == 'dark')
+    {
+        $('#changeThemeButton').find('i').removeClass("bi-moon-stars")
+        $('#changeThemeButton').find('i').addClass("bi-brightness-high")
+    }
+    else
+    {
+        $('#changeThemeButton').find('i').addClass("bi-moon-stars")
+        $('#changeThemeButton').find('i').removeClass("bi-brightness-high")
+    }
+    changeLanguage(settings.getSync("language"))
+    switchChannelsChart(settings.getSync("channelsChart"))
+}
+
+
 // // function getLanguageContent(id)
 // // {
 // //     return languageContent[id]
 // // }
 
-module.exports = {initSettings, applySettings, changeTheme, switchDevMode, showConsole, changeLanguage, changeLanguageButtonAction}
+module.exports = {initSettings, applySettings, changeTheme, switchDevMode, showConsole, changeLanguage, changeLanguageButtonAction, switchChannelsChart, switchChannelsChartButtonAction}

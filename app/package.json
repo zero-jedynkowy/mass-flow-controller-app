@@ -28,6 +28,7 @@
     "@electron/remote": "^2.1.2",
     "@fontsource/lato": "^5.0.21",
     "@popperjs/core": "^2.11.8",
+    "@stdlib/string-format": "^0.2.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "electron-settings": "^4.0.4",
