@@ -1,18 +1,20 @@
 {
-    "consoleSwitcher":"Console",
-    "portsListTitle":"List of ports",
-    "connectButton":"Connect",
-    "themeTitle":"Theme",
-    "lightThemeSwitcherTitle":"Light",
-    "darkThemeSwitcherTitle":"Dark",
-    "devToolsOnSwitcherTitle":"On",
-    "devToolsOffSwitcherTitle":"Off",
-    "languageSwitcher1Title":"Polski",
-    "languageSwitcher2Title":"English",
-    "devModeTitle":"Developer mode",
-    "languageTitle": "Language",
-    "deviceAddedAlert": "A new device was added: ",
-    "deviceRemovedAlert": "A device was removed: ",
-    "modalDeviceMoreInformationTitle": "Additional information",
-    "rightContextDetails": "Details"
+    "normal":
+    {
+        "menuTitle":"DEVICES",
+        "noDevicesPlaceholder": "No devices",
+        "connectButton":"Connect",
+        "disconnectButton":"Disconnect"
+    },
+
+    "tooltip":
+    {
+        "changeThemeButton": "Change the theme",
+        "changeLanguage": "Change the language",
+        "devModeButton": "Dev mode",
+        "moreSettingsButton": "More settings",
+        "aboutProgramButton": "About the programe",
+        "showMenuButton": "Show/Hide the menu",
+        "consoleButton": "Show/Hide the console"
+    }
 }

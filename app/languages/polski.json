@@ -1,18 +1,20 @@
 {
-    "consoleSwitcher":"Konsola",
-    "portsListTitle":"Lista portów",
-    "connectButton":"Połącz",
-    "themeTitle":"Motyw",
-    "lightThemeSwitcherTitle":"Jasny",
-    "darkThemeSwitcherTitle":"Ciemny",
-    "devToolsOnSwitcherTitle":"Włącz",
-    "devToolsOffSwitcherTitle":"Wyłącz",
-    "devModeTitle":"Tryb deweloperski",
-    "languageTitle": "Język",
-    "languageSwitcher1Title":"Polski",
-    "languageSwitcher2Title":"English",
-    "deviceAddedAlert": "Dodano nowe urządzenie: ",
-    "deviceRemovedAlert": "Usunięto urządzenie: ",
-    "modalDeviceMoreInformationTitle": "Dodatkowe informacje",
-    "rightContextDetails": "Dodatkowe informacje"
+    "normal":
+    {
+        "menuTitle":"URZĄDZENIA",
+        "noDevicesPlaceholder": "Brak urządzeń",
+        "connectButton":"Połącz",
+        "disconnectButton":"Rozłącz"
+    },
+
+    "tooltip":
+    {
+        "changeThemeButton": "Zmień motyw",
+        "changeLanguage": "Zmień język",
+        "devModeButton": "Tryb deweloperski",
+        "moreSettingsButton": "Więcej ustawień",
+        "aboutProgramButton": "O programie",
+        "showMenuButton": "Pokaż/Ukryj menu",
+        "consoleButton": "Pokaż/Ukryj konsole"
+    }
 }

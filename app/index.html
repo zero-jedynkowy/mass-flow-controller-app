@@ -1,33 +1,39 @@
 <!DOCTYPE html>
+
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Mass Flow Controller App</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
-    <link rel="stylesheet" href="node_modules/@fontsource/lato/400.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body> 
 
-  
+  <head>
 
-  <div class="d-flex flex-column mb-2 h-100 w-100">
+      <meta charset="UTF-8">
+      <title>Mass Flow Controller App</title>
 
-    
+      <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+      <link rel="stylesheet" href="node_modules/@fontsource/lato/400.css">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+      <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+      <link rel="stylesheet" href="style.css">
+
+  </head>
+
+  <body> 
+
+    <div class="d-flex flex-column mb-2 h-100 w-100">
+
+      <div class="d-flex align-content-start flex-wrap w-100">
       
-    <div class="d-flex align-content-start flex-wrap w-100">
-      <div id="menuPlaceHolder"></div>
-      <div id="mainContent">
-        <div class="container-fluid w-100" id="devicePanel m-0 p-0">
+        <div id="menuPlaceHolder"></div>
+        <div id="mainContent">
+
+        <!-- <div class=" d-none container-fluid w-100" id="devicePanel m-0 p-0">
           <div class="row"><p class="fs-1 devicePanelTitles">DEVICE PANEL</p></div>
           <div class="row">
             <div class="d-flex p-0 m-0">
               <div class="flex-grow-1 alert alert-primary text-center" id="deviceIdBlock">
                 <p class="p-0 m-0">DEVICE ID</p>
-                <p class="p-0 m-0 fs-2">mass-flow-controller-v1</p>
+                <p class="p-0 m-0 fs-2">Mass Flow Controller V1</p>
               </div>
               <div class="alert alert-warning text-center" id="lastUpdateDateBlock">
                 <p class="p-0 m-0">LAST UPDATE</p>
@@ -41,16 +47,16 @@
               <p>ENABLE OR DISABLE CHANNELS</p>
               <button type="button" class="btn bg-success-subtle position-absolute top-0 end-0 editButton border border-primary"><i class="bi bi-pencil-square"></i></button>
               <div class="btn-group w-75" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" disabled>
                 <label class="btn btn-outline-primary" for="btncheck1">CHANNEL 1</label>
               
-                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" disabled>
                 <label class="btn btn-outline-primary" for="btncheck2">CHANNEL 2</label>
               
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" disabled> 
                 <label class="btn btn-outline-primary" for="btncheck3">CHANNEL 3</label>
 
-                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" disabled>
                 <label class="btn btn-outline-primary" for="btncheck4">CHANNEL 4</label>
               </div>
             </div>            
@@ -59,6 +65,22 @@
             <div class="alert alert-warning d-flex flex-column channelBlock" style="width: max-content;">
               <button type="button" class="btn bg-success-subtle position-absolute top-0 end-0 editButton border border-primary"><i class="bi bi-pencil-square"></i></button>
               <p class="fs-1">CHANNEL 1</p>
+              <div class="d-flex flex-column fs-6 alert alert-info">
+                <p class="fs-4">CHANNEL PORT MAX FLOW FOR N<sub>2</sub></p>
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" disabled>
+                  <option value="1">10 sccm</option>
+                  <option value="2">20 sccm</option>
+                  <option value="3">50 sccm</option>
+                  <option value="4">100 sccm</option>
+                  <option value="5">200 sccm</option>
+                  <option value="6">500 sccm</option>
+                  <option value="7">1000 sccm</option>
+                  <option value="8">2000 sccm</option>
+                  <option value="9">5000 sccm</option>
+                  <option value="10">10000 sccm</option>
+                  <option value="11">20000 sccm</option>
+                </select>                
+              </div>
               <div class="d-flex flex-column fs-6 alert alert-info">
                 <p class="m-0 p-0 fs-4">CURRENT FLOW</p>
                 <p class="m-0 p-0"><i class="bi bi-chevron-right"></i>&nbsp;255 sccm</p>
@@ -71,84 +93,59 @@
                 <p class="m-0 p-0 fs-4">OTHER SETTINGS</p>
 
                 <div class="form-check form-switch form-check-reverse fs-5">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse" disabled>
                   <label class="form-check-label" for="flexSwitchCheckReverse"><i class="bi bi-chevron-right"></i>&nbsp;AUTO PERMANENT CLOSE VALVE</label>
                 </div>
 
                 <div class="form-check form-switch form-check-reverse fs-5">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckReverse" disabled>
                   <label class="form-check-label" for="flexSwitchCheckReverse"><i class="bi bi-chevron-right"></i>&nbsp;AUTO OPEN/CLOSE VALVE</label>
                 </div>
               </div>
-
-             
-
-
-
-
               
-
-
-
-
-
-
-
-
-
               <button type="button" class="btn btn-danger w-auto">INSTANT CLOSE VALVE</button>
             </div>
             
+        </div> -->
+
         </div>
-      </div>
-    </div>
 
-    <div class="bg-primary-subtle position-fixed d-flex flex-column" id="sideBar">
-      <div class="row justify-content-center w-100 align-center m-0" id="menuTitle">List of ports</div>
-      <div class="flex-grow-1 rounded-2 overflow-auto bg-light-subtle" id="devicesList">
-        <div class="list-group overflow-auto">
-          <li class="list-group-item">An item</li> 
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
-          <li class="list-group-item">A fourth item</li>
-          <!-- <li class="list-group-item">And a fifth one</li> 
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
-          <li class="list-group-item">A fourth item</li>
-          <li class="list-group-item">And a fifth one</li> 
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
-          <li class="list-group-item">A fourth item</li>
-          <li class="list-group-item">And a fifth one</li>           --> 
+      </div>
+
+      <div class="bg-primary-subtle position-fixed d-flex flex-column" id="sideBar">
+
+        <div class="row justify-content-center w-100 align-center m-0" id="menuTitle">DEVICES</div>
+        <div class="flex-grow-1 rounded-2 overflow-auto bg-light-subtle position-relative" id="devicesList">
+          
+          <div class="list-group overflow-auto" id="devicesListContent">
+            <!-- <li class="list-group-item">An item</li> 
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li> -->
+          </div>
+
+          <div class="d-flex w-100 h-100 bg-light-subtle texte-center align-self-center position-absolute top-0 start-0 p-0 m-0 opacity-75">
+            
+            <div class="fs-2 w-100 align-self-center text-center" id="noDevicesPlaceholder">No devices</div>
+          
+          </div>
+
         </div>
-      </div>
-      <div class="d-flex flex-row w-100 p-0" id="menuMainButtonsList">
-        <button type="button" class="btn btn-success w-fit w-100" id="connectButton">Connect</button>
-        <button type="button" class="btn btn-danger w-fit w-100" id="disconnectButton">Disconnect</button>
-      </div>
-        
-     
-      
-      
-      
-      
-      
-      
 
-        
+        <div class="d-flex flex-row w-100 p-0" id="menuMainButtonsList">
 
+          <button type="button" class="btn btn-success w-fit w-100" id="connectButton">Connect</button>
+          <button type="button" class="btn btn-danger w-fit w-100" id="disconnectButton">Disconnect</button>
 
-        
-
+        </div>
+          
         <div class="d-flex flex-row w-100 m-0 p-0 ">
           
           <button type="button" id="changeThemeButton" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Change theme">
             <i class="bi bi-moon-stars"></i>
           </button>
 
-          <button type="button" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Change a language">
+          <button type="button" id="changeLanguage" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Change a language">
             <i class="bi bi-translate"></i>
           </button>
 
@@ -156,27 +153,32 @@
             <i class="bi bi-tools"></i>
           </button>
             
+          <button type="button" id="moreSettingsButton" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="More settings">
+            <i class="bi bi-gear"></i>
+          </button>    
 
-          <button type="button" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="About the program">
+          <button type="button" id="aboutProgramButton" class="btn bg-warning-subtle menuSmallBtn border-dark-subtle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="About the program">
             <i class="bi bi-info-circle"></i>
           </button>    
 
         </div>
 
-        
-        
       </div> 
     </div>
 
-    <button type="button" class="btn bg-primary-subtle border border-2 border-primary position-fixed top-0 end-0" id="showMenuButton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Show/hide the menu">
+    <button type="button" class="btn bg-primary-subtle border border-1 border-dark-subtle position-fixed top-0 end-0" id="showMenuButton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Show/hide the menu">
       <i class="bi bi-list"></i>
     </button>
 
   </div>
 
-  <button type="button" class="btn bg-danger-subtle border border-2 border-primary position-fixed top-0 end-0 position-absolute top-0 start-0" id="consoleButton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Show/hide the console">
+  <button type="button" class="btn bg-danger-subtle border border-1 border-dark-subtle position-fixed top-0 end-0 position-absolute top-0 start-0" id="consoleButton" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Show/hide the console">
     <i class="bi bi-terminal"></i>
   </button>
-</body>
-<script src="./renderer.js"></script>
+
+  <!-- <button type="button" class="btn btn-warning position-fixed bottom-0 end-0 m-3 fs-4"><i class="bi bi-arrow-repeat"></i>&nbsp;Set settings</button> -->
+
+  </body>
+
+  <script src="./renderer.js"></script>
 </html>

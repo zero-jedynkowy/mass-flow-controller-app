@@ -4,6 +4,7 @@ body, html
   margin: 0;
   padding: 0;
   height: fit-content;
+  user-select: none;
   width: 100%;
   font-weight: bold;
 }

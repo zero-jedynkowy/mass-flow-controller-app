@@ -25,7 +25,6 @@ function showMenuButtonAction()
 function resizeWindowUpdater()
 {
     let size = currentWindow.getSize();
-    console.log("sdasdada")
     if(size[0] < 1000)
     {
         $("#showMenuButton").fadeIn(250)
@@ -51,8 +50,5 @@ function resizeWindowUpdater()
         $("#sideBar").css("left", "0px");
     }
 }
-
-
-
 
 module.exports = {resizeWindowUpdater, showMenuButtonAction}
