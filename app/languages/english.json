@@ -6,7 +6,12 @@
         "connectButton":"Connect",
         "disconnectButton":"Disconnect",
         "extraSettingsModalTitle": "Additional settings",
-        "channelsChartSwitcherTitle": "Show the chart of the channels"
+        "channelsChartSwitcherTitle": "Show the chart of the channels",
+        "aboutProgramModalTitle": "About the program",
+        "projectTitleModalTitle": "Project's title: Mass Flow Controller App",
+        "projectAuthorModalTitle": "Author: Karol Ambroziński",
+        "projectRepositoryTitle": "Project's repository:",
+        "projectRepositoryLink":"[CLICK TO OPEN IN THE BROWSER]"
     },
 
     "tooltip":
