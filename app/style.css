@@ -14,16 +14,10 @@ body
   display: none;
 }
 
-::-webkit-scrollbar 
+/* ::-webkit-scrollbar 
 {
   width: 0px;
-} 
-
-#mainContent
-{
-  padding: 2em;
-  height: 1000px;
-}
+}  */
 
 #showMenuButton, #consoleButton
 {
@@ -102,17 +96,6 @@ body
   padding: 1em;
 }
 
-/* #devicePanelTitle
-{
-  padding-top: 1em;
-  padding-bottom: 1em;
-} */
-
-.devicePanelTitles
-{
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
 
 .editButton
 {
@@ -150,3 +133,13 @@ body
 }
 
 /* overflow-auto */
+
+#devicePanel
+{
+  padding: 2em;
+}
+
+.devicePanelField
+{
+  padding: 1em;
+}

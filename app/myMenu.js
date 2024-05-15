@@ -48,7 +48,9 @@ function resizeWindowUpdater()
         $("#mainContent").css("width", "75%");
         $("#sideBar").css("width", "25%");
         $("#sideBar").css("left", "0px");
-    }
+    }   
+    
+    $("#mainContent").height(currentWindow.getSize()[1])
 }
 
 module.exports = {resizeWindowUpdater, showMenuButtonAction}
