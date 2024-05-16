@@ -1,6 +1,6 @@
 const remote = window.require("@electron/remote");
 const currentWindow = remote.getCurrentWindow();
-let menuIsActive = false
+let menuIsActive = true
 let isMenuAnimationActive = false;
 
 function showMenuButtonAction()
@@ -44,9 +44,9 @@ function resizeWindowUpdater()
     else
     {
         $("#showMenuButton").fadeOut(250)
-        $("#menuPlaceHolder").css("width", "25%");
-        $("#mainContent").css("width", "75%");
-        $("#sideBar").css("width", "25%");
+        $("#menuPlaceHolder").css("width", "27%");
+        $("#mainContent").css("width", "73%");
+        $("#sideBar").css("width", "27%");
         $("#sideBar").css("left", "0px");
     }   
     

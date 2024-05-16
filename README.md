@@ -16,3 +16,8 @@
 * Node.js
 * npm
 * yarn
+
+## Used in the project
+* Bootstrap
+* Serialport.io
+* and much more... (others are included in package.js)

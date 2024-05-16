@@ -13,6 +13,7 @@ const shell = require('electron').shell;
 const myMenu = require('./myMenu')
 const mySettings = require('./mySettings')
 const myDeviceConnection = require('./myDeviceConnection')
+const myGases = require('./myGases')
 
 
 
@@ -40,7 +41,7 @@ $(document).ready(function()
     $("#aboutProgramButton").click(() => {$("#aboutProgramModal").modal("toggle")})
     $("#channelsChartSwitcher").click(mySettings.switchChannelsChartButtonAction)
     mySettings.applySettings()
-
+    $("#connectButton").click(myDeviceConnection.connectToDevice)
     $(document).on('click', 'a[href^="http"]', function(event) {
         event.preventDefault();
         shell.openExternal(this.href);
