@@ -14,6 +14,8 @@ const myMenu = require('./myMenu')
 const mySettings = require('./mySettings')
 const myDeviceConnection = require('./myDeviceConnection')
 const myGases = require('./myGases')
+const myChart = require('./myChart')
+
 
 
 
@@ -29,7 +31,7 @@ $(document).ready(function()
     $("#showMenuButton").click(myMenu.showMenuButtonAction)
     
     
-    $("body").show()
+    // $("body").show()
     $('#changeThemeButton').click(mySettings.changeTheme)
     $('[data-bs-toggle="tooltip"]').tooltip({trigger : 'hover'}) 
     $("#devModeButton").click(mySettings.switchDevMode)
@@ -47,6 +49,6 @@ $(document).ready(function()
         shell.openExternal(this.href);
     });
 
-    // $("body").fadeIn(1000)
+    $("body").fadeIn(1000)
 });
 

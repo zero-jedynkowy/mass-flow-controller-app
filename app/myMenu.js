@@ -25,6 +25,26 @@ function showMenuButtonAction()
 function resizeWindowUpdater()
 {
     let size = currentWindow.getSize();
+    let channels = document.querySelectorAll(".channel")
+    if(size[0] < 1452)
+    {
+        
+        $(".channelsRows").addClass("flex-column")
+        $(".channelsRows").removeClass("flex-row")
+        for(let i=0; i<channels.length; i=i+2)
+        {
+            channels[i].classList.remove("me-3")
+        }
+    }
+    else
+    {
+        $(".channelsRows").addClass("flex-row")
+        $(".channelsRows").removeClass("flex-column")
+        for(let i=0; i<channels.length; i=i+2)
+        {
+            channels[i].classList.add("me-3")
+        }
+    }
     if(size[0] < 1000)
     {
         $("#showMenuButton").fadeIn(250)

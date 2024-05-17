@@ -1,13 +1,48 @@
+const { SerialPort } = require('serialport');
 const mySettings = require('./mySettings')
+const fs = require('fs')
 
 let ports = [];
 let portsKeys = [];
 let tempPortName;
 let isStartup = true
+let currentChoosenPort = null
+
+let tempDataStr = ""
+let tempDataObj = null
+let abec = $("#connectingModal")
 
 function connectToDevice()
 {
-    console.log($(".marked"))
+    if($(".marked").length == 0)
+    {
+        abec.modal("toggle")
+    }
+    else
+    {
+        currentChoosenPort = new SerialPort({
+            path: $(".marked").text(),
+            baudRate: 9600
+        })
+        abec = $("#connectingModal").modal("show")
+        currentChoosenPort.write('{"command":"get_data"}')
+        currentChoosenPort.on("data", (data) => 
+            {
+            tempDataStr += String.fromCharCode(...data)
+            try
+            {
+                tempDataObj = JSON.parse(tempDataStr)
+                if("Mass Flow Controller Device Prototype" == tempDataObj.deviceName)
+                {
+                    abec = abec.modal("hide")
+                }
+            }
+            catch(error)
+            {
+                console.log(error)
+            }
+        })
+    }
 }
 
 function markDevice(event)
@@ -108,12 +143,13 @@ function sendData()
 
 function getData()
 {
-    
+    return tempDataObj
 }
 
 module.exports = 
 {
     connectToDevice, 
     startLoopRefreshDeviceList, 
-    stopLoopRefreshDeviceList
+    stopLoopRefreshDeviceList,
+    getData
 }
