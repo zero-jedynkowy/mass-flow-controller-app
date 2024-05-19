@@ -8,6 +8,7 @@ function createWindow ()
   {
     minHeight: 500,
     minWidth: 800,
+    title: "Mass Flow Controller App",
     autoHideMenuBar: true,
     webPreferences: 
     {

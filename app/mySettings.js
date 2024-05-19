@@ -1,13 +1,21 @@
 const remote = window.require("@electron/remote");
 const currentWindow = remote.getCurrentWindow();
 const bootstrap = require('bootstrap')
-var format = require( '@stdlib/string-format' );
 
 const settings = currentWindow.settings;
+
 let isDevModeOn = false
 let isDevToolsOpened = false
 let keyCounter = 0;
 let languageContent;
+
+function resetSettings()
+{
+    settings.setSync("language", "english")
+    settings.setSync("theme", "light")
+    settings.setSync("channelsChart", false)
+    settings.setSync("welcomeWindow", true)
+}
 
 function initSettings()
 {
@@ -18,14 +26,12 @@ function initSettings()
         prettify: true
     })
 
-    if(settings.getSync("language") == null || settings.getSync("theme") == null || settings.getSync("channelsChart") == null)
+    if(settings.getSync("language") == null || settings.getSync("theme") == null 
+    || settings.getSync("channelsChart") == null || settings.getSync("welcomeWindow") == null)
     {
-        settings.setSync("language", "english")
-        settings.setSync("theme", "light")
-        settings.setSync("channelsChart", false)
+        resetSettings()
     }
 }
-
 
 function changeTheme()
 {
@@ -42,11 +48,11 @@ function switchDevMode(event)
     if(isDevModeOn)
     {
         currentWindow.webContents.openDevTools()
-        $("#consoleButton").fadeIn(1000)
+        $("#toggleConsoleButton").fadeIn(1000)
     }   
     else 
     {   
-        $("#consoleButton").fadeOut(1000)
+        $("#toggleConsoleButton").fadeOut(1000)
         currentWindow.webContents.closeDevTools()
     }
 }
@@ -79,7 +85,6 @@ function changeLanguage(newLanguage)
 {
     let content;
     let myPath;
-    // let newLanguage = settings.getSync("language") == "polski"? 'english':'polski'
     settings.setSync("language", newLanguage)
     myPath = path.join(__dirname, 'languages', newLanguage + '.json');
     let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
@@ -128,10 +133,15 @@ function applySettings()
     switchChannelsChart(settings.getSync("channelsChart"))
 }
 
-
-// // function getLanguageContent(id)
-// // {
-// //     return languageContent[id]
-// // }
-
-module.exports = {initSettings, applySettings, changeTheme, switchDevMode, showConsole, changeLanguage, changeLanguageButtonAction, switchChannelsChart, switchChannelsChartButtonAction}
+module.exports = 
+{
+    initSettings, 
+    applySettings, 
+    changeTheme, 
+    switchDevMode, 
+    showConsole, 
+    changeLanguage, 
+    changeLanguageButtonAction, 
+    switchChannelsChart, 
+    switchChannelsChartButtonAction
+}

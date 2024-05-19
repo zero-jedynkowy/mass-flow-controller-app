@@ -17,14 +17,10 @@ body
 *
 {
   font-family: 'Lato';
+  font-weight: bold;
 }
 
-/* ::-webkit-scrollbar 
-{
-  width: 0px;
-}  */
-
-#showMenuButton, #consoleButton
+#showMenuButton, #toggleConsoleButton
 {
   margin: 1em;
   height: fit-content;
@@ -32,7 +28,7 @@ body
   font-size: 1.2em;
 }
 
-#consoleButton
+#toggleConsoleButton
 {
   display: none;
 }
@@ -52,10 +48,7 @@ body
 
 #devicesList
 {
-  /* margin: 0 1.5em 0 1.5em; */
   padding: 0em;
-  /* background-color: red; */
-  /* height: 20em */
 }
 
 #connectButton
@@ -89,55 +82,6 @@ body
 {
   margin: 0 0 0 1em;
 }
-
-#deviceIdBlock
-{
-  margin-right: 1em;
-  padding: 1em;
-}
-
-#lastUpdateDateBlock
-{
-  padding: 1em;
-}
-
-
-.editButton
-{
-  margin: 0.5em;
-}
-
-.channelStatusSettingsBlock
-{
-  /* width: 25em;
-  height: 200px; */
-  /* margin-right: 1em; */
-}
-
-#channel1Block, #channel3Block
-{
-  margin: 0 1em 0 0;
-  height: fit-content;
-}
-
-#channel2Block, #channel4Block
-{
-  margin: 0 0 0 1em;
-  height: fit-content;
-}
-
-#channel4Block, #channel3Block
-{
-  margin-top: 1em;
-  height: fit-content;
-}
-
-.channelBlock
-{
-  
-}
-
-/* overflow-auto */
 
 #devicePanel
 {

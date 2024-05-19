@@ -2,7 +2,7 @@
     "normal":
     {
         "menuTitle":"DEVICES",
-        "noDevicesPlaceholder": "No devices",
+        "devicesListStatePlaceholderTitle": "No devices",
         "connectButton":"Connect",
         "disconnectButton":"Disconnect",
         "extraSettingsModalTitle": "Additional settings",
