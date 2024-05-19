@@ -25,8 +25,7 @@
 #include "cJSON.h"
 #include "mfc.h"
 
-extern uint8_t receiveBuffer[BIG];
-extern uint8_t receiveDataFlag;
+extern Transceiver myTransceiver;
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -265,12 +264,12 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
 	USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
 	USBD_CDC_ReceivePacket(&hUsbDeviceFS);
-	receiveDataFlag = 1;
-	memset (receiveBuffer, '\0', BIG);
+	myTransceiver.status = RECEIVE;
+	memset (myTransceiver.receiveBuffer, '\0', SIZE_3);
 	uint8_t len = (uint8_t)*Len;
-	memcpy(receiveBuffer, Buf, len);
+	memcpy(myTransceiver.receiveBuffer, Buf, len);
 	memset(Buf, '\0', len);
-
+	myTransceiver.status = GOT_DATA_TO_PROCESS;
 	return (USBD_OK);
   /* USER CODE END 6 */
 }

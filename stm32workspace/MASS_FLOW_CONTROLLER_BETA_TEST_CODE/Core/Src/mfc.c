@@ -1,71 +1,102 @@
-/*
- * mfc.c
- *
- *  Created on: May 16, 2024
- *      Author: zero-jedynkowy
- */
-
 #include "mfc.h"
 
 
+// USB
 
-
-void MFC_Init(MFC_Module * module)
+void Transceiver_Init(Transceiver * myTransceiver)
 {
-
-	for(int i=0; i<MAX_CHANNELS_AMOUNT; i++)
-	{
-		module->moduleChannels[i].isWorking = false;
-		module->moduleChannels[i].currentFlow = i;
-		module->moduleChannels[i].settedFlow = i;
-		module->moduleChannels[i].channelStatus = i;
-		module->moduleChannels[i].temperature = i;
-	}
+	myTransceiver->status = IDLE;
 }
 
-cJSON * Channel_GetJSON_AllParameters(Channel * channel)
+void Transceiver_Send(Transceiver * myTransceiver, char *str)
 {
-	cJSON *json = cJSON_CreateObject();
-	cJSON_AddBoolToObject(json, "isWorking", channel->isWorking);
-	cJSON_AddNumberToObject(json, "currentFlow", channel->currentFlow);
-	cJSON_AddNumberToObject(json, "settedFlow", channel->settedFlow);
-	cJSON_AddNumberToObject(json, "channelStatus", channel->channelStatus);
-	cJSON_AddNumberToObject(json, "temperature", channel->temperature);
-
-
-	return json;
+	myTransceiver->status = TRANSMIT;
+	CDC_Transmit_FS(str, strlen(str));
+	myTransceiver->status = IDLE;
 }
 
-void MFC_SendJSON_AllParameters(MFC_Module * module)
+
+// MFC
+
+void MFC_Init(MFC * myMFC)
+{
+
+}
+
+void MFC_TransmitSettings(MFC * myMFC, Transceiver * myTransceiver)
 {
 	cJSON *json = cJSON_CreateObject();
-
+	// BELOW USER FILL
 	cJSON_AddStringToObject(json, "deviceName", DEVICE_NAME);
 	cJSON_AddNumberToObject(json, "deviceVersion", (double)DEVICE_VERSION);
-	cJSON_AddNumberToObject(json, "channelsAmount", (double)MAX_CHANNELS_AMOUNT);
-	cJSON *channelsObjects[MAX_CHANNELS_AMOUNT];
-
-	char temp[SHORT_SIZE];
-
-	for(int i=0; i<MAX_CHANNELS_AMOUNT; i++)
-	{
-		channelsObjects[i] = Channel_GetJSON_AllParameters(&module->moduleChannels[i]);
-		sprintf(temp, "Channel %d", i + 1);
-		cJSON_AddItemToObject(json, temp, channelsObjects[i]);
-	}
-
+	cJSON_AddNumberToObject(json, "channelsSize", (double)MAX_CHANNELS_AMOUNT);
+	// END USER FILL
 	char *json_str = cJSON_Print(json);
-	CDC_Transmit_FS(json_str, strlen(json_str));
+	Transceiver_Send(myTransceiver, json_str);
 	cJSON_free(json_str);
 	cJSON_Delete(json);
 }
 
-void MFC_SendJSON_State(MFC_Module * module, char * state)
+void MFC_ProcessRequest(MFC * myMFC, Transceiver * myTransceiver)
 {
-	cJSON *json = cJSON_CreateObject();
-	cJSON_AddStringToObject(json, "status", state);
-	char *json_str = cJSON_Print(json);
-	CDC_Transmit_FS(json_str, strlen(json_str));
-	cJSON_free(json_str);
-	cJSON_Delete(json);
+	myTransceiver->status = IDLE;
+	cJSON *json = cJSON_Parse(myTransceiver->receiveBuffer);
+	if (json == NULL)
+	{
+		cJSON_Delete(json);
+		return;
+	}
+	cJSON *item = cJSON_GetObjectItemCaseSensitive(json, "request");
+	if (cJSON_IsString(item) && (item->valuestring != NULL))
+	{
+		char *x = item->valuestring;
+		char *y = "GET_DATA";
+		if(strcmp(x, y) == 0)
+		{
+			MFC_TransmitSettings(myMFC, myTransceiver);
+		}
+		else if(item->valuestring == "UPDATE_SETTINGS")
+		{
+			MFC_TransmitSettings(myMFC, myTransceiver);
+		}
+	}
+	else
+	{
+		cJSON_Delete(json);
+		return;
+	}
 }
+
+//void MFC_SendJSON_AllParameters(MFC_Module * module)
+//{
+//	cJSON *json = cJSON_CreateObject();
+//
+//	cJSON_AddStringToObject(json, "deviceName", DEVICE_NAME);
+//	cJSON_AddNumberToObject(json, "deviceVersion", (double)DEVICE_VERSION);
+//	cJSON_AddNumberToObject(json, "channelsAmount", (double)MAX_CHANNELS_AMOUNT);
+//	cJSON *channelsObjects[MAX_CHANNELS_AMOUNT];
+//
+//	char temp[SHORT_SIZE];
+//
+//	for(int i=0; i<MAX_CHANNELS_AMOUNT; i++)
+//	{
+//		channelsObjects[i] = Channel_GetJSON_AllParameters(&module->moduleChannels[i]);
+//		sprintf(temp, "Channel %d", i + 1);
+//		cJSON_AddItemToObject(json, temp, channelsObjects[i]);
+//	}
+//
+//	char *json_str = cJSON_Print(json);
+//	CDC_Transmit_FS(json_str, strlen(json_str));
+//	cJSON_free(json_str);
+//	cJSON_Delete(json);
+//}
+//
+//void MFC_SendJSON_State(MFC_Module * module, char * state)
+//{
+//	cJSON *json = cJSON_CreateObject();
+//	cJSON_AddStringToObject(json, "status", state);
+//	char *json_str = cJSON_Print(json);
+//	CDC_Transmit_FS(json_str, strlen(json_str));
+//	cJSON_free(json_str);
+//	cJSON_Delete(json);
+//}

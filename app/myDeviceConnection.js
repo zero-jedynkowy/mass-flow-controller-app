@@ -12,7 +12,7 @@ class Timer
         this.count = 0
         this.state = false
         this.interval = null
-        this.final = {}
+        this.fun = {}
     }
 
     calc()
@@ -24,7 +24,7 @@ class Timer
             a.count++;
             try
             {
-                a.final[a.count](a)
+                a.fun[a.count](a)
             }
             catch(error)
             {
@@ -33,7 +33,6 @@ class Timer
             if(a.count >= a.max_count)
             {
                 a.stop()
-                a.count = 0;
             }
         }
         return temp
@@ -50,6 +49,11 @@ class Timer
         this.state = false
         clearInterval(this.interval)
     }
+
+    reset()
+    {
+        this.count = 0
+    }
 }
 
 connectDeviceObject = 
@@ -58,15 +62,14 @@ connectDeviceObject =
     portsKeys: [],
     tempPortName: null,
     isStartup: true,
-    temp: null
+    tempTimer: null
 }
 
-servceDeviceObject =
+serviceDeviceObject =
 {
     currentChoosenPort: null,
     tempDataStr: null,
     tempDataObj: null,
-    isConnected: false
 }
 
 function markDevice(event)
@@ -159,64 +162,23 @@ function connectToDevice()
     if($(".marked").length == 0) $('#connectNotChoosenDeviceModal').modal('toggle')
     else
     {
-        if(servceDeviceObject.isConnected)
+        if(serviceDeviceObject.isConnected)
         {
             $("#connectingButtonClickAlreadyConnectedModal").modal("toggle")
             return
         }
-        servceDeviceObject.tempDataStr = ""
+        serviceDeviceObject.tempDataStr = ""
         try
         {
-            servceDeviceObject.currentChoosenPort = new SerialPort({path: $(".marked").text(), baudRate: 9600})
+            serviceDeviceObject.currentChoosenPort = new SerialPort({path: $(".marked").text(), baudRate: 9600})
         }
         catch(error)
         {
             $("#errorConnectingModal").modal("toggle")
             return
         }
-        connectDeviceObject.temp = new Timer(10, 1000)
-        connectDeviceObject.temp.final[10] = (temp) => {$("#connectingModal").modal("toggle"); $("#errorConnectingModal").modal("toggle");}
-        connectDeviceObject.temp.final[10] = (temp) => {$("#connectingModal").modal("toggle"); $("#errorConnectingModal").modal("toggle");}
-        connectDeviceObject.temp.start()
-        $("#connectingModal .modal-body p").hide()
-        $("#connectingModal").modal("toggle")
-        $($("#connectingModal .modal-body").children()[0]).fadeIn(1000)
-        servceDeviceObject.currentChoosenPort.on("data", (data) => 
-        {
-            $($("#connectingModal .modal-body").children()[1]).fadeIn(1000)
-            servceDeviceObject.tempDataStr += String.fromCharCode(...data)
-            try
-            {
-                servceDeviceObject.tempDataObj = JSON.parse(servceDeviceObject.tempDataStr)
-                console.log(servceDeviceObject.tempDataStr)
-                if("Mass Flow Controller Device Prototype" == servceDeviceObject.tempDataObj.deviceName)
-                {
-                    connectDeviceObject.temp.stop()
-                    connectDeviceObject.temp = new Timer(4, 1000)
-                    connectDeviceObject.temp.final[2] = (temp) => {$($("#connectingModal .modal-body").children()[2]).fadeIn(1000)}
-                    connectDeviceObject.temp.final[4] = () => {$("#connectingModal .btn-close").click()}
-                    connectDeviceObject.temp.start()
-                    stopLoopRefreshDeviceList()
-                    $("#devicesListStatePlaceholderTitle").parent().fadeIn(1000)
-                    servceDeviceObject.isConnected = true
-                    servceDeviceObject.tempDataStr = ""
-                    servceDeviceObject.currentChoosenPort.removeAllListeners("data")
-                    servceDeviceObject.currentChoosenPort.on("data", exchangeData)
-                    servceDeviceObject.currentChoosenPort.on('error', function(err) {
-                        console.log('Error: ', err.message)
-                      })
-                      servceDeviceObject.currentChoosenPort.on('close', function() {
-                        servceDeviceObject.currentChoosenPort.open()
-                      })
-                    servceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')
-                }
-            }
-            catch(error)
-            {
-                console.log(error)
-            }
-        })
-        servceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')
+        setPort()
+        serviceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')
     }
 }
 
@@ -227,41 +189,85 @@ function getCurrentTime()
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
     const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
-
     return `${hours}:${minutes}:${seconds}:${milliseconds}`;
 }
 
-let x = new Timer(2, 1000)
-
-
-
-function exchangeData(data)
+function setPort()
 {
-    servceDeviceObject.tempDataStr += String.fromCharCode(...data)
-    try
+    serviceDeviceObject.currentChoosenPort.on('close', () => 
     {
-        // servceDeviceObject.tempDataObj = JSON.parse(servceDeviceObject.tempDataStr)
-        // console.log(servceDeviceObject.tempDataObj)
-        console.log(getCurrentTime());
-        servceDeviceObject.tempDataStr = ""
-        x = new Timer(5, 1000)
-        x.final[2] = (temp) => {servceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}', function(err) {
-            if (err) {
-              return console.log('Error on write: ', err.message)
+        serviceDeviceObject.tempDataStr = ""
+        console.log("CLOSE CLOSE CLOSE")
+        serviceDeviceObject.timer = []
+        serviceDeviceObject.timer[0] = 0
+        serviceDeviceObject.timer[1] = setInterval(() => {
+            console.log("WHILE WHILE WHILE")
+            try 
+            {
+                if(!serviceDeviceObject.currentChoosenPort.isOpen)
+                {
+                    serviceDeviceObject.currentChoosenPort.open(function(error)
+                    {
+                        if(error != null)
+                        {
+                            clearInterval(serviceDeviceObject.timer[1])
+                            errorConnecting()
+                        }
+                        else
+                        {
+                            clearInterval(serviceDeviceObject.timer[1])
+                            serviceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')
+                        }
+                        
+                        
+                    })
+                }
+                else
+                {
+                    clearInterval(serviceDeviceObject.timer[1])
+                    serviceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')
+                } 
             }
-            console.log('message written')
-          })}
-        x.start()
-        
-    }
-    catch({ name, message })
+            catch(error)
+            {}
+            if(serviceDeviceObject.timer[0] == 10)
+            {
+                clearInterval(serviceDeviceObject.timer[1])
+                if(serviceDeviceObject.currentChoosenPort.isOpen) serviceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')
+                else errorConnecting()
+            }
+            serviceDeviceObject.timer[0]++
+        }, 1000)
+    })
+
+    serviceDeviceObject.currentChoosenPort.on('data', (data) => 
     {
-        if(name == "SyntaxError")
+        try
         {
-            console.log(name)
+            serviceDeviceObject.tempDataStr += String.fromCharCode(...data)
+            console.log(serviceDeviceObject.tempDataStr)
+            serviceDeviceObject.tempDataObj = JSON.parse(serviceDeviceObject.tempDataStr)
+            console.log(getCurrentTime())
+            serviceDeviceObject.tempDataStr = ""
+            serviceDeviceObject.timer = new Timer(2, 1000)
+            serviceDeviceObject.timer.fun[2] = (temp) => {serviceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')}
+            serviceDeviceObject.timer.start()
         }
-        console.log(name)
-    }
+        catch({name, message})
+        {
+            if(name == 'SyntaxError')
+            {   
+                console.log(name)
+                serviceDeviceObject.tempDataStr = ""
+                serviceDeviceObject.currentChoosenPort.write('{"request":"GET_DATA"}')
+            }
+        }
+    })
+}
+
+function errorConnecting()
+{
+    $("#errorConnectingModal").modal("toggle")
 }
 
 module.exports = 
@@ -269,5 +275,5 @@ module.exports =
     connectToDevice, 
     startLoopRefreshDeviceList, 
     stopLoopRefreshDeviceList,
-    servceDeviceObject
+    serviceDeviceObject
 }

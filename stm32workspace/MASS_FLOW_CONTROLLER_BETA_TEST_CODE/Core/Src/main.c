@@ -24,8 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "mfc.h"
 
-uint8_t receiveBuffer[BIG];
-uint8_t receiveDataFlag = 0;
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,8 +57,8 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-MFC_Module myMFC;
-
+Transceiver myTransceiver;
+MFC myMFC;
 /* USER CODE END 0 */
 
 /**
@@ -70,7 +69,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	MFC_Init(&myMFC);
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -101,6 +100,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  if(myTransceiver.status == GOT_DATA_TO_PROCESS)
+	  {
+		  MFC_ProcessRequest(&myMFC, &myTransceiver);
+	  }
+//	  MFC_TransmitSettings(&myMFC, &myTransceiver);
 
     /* USER CODE BEGIN 3 */
   }

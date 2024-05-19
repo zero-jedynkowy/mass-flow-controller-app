@@ -10,9 +10,6 @@ const shell = require('electron').shell;
 const myOthers = require('./myOthers')
 const mySettings = require('./mySettings')
 const myDeviceConnection = require('./myDeviceConnection')
-// const myGases = require('./myGases')
-// const myChart = require('./myChart')
-
 
 function addContent(filePath, destination)
 {
