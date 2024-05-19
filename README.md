@@ -1,5 +1,9 @@
 # Mass Flow Controller App
 
+## Status
+
+* Worki in progress
+
 ## How to compile
 
 1. Go to `app` folder
@@ -21,3 +25,10 @@
 * Bootstrap
 * Serialport.io
 * and much more... (others are included in package.js)
+
+## Screenshots
+
+![alt text](readme_files/ss1.png)
+
+
+![alt text](readme_files/ss2.png)
