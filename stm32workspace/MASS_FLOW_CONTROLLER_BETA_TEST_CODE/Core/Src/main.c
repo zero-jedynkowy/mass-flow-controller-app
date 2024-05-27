@@ -23,7 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "mfc.h"
-
+extern void initialise_monitor_handles(void);
 
 /* USER CODE END Includes */
 
@@ -57,8 +57,9 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-Transceiver myTransceiver;
+//Transceiver myTransceiver;
 MFC myMFC;
+TR myTR;
 /* USER CODE END 0 */
 
 /**
@@ -69,7 +70,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	initialise_monitor_handles();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -92,19 +93,21 @@ int main(void)
   MX_GPIO_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-
+  MFC_Init(&myMFC);
+  TR_Init(&myTR);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-	  if(myTransceiver.status == GOT_DATA_TO_PROCESS)
+	  if(TR_IsReceiveStatus(&myTR))
 	  {
-		  MFC_ProcessRequest(&myMFC, &myTransceiver);
+		  MFC_ProcessReceivedData(&myMFC, &myTR);
+		  TR_SetFlag(&myTR, IDLE);
 	  }
-//	  MFC_TransmitSettings(&myMFC, &myTransceiver);
+
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
