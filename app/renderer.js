@@ -11,10 +11,6 @@ const shell = require('electron').shell;
 const myLibrary = require('./myLibrary')
 
 
-
-currentWindow.on("resize", myLibrary.resizeWindowUpdater)
-currentWindow.on("maximize", myLibrary.resizeWindowUpdater)
-
 $(document).ready(function()
 { 
     myLibrary.addContent('window.html', '#bodyContent')
@@ -22,15 +18,21 @@ $(document).ready(function()
     myLibrary.addContent("menu.html", "#menuAndContentContainer")
     myLibrary.addContent('buttons.html', "#bodyContent")
     myLibrary.addContent('modals.html', "#bodyContent")
-    
+
+    myLibrary.initWindow()
+
+    myLibrary.initSettings()
+    myLibrary.applySettings()
+
+    myLibrary.initDevMode()
 
     $("#showMenuButton").click(myLibrary.showMenuButtonAction)
     $("#connectButton").click(myLibrary.connectActionButton)
     $("#disconnectButton").click(myLibrary.disconnectActionButton)
-    // $('#changeThemeButton').click(mySettings.changeTheme)
+    $('#changeThemeButton').click(myLibrary.updateSettingsAction)
     // $('[data-bs-toggle="tooltip"]').tooltip({trigger : 'hover'}) 
-    // $("#devModeButton").click(mySettings.switchDevMode)
-    // $("#toggleConsoleButton").click(mySettings.showConsole)
+    $("#devModeButton").click(myLibrary.openDevMode)
+    $("#toggleConsoleButton").click(myLibrary.showConsole)
     // $("#changeLanguageButton").click(mySettings.changeLanguageButtonAction)
     // myOthers.resizeWindowUpdater()
     // myDeviceConnection.startLoopRefreshDeviceList()

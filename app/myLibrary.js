@@ -1,9 +1,8 @@
 const remote = window.require("@electron/remote");
 const currentWindow = remote.getCurrentWindow();
 const bootstrap = require('bootstrap');
-const { connectToDevice } = require('./myDeviceConnection');
 const { SerialPort } = require('serialport');
-const { ReadlineParser } = require('@serialport/parser-readline')
+const { ReadlineParser } = require('@serialport/parser-readline');
 window.$ = window.jQuery = require('jquery');
 
 //OTHER
@@ -11,6 +10,103 @@ function addContent(filePath, destination)
 {
     let data = fs.readFileSync(filePath)
     document.querySelector(destination).innerHTML = document.querySelector(destination).innerHTML + data
+}
+
+//DEV MODE
+devModeObj = 
+{
+    isDevModeOn: false,
+    keyCounter: 0
+}
+
+function initDevMode()
+{
+    currentWindow.webContents.on('before-input-event', (event, input) => 
+    {
+        if(input.control && input.key.toLowerCase() === 'd') 
+        {
+            devModeObj.keyCounter += 1
+            if(devModeObj.keyCounter == 2) devModeObj.keyCounter = 0
+            else openDevMode()
+            event.preventDefault()
+        }
+    })
+}
+
+function openDevMode()
+{
+    devModeObj.isDevModeOn = devModeObj.isDevModeOn? false:true
+    if(devModeObj.isDevModeOn)
+    {
+        currentWindow.webContents.openDevTools()
+        $("#toggleConsoleButton").fadeIn(1000)
+    }   
+    else 
+    {   
+        $("#toggleConsoleButton").fadeOut(1000)
+        currentWindow.webContents.closeDevTools()
+    }
+}
+
+function showConsole()
+{
+    devModeObj.isDevToolsOpened = devModeObj.isDevToolsOpened? false:true
+    if(devModeObj.isDevToolsOpened) currentWindow.webContents.openDevTools()
+    else currentWindow.webContents.closeDevTools()
+}
+
+//SETTINGS
+settingsObj = 
+{
+    settings: currentWindow.settings,
+}
+
+function resetSettings()
+{
+    settingsObj.settings.setSync("language", "english")
+    settingsObj.settings.setSync("theme", "light")
+    settingsObj.settings.setSync("channelsChart", false)
+    settingsObj.settings.setSync("welcomeWindow", true)
+}
+
+function initSettings()
+{
+    settingsObj.settings.configure
+    ({
+        atomicSave: true,
+        numSpaces: 2,
+        prettify: true
+    })
+    let temp = settingsObj.settings.getSync("language") == null
+    temp ||= settingsObj.settings.getSync("theme") == null
+    temp ||= settingsObj.settings.getSync("channelsChart") == null
+    temp ||= settingsObj.settings.getSync("welcomeWindow") == null
+    if(temp) resetSettings()
+}
+
+function updateSettingsAction(event)
+{
+    switch(event.currentTarget.getAttribute('settings'))
+    {
+        case "changeTheme":
+        {
+            let theme = $('html').attr('data-bs-theme') == 'dark'? 'light':'dark'
+            settingsObj.settings.setSync("theme", theme)
+            break;
+        }
+        case "":
+        {
+
+        }
+    }
+    applySettings(event)
+}
+
+function applySettings()
+{
+    document.querySelector("html").setAttribute('data-bs-theme',  settingsObj.settings.getSync('theme'))
+    $('#changeThemeButton').find('i').toggleClass("bi-moon-stars")
+    $('#changeThemeButton').find('i').toggleClass("bi-brightness-high")
 }
 
 //MENU
@@ -40,7 +136,6 @@ function showMenuButtonAction()
 
 
 //WINDOW
-
 function resizeWindowUpdater()
 {
     let size = currentWindow.getSize();
@@ -82,8 +177,13 @@ function resizeWindowUpdater()
     $("#mainContent").height(currentWindow.getSize()[1])
 }
 
-//CONNECTION
+function initWindow()
+{
+    currentWindow.on("resize", myLibrary.resizeWindowUpdater)
+    currentWindow.on("maximize", myLibrary.resizeWindowUpdater)
+}
 
+//CONNECTION
 connectionObj = 
 {
     portsKeys: [],
@@ -95,7 +195,8 @@ connectionObj =
     receivedDataDate: null,
     connected: false,
     connectingCounter: 0,
-    myConnectionInterval: null
+    myConnectionInterval: null,
+    localDeviceSettings: null
 }
 
 function waitForConnecting()
@@ -242,7 +343,6 @@ async function connectActionButton()
     {
         try
         {
-            connectionObj.firstConnection = true
             connectionObj.port = await openSerialPort(document.querySelector(".marked").innerHTML)
             stopRefreshing()
             toggleDevicesList(false)
@@ -292,6 +392,7 @@ function switchDevicePanel(switcher)
 
 function processReceivedData()
 {
+    
     $("#deviceIdField").text(connectionObj.receivingData.deviceName)
     $("#deviceVersionField").text(connectionObj.receivingData.deviceVersion)
     $("#lastUpdateField").text(connectionObj.receivedDataDate)
@@ -355,6 +456,12 @@ module.exports =
     stopRefreshing,
     disconnectActionButton,
     startRefreshing,
-    switchDevicePanel
-    
+    switchDevicePanel,
+    initSettings,
+    initWindow,
+    updateSettingsAction,
+    applySettings,
+    openDevMode,
+    initDevMode,
+    showConsole
 }
