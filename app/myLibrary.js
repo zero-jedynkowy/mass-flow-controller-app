@@ -4,6 +4,7 @@ const bootstrap = require('bootstrap');
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 window.$ = window.jQuery = require('jquery');
+const chartjs = require('chart.js/auto')
 
 //OTHER
 function addContent(filePath, destination)
@@ -175,12 +176,18 @@ function resizeWindowUpdater()
         $("#sideBar").css("left", "0px");
     }   
     $("#mainContent").height(currentWindow.getSize()[1])
+    try
+    {
+        chartObj.chart.resize();
+    }
+    catch(error){}
 }
 
 function initWindow()
 {
     currentWindow.on("resize", myLibrary.resizeWindowUpdater)
     currentWindow.on("maximize", myLibrary.resizeWindowUpdater)
+    window.addEventListener('afterprint', myLibrary.resizeWindowUpdater);
 }
 
 //CONNECTION
@@ -443,6 +450,46 @@ function setListeners()
     });
 }
 
+//CHART
+chartObj = 
+{
+    deviceChart: null,
+    chart: null,
+    config: null,
+    labels: null,
+    data: null
+}
+
+function updateChart()
+{
+    chartObj.deviceChart = document.getElementById('deviceChart')
+    const labels = [-5, -4, -3,-2,-1, "Teraz"]
+    const data = {
+        labels: labels,
+        datasets: [{
+          label: 'Channel 1',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }, {
+            label: 'Channel 2',
+            data: [810, 560, 550, 400, 650, 59, 80],
+            fill: false,
+            borderColor: '#eb3434',
+            tension: 0.1
+          }]
+      };
+
+    const config = {
+        type: 'line',
+        data: data,
+      };
+
+
+
+    chartObj.chart = new chartjs.Chart(chartObj.deviceChart, config);
+}
 
 module.exports = 
 {
@@ -463,5 +510,6 @@ module.exports =
     applySettings,
     openDevMode,
     initDevMode,
-    showConsole
+    showConsole,
+    updateChart
 }

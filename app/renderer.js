@@ -18,6 +18,9 @@ $(document).ready(function()
     myLibrary.addContent("menu.html", "#menuAndContentContainer")
     myLibrary.addContent('buttons.html', "#bodyContent")
     myLibrary.addContent('modals.html', "#bodyContent")
+    // myLibrary.addContent('channel.html', "#channelsList")
+    // myLibrary.addContent('channel.html', "#channelsList")
+    myLibrary.addContent('chart.html', "#devicePanel")
 
     myLibrary.initWindow()
 
@@ -47,6 +50,10 @@ $(document).ready(function()
     // });
     $("#devicePanel").parent().hide()
     myLibrary.resizeWindowUpdater()
-    $("body").fadeIn(1000, () => {myLibrary.startRefreshing()})
+    $("body").fadeIn(1000, () => {/*myLibrary.startRefreshing()*/})
+    // $("body").fadeIn(1000, () => {myLibrary.startRefreshing()})
+
+    myLibrary.switchDevicePanel(true)
+    
 });
 
