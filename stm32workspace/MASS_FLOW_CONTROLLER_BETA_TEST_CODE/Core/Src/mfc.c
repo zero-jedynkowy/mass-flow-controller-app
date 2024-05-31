@@ -1,6 +1,7 @@
 #include "mfc.h"
 #include "stdio.h"
 #include "cJSON.h"
+#include <time.h>
 
 void MFC_Init(MFC * myMFC)
 {
@@ -30,7 +31,7 @@ void MFC_SendData(MFC * myMFC, TR * myTR)
 	cJSON_AddStringToObject(json, "deviceName", DEVICE_NAME);
 	cJSON_AddNumberToObject(json, "deviceVersion", DEVICE_VERSION);
 	cJSON_AddNumberToObject(json, "maxAmountGases", MAX_GASES_AMOUNT);
-	cJSON_AddNumberToObject(json, "maxAmountGases", MAX_CHANNELS_AMOUNT);
+	cJSON_AddNumberToObject(json, "channels", MAX_CHANNELS_AMOUNT);
 	cJSON *channels[MAX_CHANNELS_AMOUNT];
 
 	for(uint8_t i=0; i<MAX_CHANNELS_AMOUNT; i++)
@@ -48,7 +49,8 @@ void MFC_SendData(MFC * myMFC, TR * myTR)
 		cJSON_AddNumberToObject(channels[i], "afterTempCalibrateGCF", myMFC->channels[i].afterTempCalibrateGCF);
 		cJSON_AddNumberToObject(channels[i], "amountGases", myMFC->channels[i].amountGases);
 		cJSON_AddNumberToObject(channels[i], "settedFlow", myMFC->channels[i].settedFlow);
-		cJSON_AddNumberToObject(channels[i], "currentFlow", myMFC->channels[i].currentFlow);
+//		cJSON_AddNumberToObject(channels[i], "currentFlow", myMFC->channels[i].currentFlow);
+		cJSON_AddNumberToObject(channels[i], "currentFlow", rand() % 100);
 		cJSON_AddNumberToObject(channels[i], "channelMaxN2Flow", myMFC->channels[i].channelMaxN2Flow);
 		cJSON_AddNumberToObject(channels[i], "channelMaxCurrentGasFlow", myMFC->channels[i].channelMaxCurrentGasFlow);
 		cJSON_AddNumberToObject(channels[i], "valveMode", myMFC->channels[i].valveMode);
