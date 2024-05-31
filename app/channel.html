@@ -1,20 +1,20 @@
-<div class="w-100 accordion hide me-2" id="accordionExample">
+<div class="w-100 accordion hide mt-2 %s" id="channel%d">
   <div class="accordion-item p-0">
     
     <h2 class="accordion-header">
-      <button class="accordion-button fs-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <button class="accordion-button fs-3" type="button" data-bs-toggle="collapse" data-bs-target="#channel%dcollapseOne" aria-expanded="true" aria-controls="collapseOne" id="channel%dTitle">
         Channel 1
       </button>
     </h2>
     
-    <div id="collapseOne" class="accordion-collapse collapse hide alert alert-primary m-0 p-0" data-bs-parent="#accordionExample">
+    <div id="channel%dcollapseOne" class="accordion-collapse collapse hide alert alert-primary m-0 p-0" data-bs-parent="#channel%d">
       <div class="d-flex flex-column accordion-body">
         <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio1">Turn ON</label>
+            <input type="radio" class="btn-check" name="channel%dbtnradio" id="channel%dTurnOnButton" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="channel%dTurnOnButton">Turn ON</label>
           
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio2">Turn OFF</label>
+            <input type="radio" class="btn-check" name="channel%dbtnradio" id="channel%dTurnOffButton" autocomplete="off">
+            <label class="btn btn-outline-primary" for="channel%dTurnOffButton">Turn OFF</label>
         </div>
         <p class="m-0 p-0 mt-3 fs-5">Current flow</p>
         <p class="m-0 p-0 fs-1">1000 sccm</p>
@@ -39,9 +39,9 @@
             <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">C&deg;</a></li>
+            <li><a class="dropdown-item">C&deg;</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">K</a></li>
+            <li><a class="dropdown-item">K</a></li>
             </ul>
         </div>
         <p class="m-0 p-0 mt-3 fs-5">Gases</p>

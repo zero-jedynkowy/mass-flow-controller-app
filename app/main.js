@@ -18,7 +18,7 @@ function createWindow ()
       contextIsolation: false
     }
   })
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
   win.loadFile('index.html')
   win.settings = settings
   

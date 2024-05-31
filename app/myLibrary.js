@@ -5,6 +5,7 @@ const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 window.$ = window.jQuery = require('jquery');
 const chartjs = require('chart.js/auto')
+const format = require('@stdlib/string-format')
 
 //OTHER
 function addContent(filePath, destination)
@@ -60,6 +61,7 @@ function showConsole()
 settingsObj = 
 {
     settings: currentWindow.settings,
+    languageContent: null
 }
 
 function resetSettings()
@@ -95,9 +97,10 @@ function updateSettingsAction(event)
             settingsObj.settings.setSync("theme", theme)
             break;
         }
-        case "":
+        case "changeLanguage":
         {
-
+            let newLanguage = settingsObj.settings.getSync("language") == "polski"? 'english':'polski'
+            settingsObj.settings.setSync("language", newLanguage)
         }
     }
     applySettings(event)
@@ -108,6 +111,11 @@ function applySettings()
     document.querySelector("html").setAttribute('data-bs-theme',  settingsObj.settings.getSync('theme'))
     $('#changeThemeButton').find('i').toggleClass("bi-moon-stars")
     $('#changeThemeButton').find('i').toggleClass("bi-brightness-high")
+
+    let myPath;
+    myPath = path.join(__dirname, 'languages', settingsObj.settings.getSync("language") + '.json');
+    let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
+    settingsObj.languageContent = JSON.parse(rawData)
 }
 
 //MENU
@@ -203,7 +211,8 @@ connectionObj =
     connected: false,
     connectingCounter: 0,
     myConnectionInterval: null,
-    localDeviceSettings: null
+    localDeviceSettings: null,
+    firstAttempt: true
 }
 
 function waitForConnecting()
@@ -356,6 +365,7 @@ async function connectActionButton()
             $("#connectingModal").modal('show')
             connectionObj.parser = port.pipe(new ReadlineParser({ delimiter: '}}', includeDelimiter: true}));
             setListeners()
+            connectionObj.firstAttempt = true
             connectionObj.port.write('{"request":"GET_DATA"}')
             connectionObj.myConnectionInterval = setInterval(waitForConnecting, 1000)
         }
@@ -400,9 +410,72 @@ function switchDevicePanel(switcher)
 function processReceivedData()
 {
     
-    $("#deviceIdField").text(connectionObj.receivingData.deviceName)
-    $("#deviceVersionField").text(connectionObj.receivingData.deviceVersion)
-    $("#lastUpdateField").text(connectionObj.receivedDataDate)
+    $("#deviceIdField").text(format(settingsObj.languageContent["devicePanel"]["deviceIdField"][0],connectionObj.receivingData.deviceName))
+    $("#deviceVersionField").text(format(settingsObj.languageContent["devicePanel"]["deviceVersionField"][0],connectionObj.receivingData.deviceVersion))
+    $("#lastUpdateField").text(format(settingsObj.languageContent["devicePanel"]["lastUpdateField"][0], connectionObj.receivedDataDate))
+    if(connectionObj.firstAttempt)
+    {
+        console.log(connectionObj.receivingData["channels"])
+        let data = fs.readFileSync("channel.html")
+        data = String.fromCharCode(...data)
+        let temp = null
+        let row = '<div class="d-flex flex-row">%s</div>'
+        let channelsStr = []
+
+        for(let i=0; i<connectionObj.receivingData["channels"]; i++)
+        {
+            temp = data.replaceAll("channel%d", format("channel%d", i+1))
+            channelsStr.push(temp)
+        }
+        for(let i=0; i<connectionObj.receivingData["channels"]; i++)
+        {
+            if(i % 2 == 0) document.querySelector("#channlesLeftList").innerHTML += channelsStr[i]
+            else document.querySelector("#channlesRightList").innerHTML += channelsStr[i]
+
+        }
+        initChart(connectionObj.receivingData["channels"])
+        connectionObj.firstAttempt = false
+    }
+    for(let i=0; i<connectionObj.receivingData["channels"]; i++)
+    {
+        // chartObj.data[i][chartObj.dataIndex] = connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"]
+        // if(chartObj.shiftModeCounter < 5)
+        // {
+            
+        //     chartObj.shiftModeCounter++
+        // }
+        // else
+        // {
+        //     chartObj.data.datasets[i].data[5] = connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"]
+        // }
+
+        let temp = [...chartObj.data.datasets[i].data]
+        temp.shift()
+        for(let j=0; j<temp.length; j++)
+        {
+            chartObj.data.datasets[i].data[j] = temp[j]
+        }
+        chartObj.data.datasets[i].data[5] = connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"]
+        
+        
+        console.log(chartObj.data.datasets[0].data)
+        // if(chartObj.shiftModeCounter <= -1)
+        // {
+        //     let temp = [...chartObj.data.datasets[i].data]
+        //     temp.shift()
+        //     for(let j=0; j<temp.length; j++)
+        //     {
+        //         chartObj.data.datasets[i].data[]
+        //     }
+        //     chartObj.data.datasets[i].data.push(connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"])
+        // }
+        // else
+        // {
+            
+        // }
+        
+    }
+    chartObj.chart.update()
 }
 
 function setListeners()
@@ -457,38 +530,56 @@ chartObj =
     chart: null,
     config: null,
     labels: null,
-    data: null
+    data: null,
+    shiftModeCounter: 0
 }
 
-function updateChart()
+function getRandomColor() 
+{
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (let i = 0; i < 6; i++) 
+    {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function createDataSets(index)
+{
+    let temp = 
+    {
+        label: format("Channel %d", index),
+        data: [0, 0, 0, 0, 0, 0],
+        fill: false,
+        borderColor: getRandomColor(),
+        tension: 0.1
+    }
+    return temp
+}
+
+function initChart(channelsAmount)
 {
     chartObj.deviceChart = document.getElementById('deviceChart')
-    const labels = [-5, -4, -3,-2,-1, "Teraz"]
-    const data = {
-        labels: labels,
-        datasets: [{
-          label: 'Channel 1',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        }, {
-            label: 'Channel 2',
-            data: [810, 560, 550, 400, 650, 59, 80],
-            fill: false,
-            borderColor: '#eb3434',
-            tension: 0.1
-          }]
+    chartObj.labels = [-5, -4, -3,-2,-1, "Teraz"]
+    let temp = []
+    for(let i=0; i<channelsAmount; i++)
+    {
+        temp.push(createDataSets(i+1))
+    }
+    chartObj.data = {
+        labels: chartObj.labels,
+        datasets: temp
       };
 
-    const config = {
+      chartObj.config = {
         type: 'line',
-        data: data,
+        data: chartObj.data,
       };
 
 
 
-    chartObj.chart = new chartjs.Chart(chartObj.deviceChart, config);
+    chartObj.chart = new chartjs.Chart(chartObj.deviceChart, chartObj.config);
 }
 
 module.exports = 
@@ -511,5 +602,5 @@ module.exports =
     openDevMode,
     initDevMode,
     showConsole,
-    updateChart
+    initChart
 }

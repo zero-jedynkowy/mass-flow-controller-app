@@ -50,10 +50,10 @@ $(document).ready(function()
     // });
     $("#devicePanel").parent().hide()
     myLibrary.resizeWindowUpdater()
-    $("body").fadeIn(1000, () => {/*myLibrary.startRefreshing()*/})
-    // $("body").fadeIn(1000, () => {myLibrary.startRefreshing()})
+    // $("body").fadeIn(1000, () => {/*myLibrary.startRefreshing()*/})
+    $("body").fadeIn(1000, () => {myLibrary.startRefreshing()})
 
-    myLibrary.switchDevicePanel(true)
+    // myLibrary.switchDevicePanel(true)
     
 });
 

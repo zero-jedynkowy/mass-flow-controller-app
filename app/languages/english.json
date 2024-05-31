@@ -1,27 +1,14 @@
-{
-    "normal":
+{  
+    "devicePanel":
     {
-        "menuTitle":"DEVICES",
-        "devicesListStatePlaceholderTitle": "No devices",
-        "connectButton":"Connect",
-        "disconnectButton":"Disconnect",
-        "extraSettingsModalTitle": "Additional settings",
-        "channelsChartSwitcherTitle": "Show the chart of the channels",
-        "aboutProgramModalTitle": "About the program",
-        "projectTitleModalTitle": "Project's title: Mass Flow Controller App",
-        "projectAuthorModalTitle": "Author: Karol Ambroziński",
-        "projectRepositoryTitle": "Project's repository:",
-        "projectRepositoryLink":"[CLICK TO OPEN IN THE BROWSER]"
+        "devicePanelTitle": ["DEVICE PANEL"],
+        "deviceIdField": ["DEVICE ID: %s"],
+        "deviceVersionField": ["DEVICE VERSION: %.1f"],
+        "lastUpdateField": ["LAST UPDATE: %s"]
     },
 
-    "tooltip":
+    "channel":
     {
-        "changeThemeButton": "Change the theme",
-        "changeLanguage": "Change the language",
-        "devModeButton": "Dev mode",
-        "moreSettingsButton": "More settings",
-        "aboutProgramButton": "About the programe",
-        "showMenuButton": "Show/Hide the menu",
-        "consoleButton": "Show/Hide the console"
+        
     }
 }

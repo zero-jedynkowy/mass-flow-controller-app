@@ -240,7 +240,7 @@
 
 "@stdlib/string-format@^0.2.1":
   version "0.2.1"
-  resolved "https://registry.npmjs.org/@stdlib/string-format/-/string-format-0.2.1.tgz"
+  resolved "https://registry.yarnpkg.com/@stdlib/string-format/-/string-format-0.2.1.tgz#00b8c978439ff7216416bcfb45593e0f88b36a15"
   integrity sha512-+HpXkEJ0Z4gthH5KicXvRRJiCiCTSrKzM+mS8N6vwaAD+OG+Oq8Cn43XBD1ic/UHROI9un42MruF1ZLlkSmdOw==
   dependencies:
     "@stdlib/string-base-format-interpolate" "^0.2.1"
