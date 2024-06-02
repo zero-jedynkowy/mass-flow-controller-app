@@ -212,7 +212,9 @@ connectionObj =
     connectingCounter: 0,
     myConnectionInterval: null,
     localDeviceSettings: null,
-    firstAttempt: true
+    firstAttempt: true,
+    processingStage: 0,
+    channelsElements: []
 }
 
 function waitForConnecting()
@@ -409,73 +411,76 @@ function switchDevicePanel(switcher)
 
 function processReceivedData()
 {
+    switch(connectionObj.processingStage)
+    {
+        case 0: //FIRST CONNECTION
+        {
+            myPath = path.join(__dirname, "channel" + '.html');
+            let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
+            document.querySelectorAll('.channel').forEach(e => e.remove());
+            connectionObj.channelsElements = []
+            
+            for(let i=0; i<connectionObj.receivingData["channels"]; i++)
+            {
+                if(i % 2 == 0) document.querySelector("#channelsLeftList").innerHTML += rawData.replaceAll("%d", i+1)
+                else document.querySelector("#channelsRightList").innerHTML += rawData.replaceAll("%d", i+1)
+            }
+            connectionObj.processingStage = 1
+            break;
+        }
+        case 1: //UDATE ALL GUI ELEMENTS
+        {   
+            $("#lastUpdateField").text(format(settingsObj.languageContent["devicePanel"]["lastUpdateField"][0], connectionObj.receivedDataDate))
+            $("#deviceIdField").text(format(settingsObj.languageContent["devicePanel"]["deviceIdField"][0], connectionObj.receivingData["deviceName"]))
+            $("#deviceVersionField").text(format(settingsObj.languageContent["devicePanel"]["deviceVersionField"][0], connectionObj.receivingData["deviceVersion"]))
+            for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
+            {
+                document.querySelector(format("#channel%dTitle", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dTitle"][0], i)
+                if(connectionObj.receivingData[format("channel_%s", i)]["turnedOn"])
+                {
+                    document.querySelector(format("#channel%dTurnOnButton", i)).setAttribute("checked", "")
+                    document.querySelector(format("#channel%dTurnOffButton", i)).removeAttribute("checked")
+                }
+                else
+                {
+                    document.querySelector(format("#channel%dTurnOffButton", i)).setAttribute("checked", "")
+                    document.querySelector(format("#channel%dTurnOnButton", i)).removeAttribute("checked")
+                }
+                $(format("#channel%dMaxN2Flow option[selected]", i)).removeAttr("selected")
+                $(format("#channel%dMaxN2Flow option[value='%d']", i, connectionObj.receivingData[format("channel_%s", i)]["channelMaxN2Flow"])).attr("selected", "")
+            }
+            for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
+            {
+                $(format("#channel%d", i)).click((event) => {console.log(event.currentTarget.id)})
+            }
+            connectionObj.processingStage = 3
+            break;
+        }
+        case 3: //UPDATE ONLY READABLE ELEMENTS
+        {
+            $("#lastUpdateField").text(format(settingsObj.languageContent["devicePanel"]["lastUpdateField"][0], connectionObj.receivedDataDate))
+            for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
+            {
+                document.querySelector(format("#channel%dCurrentFlow", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dCurrentFlow"][0], connectionObj.receivingData[format("channel_%s", i)]["currentFlow"])
+                document.querySelector(format("#channel%dValveStatus", i)).innerHTML = settingsObj.languageContent["channel"]["channel%dValveStatus"][connectionObj.receivingData[format("channel_%s", i)]["valveMode"]]
+                document.querySelector(format("#channel%dTemperature", i)).setAttribute("placeholder", connectionObj.receivingData[format("channel_%s", i)]["referenceTemperature"])
+
+                
+            }
+        }
+        case 4: //UPDATE DEVICE SETTINGS
+        {
+
+        }
+    }
     
-    $("#deviceIdField").text(format(settingsObj.languageContent["devicePanel"]["deviceIdField"][0],connectionObj.receivingData.deviceName))
-    $("#deviceVersionField").text(format(settingsObj.languageContent["devicePanel"]["deviceVersionField"][0],connectionObj.receivingData.deviceVersion))
-    $("#lastUpdateField").text(format(settingsObj.languageContent["devicePanel"]["lastUpdateField"][0], connectionObj.receivedDataDate))
-    if(connectionObj.firstAttempt)
-    {
-        console.log(connectionObj.receivingData["channels"])
-        let data = fs.readFileSync("channel.html")
-        data = String.fromCharCode(...data)
-        let temp = null
-        let row = '<div class="d-flex flex-row">%s</div>'
-        let channelsStr = []
+    
+    
+    
+    
+    
+    
 
-        for(let i=0; i<connectionObj.receivingData["channels"]; i++)
-        {
-            temp = data.replaceAll("channel%d", format("channel%d", i+1))
-            channelsStr.push(temp)
-        }
-        for(let i=0; i<connectionObj.receivingData["channels"]; i++)
-        {
-            if(i % 2 == 0) document.querySelector("#channlesLeftList").innerHTML += channelsStr[i]
-            else document.querySelector("#channlesRightList").innerHTML += channelsStr[i]
-
-        }
-        initChart(connectionObj.receivingData["channels"])
-        connectionObj.firstAttempt = false
-    }
-    for(let i=0; i<connectionObj.receivingData["channels"]; i++)
-    {
-        // chartObj.data[i][chartObj.dataIndex] = connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"]
-        // if(chartObj.shiftModeCounter < 5)
-        // {
-            
-        //     chartObj.shiftModeCounter++
-        // }
-        // else
-        // {
-        //     chartObj.data.datasets[i].data[5] = connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"]
-        // }
-
-        let temp = [...chartObj.data.datasets[i].data]
-        temp.shift()
-        for(let j=0; j<temp.length; j++)
-        {
-            chartObj.data.datasets[i].data[j] = temp[j]
-        }
-        chartObj.data.datasets[i].data[5] = connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"]
-        
-        
-        console.log(chartObj.data.datasets[0].data)
-        // if(chartObj.shiftModeCounter <= -1)
-        // {
-        //     let temp = [...chartObj.data.datasets[i].data]
-        //     temp.shift()
-        //     for(let j=0; j<temp.length; j++)
-        //     {
-        //         chartObj.data.datasets[i].data[]
-        //     }
-        //     chartObj.data.datasets[i].data.push(connectionObj.receivingData[format("channel_%d", i+1)]["currentFlow"])
-        // }
-        // else
-        // {
-            
-        // }
-        
-    }
-    chartObj.chart.update()
 }
 
 function setListeners()
@@ -506,7 +511,7 @@ function setListeners()
         connectionObj.receivingData = JSON.parse(data)
         connectionObj.receivedDataDate = getCurrentTime()
         console.log(connectionObj.receivedDataDate)
-        console.log(connectionObj.receivingData);
+        console.log(data);
         if(connectionObj.receivingData.deviceName == 'Mass Flow Controller Device Prototype')
         {
             clearInterval(connectionObj.myConnectionInterval)
