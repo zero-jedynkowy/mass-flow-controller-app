@@ -7,7 +7,7 @@
 #include "usb_device.h"
 #include "stdio.h"
 
-#define MAX_CHANNELS_AMOUNT 5
+#define MAX_CHANNELS_AMOUNT 1
 #define MAX_GASES_AMOUNT 5
 #define DEVICE_VERSION 0.1
 #define DEVICE_NAME "Mass Flow Controller Device Prototype"
