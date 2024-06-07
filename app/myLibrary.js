@@ -10,7 +10,7 @@ const format = require('@stdlib/string-format')
 //OTHER
 function addContent(filePath, destination)
 {
-    let data = fs.readFileSync(filePath)
+    let data = fs.readFileSync(path.join(__dirname, ...filePath))
     document.querySelector(destination).innerHTML = document.querySelector(destination).innerHTML + data
 }
 
@@ -113,7 +113,7 @@ function applySettings()
     $('#changeThemeButton').find('i').toggleClass("bi-brightness-high")
 
     let myPath;
-    myPath = path.join(__dirname, 'languages', settingsObj.settings.getSync("language") + '.json');
+    myPath = path.join(__dirname, 'resources', settingsObj.settings.getSync("language") + '.json');
     let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
     settingsObj.languageContent = JSON.parse(rawData)
 }
@@ -415,7 +415,9 @@ function processReceivedData()
     {
         case 0: //FIRST CONNECTION
         {
-            myPath = path.join(__dirname, "channel" + '.html');
+            $(".channel").remove()
+            initChart(connectionObj.receivingData["channels"])
+            myPath = path.join(__dirname, "resources", "channel" + '.html');
             let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
             document.querySelectorAll('.channel').forEach(e => e.remove());
             connectionObj.channelsElements = []
@@ -448,6 +450,7 @@ function processReceivedData()
                 }
                 $(format("#channel%dMaxN2Flow option[selected]", i)).removeAttr("selected")
                 $(format("#channel%dMaxN2Flow option[value='%d']", i, connectionObj.receivingData[format("channel_%s", i)]["channelMaxN2Flow"])).attr("selected", "")
+                updateChart()
             }
             for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
             {
@@ -464,7 +467,7 @@ function processReceivedData()
                 document.querySelector(format("#channel%dCurrentFlow", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dCurrentFlow"][0], connectionObj.receivingData[format("channel_%s", i)]["currentFlow"])
                 document.querySelector(format("#channel%dValveStatus", i)).innerHTML = settingsObj.languageContent["channel"]["channel%dValveStatus"][connectionObj.receivingData[format("channel_%s", i)]["valveMode"]]
                 document.querySelector(format("#channel%dTemperature", i)).setAttribute("placeholder", connectionObj.receivingData[format("channel_%s", i)]["referenceTemperature"])
-
+                updateChart(i)
                 
             }
         }
@@ -473,14 +476,6 @@ function processReceivedData()
 
         }
     }
-    
-    
-    
-    
-    
-    
-    
-
 }
 
 function setListeners()
@@ -524,8 +519,54 @@ function setListeners()
             
         }
         
-        setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 1000)
+        setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 50)
     });
+}
+
+function initGasesList()
+{
+    let myPath;
+    myPath = path.join(__dirname, 'resources', 'gases.json');
+    let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
+    let temp = JSON.parse(rawData)
+    let myList = document.querySelector('#gasesPickerListContent')
+    let element = '<tr class="gas">'
+    element+= '<th scope="row">%d</th>'
+    element+= '<td>%s</td>'
+    element+= '<td>%s</td>'
+    element+= '<td>%s</td>'
+    element+= '<td>%s</td>'
+    element+= '<td>%s</td>'
+    element+= '</tr>'
+    for (const [key, value] of Object.entries(temp)) 
+    {
+        myList.innerHTML += format(element, key, value["gas"], value["symbol"], value["specific_heat"], value["density"], value['gcf'])
+    }
+    document.querySelectorAll('.gas').forEach(element => 
+    {
+        element.addEventListener('click', gasMark)
+        // console.log(element)
+    });
+}
+
+function gasMark(event)
+{
+    if(event.currentTarget.classList.contains('gasMarked'))
+    {
+        document.querySelectorAll('.gas').forEach(element => 
+        {
+            element.classList.remove('gasMarked')
+        });
+    }
+    else
+    {
+        document.querySelectorAll('.gas').forEach(element => 
+        {
+            element.classList.remove('bg-primary')
+        });
+        event.currentTarget.classList.toggle('bg-primary')
+    }
+    
 }
 
 //CHART
@@ -536,7 +577,7 @@ chartObj =
     config: null,
     labels: null,
     data: null,
-    shiftModeCounter: 0
+    shiftModeCounter: 5
 }
 
 function getRandomColor() 
@@ -555,6 +596,7 @@ function createDataSets(index)
     let temp = 
     {
         label: format("Channel %d", index),
+        // yAxisID             : 'yAxes',
         data: [0, 0, 0, 0, 0, 0],
         fill: false,
         borderColor: getRandomColor(),
@@ -580,12 +622,40 @@ function initChart(channelsAmount)
       chartObj.config = {
         type: 'line',
         data: chartObj.data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 5000
+                }
+            }
+        }
       };
 
 
 
     chartObj.chart = new chartjs.Chart(chartObj.deviceChart, chartObj.config);
 }
+
+function updateChart(dataIndex)
+{
+    try
+    {
+        dataIndex--
+        // console.log(dataIndex)
+        chartObj.data.datasets[dataIndex].data.shift()
+        chartObj.data.datasets[dataIndex].data.push(connectionObj.receivingData[format("channel_%d", dataIndex+1)]["currentFlow"])
+        
+        // chartObj.data.datasets[dataIndex].shift()
+        
+        console.log(chartObj.data.datasets[dataIndex].data)
+        chartObj.chart.update('none')
+        
+    }
+    catch(err){}
+}
+
 
 module.exports = 
 {
@@ -607,5 +677,6 @@ module.exports =
     openDevMode,
     initDevMode,
     showConsole,
-    initChart
+    initChart,
+    initGasesList
 }

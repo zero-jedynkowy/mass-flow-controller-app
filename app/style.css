@@ -125,3 +125,7 @@ body
   background-color: rgba(var(--bs-primary-rgb));
 }
 
+.table>:not(caption)>*>*
+{
+  background-color: transparent;
+}

@@ -13,14 +13,15 @@ const myLibrary = require('./myLibrary')
 
 $(document).ready(function()
 { 
-    myLibrary.addContent('window.html', '#bodyContent')
-    myLibrary.addContent('mainContent.html', '#mainContent')
-    myLibrary.addContent("menu.html", "#menuAndContentContainer")
-    myLibrary.addContent('buttons.html', "#bodyContent")
-    myLibrary.addContent('modals.html', "#bodyContent")
-    myLibrary.addContent('channel.html', "#channelsLeftList")
-    myLibrary.addContent('channel.html', "#channelsRightList")
-    myLibrary.addContent('chart.html', "#devicePanel")
+    myLibrary.addContent(['resources', 'window.html'], '#bodyContent')
+    myLibrary.addContent(['resources', 'mainContent.html'], '#mainContent')
+    myLibrary.addContent(['resources',"menu.html"], "#menuAndContentContainer")
+    myLibrary.addContent(['resources','buttons.html'], "#bodyContent")
+    myLibrary.addContent(['resources','modals.html'], "#bodyContent")
+    // // myLibrary.addContent('channel.html', "#channelsLeftList")
+    // // myLibrary.addContent('channel.html', "#channelsRightList")
+    myLibrary.addContent(['resources','chart.html'], "#devicePanel")
+    myLibrary.addContent(['resources','gasPicker.html'], "#bodyContent")
 
     myLibrary.initWindow()
 
@@ -28,6 +29,10 @@ $(document).ready(function()
     myLibrary.applySettings()
 
     myLibrary.initDevMode()
+
+    myLibrary.initGasesList()
+
+    
 
     $("#showMenuButton").click(myLibrary.showMenuButtonAction)
     $("#connectButton").click(myLibrary.connectActionButton)

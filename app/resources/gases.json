@@ -1,0 +1,618 @@
+{
+    "0": {
+        "gas": "Dichloromethysilane",
+        "symbol": "(CH<sub>3</sub>)<sub>2</sub>SiCl<sub>2</sub>",
+        "symbol_unformatted": "(CH3)2SiCl2",
+        "specific_heat": "0.1882",
+        "density": "5.758",
+        "gcf": "0.25"
+    },
+    "1": {
+        "gas": "Air",
+        "symbol": "- - -",
+        "symbol_unformatted": "- - -",
+        "specific_heat": "0.240",
+        "density": "1.293",
+        "gcf": "1.00"
+    },
+    "2": {
+        "gas": "Argon",
+        "symbol": "Ar",
+        "symbol_unformatted": "Ar",
+        "specific_heat": "0.1244",
+        "density": "1.782",
+        "gcf": "1.39"
+    },
+    "3": {
+        "gas": "Arsine",
+        "symbol": "AsH<sub>3</sub>",
+        "symbol_unformatted": "AsH3",
+        "specific_heat": "0.1167",
+        "density": "3.478",
+        "gcf": "0.67"
+    },
+    "4": {
+        "gas": "Diborane",
+        "symbol": "B<sub>2</sub>H<sub>6</sub>",
+        "symbol_unformatted": "B2H6",
+        "specific_heat": "0.508",
+        "density": "1.235",
+        "gcf": "0.44"
+    },
+    "5": {
+        "gas": "Boron Trichloride",
+        "symbol": "BCl<sub>3</sub>",
+        "symbol_unformatted": "BCl3",
+        "specific_heat": "0.1279",
+        "density": "5.227",
+        "gcf": "0.41"
+    },
+    "6": {
+        "gas": "Bromine",
+        "symbol": "Br<sub>2</sub>",
+        "symbol_unformatted": "Br2",
+        "specific_heat": "0.0539",
+        "density": "7.130",
+        "gcf": "0.81"
+    },
+    "7": {
+        "gas": "Freon - 113",
+        "symbol": "C<sub>2</sub>Cl<sub>2</sub>F<sub>3</sub>",
+        "symbol_unformatted": "C2Cl2F3",
+        "specific_heat": "0.161",
+        "density": "8.360",
+        "gcf": "0.20"
+    },
+    "8": {
+        "gas": "1,2-Dichlorotetrafluoroethane (Freon - 114)",
+        "symbol": "C<sub>2</sub>Cl<sub>2</sub>F<sub>4</sub>",
+        "symbol_unformatted": "C2Cl2F4",
+        "specific_heat": "0.160",
+        "density": "7.626",
+        "gcf": "0.22"
+    },
+    "9": {
+        "gas": "Freon - 114",
+        "symbol": "C<sub>2</sub>Cl<sub>2</sub>F<sub>4</sub>",
+        "symbol_unformatted": "C2Cl2F4",
+        "specific_heat": "0.160",
+        "density": "7.626",
+        "gcf": "0.22"
+    },
+    "10": {
+        "gas": "Chloropentafluoroethane (Freon - 115)",
+        "symbol": "C<sub>2</sub>ClF<sub>5</sub>",
+        "symbol_unformatted": "C2ClF5",
+        "specific_heat": "0.164",
+        "density": "6.892",
+        "gcf": "0.24"
+    },
+    "11": {
+        "gas": "Freon - 115",
+        "symbol": "C<sub>2</sub>ClF<sub>5</sub>",
+        "symbol_unformatted": "C2ClF5",
+        "specific_heat": "0.164",
+        "density": "6.892",
+        "gcf": "0.24"
+    },
+    "12": {
+        "gas": "Freon - 116",
+        "symbol": "C<sub>2</sub>F<sub>6</sub>",
+        "symbol_unformatted": "C2F6",
+        "specific_heat": "0.1843",
+        "density": "6.157",
+        "gcf": "0.24"
+    },
+    "13": {
+        "gas": "Hexafluoroethane (Freon - 116)",
+        "symbol": "C<sub>2</sub>F<sub>6</sub>",
+        "symbol_unformatted": "C2F6",
+        "specific_heat": "0.1843",
+        "density": "6.157",
+        "gcf": "0.24"
+    },
+    "14": {
+        "gas": "1,1-Difluoroethylene (Freon - 1132A)",
+        "symbol": "C<sub>2</sub>H<sub>2</sub>F<sub>2</sub>",
+        "symbol_unformatted": "C2H2F2",
+        "specific_heat": "0.224",
+        "density": "2.857",
+        "gcf": "0.43"
+    },
+    "15": {
+        "gas": "Freon - 1132A",
+        "symbol": "C<sub>2</sub>H<sub>2</sub>F<sub>2</sub>",
+        "symbol_unformatted": "C2H2F2",
+        "specific_heat": "0.224",
+        "density": "2.857",
+        "gcf": "0.43"
+    },
+    "16": {
+        "gas": "Ethane",
+        "symbol": "C<sub>2</sub>H<sub>6</sub>",
+        "symbol_unformatted": "C2H6",
+        "specific_heat": "0.4097",
+        "density": "1.342",
+        "gcf": "0.50"
+    },
+    "17": {
+        "gas": "Cyanogen",
+        "symbol": "C<sub>2</sub>N<sub>2</sub>",
+        "symbol_unformatted": "C2N2",
+        "specific_heat": "0.2613",
+        "density": "2.322",
+        "gcf": "0.61"
+    },
+    "18": {
+        "gas": "Perfluoropropane",
+        "symbol": "C<sub>3</sub>F<sub>8</sub>",
+        "symbol_unformatted": "C3F8",
+        "specific_heat": "0.194",
+        "density": "8.388",
+        "gcf": "0.17"
+    },
+    "19": {
+        "gas": "Propylene",
+        "symbol": "C<sub>3</sub>H<sub>6</sub>",
+        "symbol_unformatted": "C3H6",
+        "specific_heat": "0.3541",
+        "density": "1.877",
+        "gcf": "0.41"
+    },
+    "20": {
+        "gas": "Propane",
+        "symbol": "C<sub>3</sub>H<sub>8</sub>",
+        "symbol_unformatted": "C3H8",
+        "specific_heat": "0.3885",
+        "density": "1.967",
+        "gcf": "0.36"
+    },
+    "21": {
+        "gas": "Freon - C318",
+        "symbol": "C<sub>4</sub>F<sub>8</sub>",
+        "symbol_unformatted": "C4F8",
+        "specific_heat": "0.1866",
+        "density": "8.93",
+        "gcf": "0.164"
+    },
+    "22": {
+        "gas": "Octafluorocyclobutane (Freon - C318)",
+        "symbol": "C<sub>4</sub>F<sub>8</sub>",
+        "symbol_unformatted": "C4F8",
+        "specific_heat": "0.1866",
+        "density": "8.93",
+        "gcf": "0.164"
+    },
+    "23": {
+        "gas": "Isobutylene",
+        "symbol": "C<sub>4</sub>H<sub>8</sub>",
+        "symbol_unformatted": "C4H8",
+        "specific_heat": "0.3701",
+        "density": "2.503",
+        "gcf": "0.29"
+    },
+    "24": {
+        "gas": "2,2-Dimethylpropane",
+        "symbol": "C<sub>5</sub>H<sub>12</sub>",
+        "symbol_unformatted": "C5H12",
+        "specific_heat": "0.3914",
+        "density": "3.219",
+        "gcf": "0.22"
+    },
+    "25": {
+        "gas": "Pentane",
+        "symbol": "C<sub>5</sub>H<sub>12</sub>",
+        "symbol_unformatted": "C5H12",
+        "specific_heat": "0.398",
+        "density": "3.219",
+        "gcf": "0.21"
+    },
+    "26": {
+        "gas": "Dibromodifluoromethane",
+        "symbol": "CBr<sub>2</sub>F<sub>2</sub>",
+        "symbol_unformatted": "CBr2F2",
+        "specific_heat": "0.15",
+        "density": "9.362",
+        "gcf": "0.19"
+    },
+    "27": {
+        "gas": "Freon - 13 B1",
+        "symbol": "CBrF<sub>3</sub>",
+        "symbol_unformatted": "CBrF3",
+        "specific_heat": "0.1113",
+        "density": "6.644",
+        "gcf": "0.37"
+    },
+    "28": {
+        "gas": "Dichlorodifluoromethane (Freon - 12)",
+        "symbol": "CCl<sub>2</sub>F<sub>2</sub>",
+        "symbol_unformatted": "CCl2F2",
+        "specific_heat": "0.1432",
+        "density": "5.395",
+        "gcf": "0.35"
+    },
+    "29": {
+        "gas": "Freon - 12",
+        "symbol": "CCl<sub>2</sub>F<sub>2</sub>",
+        "symbol_unformatted": "CCl2F2",
+        "specific_heat": "0.1432",
+        "density": "5.395",
+        "gcf": "0.35"
+    },
+    "30": {
+        "gas": "1,1,2-Trichloro - <br> 1,2,2-Trifluoroethane (Freon - 113)",
+        "symbol": "CCl<sub>2</sub>FCClF<sub>2</sub> <i>or</i> C<sub>2</sub>Cl<sub>3</sub>F<sub>3</sub>",
+        "symbol_unformatted": "CCl2FCClF2 <i>or</i> C2Cl3F3",
+        "specific_heat": "0.161",
+        "density": "8.360",
+        "gcf": "0.20"
+    },
+    "31": {
+        "gas": "Freon - 11",
+        "symbol": "CCl<sub>3</sub>F",
+        "symbol_unformatted": "CCl3F",
+        "specific_heat": "0.1357",
+        "density": "6.129",
+        "gcf": "0.33"
+    },
+    "32": {
+        "gas": "Trichlorofluoromethane (Freon - 11)",
+        "symbol": "CCl<sub>3</sub>F",
+        "symbol_unformatted": "CCl3F",
+        "specific_heat": "0.1357",
+        "density": "6.129",
+        "gcf": "0.33"
+    },
+    "33": {
+        "gas": "Carbon Tetrachloride",
+        "symbol": "CCl<sub>4</sub>",
+        "symbol_unformatted": "CCl4",
+        "specific_heat": "0.1655",
+        "density": "6.86",
+        "gcf": "0.31"
+    },
+    "34": {
+        "gas": "Chlorotrifluoromethane (Freon - 13)",
+        "symbol": "CClF<sub>3</sub>",
+        "symbol_unformatted": "CClF3",
+        "specific_heat": "0.153",
+        "density": "4.660",
+        "gcf": "0.38"
+    },
+    "35": {
+        "gas": "Freon - 13",
+        "symbol": "CClF<sub>3</sub>",
+        "symbol_unformatted": "CClF3",
+        "specific_heat": "0.153",
+        "density": "4.660",
+        "gcf": "0.38"
+    },
+    "36": {
+        "gas": "Carbon Tetraflouride (Freon - 14)",
+        "symbol": "CF<sub>4</sub>",
+        "symbol_unformatted": "CF4",
+        "specific_heat": "0.1654",
+        "density": "3.926",
+        "gcf": "0.42"
+    },
+    "37": {
+        "gas": "Freon - 14",
+        "symbol": "CF<sub>4</sub>",
+        "symbol_unformatted": "CF4",
+        "specific_heat": "0.1654",
+        "density": "3.926",
+        "gcf": "0.42"
+    },
+    "38": {
+        "gas": "Methyl Fluoride",
+        "symbol": "CH<sub>3</sub>F",
+        "symbol_unformatted": "CH3F",
+        "specific_heat": "0.3221",
+        "density": "1.518",
+        "gcf": "0.56"
+    },
+    "39": {
+        "gas": "Methane",
+        "symbol": "CH<sub>4</sub>",
+        "symbol_unformatted": "CH4",
+        "specific_heat": "0.5328",
+        "density": "0.715",
+        "gcf": "0.72"
+    },
+    "40": {
+        "gas": "Dichlorofluoromethane (Freon - 21)",
+        "symbol": "CHCl<sub>2</sub>F",
+        "symbol_unformatted": "CHCl2F",
+        "specific_heat": "0.140",
+        "density": "4.592",
+        "gcf": "0.42"
+    },
+    "41": {
+        "gas": "Freon - 21",
+        "symbol": "CHCl<sub>2</sub>F",
+        "symbol_unformatted": "CHCl2F",
+        "specific_heat": "0.140",
+        "density": "4.592",
+        "gcf": "0.42"
+    },
+    "42": {
+        "gas": "Chlorodifluoromethane (Freon - 22)",
+        "symbol": "CHClF<sub>2</sub>",
+        "symbol_unformatted": "CHClF2",
+        "specific_heat": "0.1544",
+        "density": "3.858",
+        "gcf": "0.46"
+    },
+    "43": {
+        "gas": "Freon - 22",
+        "symbol": "CHClF<sub>2</sub>",
+        "symbol_unformatted": "CHClF2",
+        "specific_heat": "0.1544",
+        "density": "3.858",
+        "gcf": "0.46"
+    },
+    "44": {
+        "gas": "Fluoroform (Freon - 23)",
+        "symbol": "CHF<sub>3</sub>",
+        "symbol_unformatted": "CHF3",
+        "specific_heat": "0.176",
+        "density": "3.127",
+        "gcf": "0.50"
+    },
+    "45": {
+        "gas": "Freon - 23",
+        "symbol": "CHF<sub>3</sub>",
+        "symbol_unformatted": "CHF3",
+        "specific_heat": "0.176",
+        "density": "3.127",
+        "gcf": "0.50"
+    },
+    "46": {
+        "gas": "Chlorine",
+        "symbol": "Cl<sub>2</sub>",
+        "symbol_unformatted": "Cl2",
+        "specific_heat": "0.1144",
+        "density": "3.163",
+        "gcf": "0.86"
+    },
+    "47": {
+        "gas": "Carbon Monoxide",
+        "symbol": "CO",
+        "symbol_unformatted": "CO",
+        "specific_heat": "0.2488",
+        "density": "1.250",
+        "gcf": "1.00"
+    },
+    "48": {
+        "gas": "Carbon Dioxide",
+        "symbol": "CO<sub>2</sub>",
+        "symbol_unformatted": "CO2",
+        "specific_heat": "0.2016",
+        "density": "1.964",
+        "gcf": "0.70*"
+    },
+    "49": {
+        "gas": "Phosgene",
+        "symbol": "COCl<sub>2</sub>",
+        "symbol_unformatted": "COCl2",
+        "specific_heat": "0.1394",
+        "density": "4.418",
+        "gcf": "0.44"
+    },
+    "50": {
+        "gas": "Deuterium",
+        "symbol": "D<sub>2</sub>",
+        "symbol_unformatted": "D2",
+        "specific_heat": "1.722",
+        "density": "0.1799",
+        "gcf": "1.00"
+    },
+    "51": {
+        "gas": "Fluorine",
+        "symbol": "F<sub>2</sub>",
+        "symbol_unformatted": "F2",
+        "specific_heat": "0.1873",
+        "density": "1.695",
+        "gcf": "0.98"
+    },
+    "52": {
+        "gas": "Hydrogen",
+        "symbol": "H<sub>2</sub>",
+        "symbol_unformatted": "H2",
+        "specific_heat": "3.419",
+        "density": "0.0899",
+        "gcf": "1.01"
+    },
+    "53": {
+        "gas": "Hydrogen Bromide",
+        "symbol": "HBr",
+        "symbol_unformatted": "HBr",
+        "specific_heat": "0.0861",
+        "density": "3.610",
+        "gcf": "1.00"
+    },
+    "54": {
+        "gas": "Hydrogen Chloride",
+        "symbol": "HCl",
+        "symbol_unformatted": "HCl",
+        "specific_heat": "0.1912",
+        "density": "1.627",
+        "gcf": "1.00"
+    },
+    "55": {
+        "gas": "Helium",
+        "symbol": "He",
+        "symbol_unformatted": "He",
+        "specific_heat": "1.241",
+        "density": "0.1786",
+        "gcf": "1.45"
+    },
+    "56": {
+        "gas": "Hydrogen Fluoride",
+        "symbol": "HF",
+        "symbol_unformatted": "HF",
+        "specific_heat": "0.3479",
+        "density": "0.893",
+        "gcf": "1.00"
+    },
+    "57": {
+        "gas": "Krypton",
+        "symbol": "Kr",
+        "symbol_unformatted": "Kr",
+        "specific_heat": "0.0593",
+        "density": "3.739",
+        "gcf": "1.543"
+    },
+    "58": {
+        "gas": "Molybdenum Hexafluoride",
+        "symbol": "MoF<sub>6</sub>",
+        "symbol_unformatted": "MoF6",
+        "specific_heat": "0.1373",
+        "density": "9.366",
+        "gcf": "0.21"
+    },
+    "59": {
+        "gas": "Nitrogen",
+        "symbol": "N<sub>2</sub>",
+        "symbol_unformatted": "N2",
+        "specific_heat": "0.2485",
+        "density": "1.250",
+        "gcf": "1.00"
+    },
+    "60": {
+        "gas": "Nitrous Oxide",
+        "symbol": "N<sub>2</sub>O",
+        "symbol_unformatted": "N2O",
+        "specific_heat": "0.2088",
+        "density": "1.964",
+        "gcf": "0.71"
+    },
+    "61": {
+        "gas": "Neon",
+        "symbol": "Ne",
+        "symbol_unformatted": "Ne",
+        "specific_heat": "0.246",
+        "density": "0.900",
+        "gcf": "1.46"
+    },
+    "62": {
+        "gas": "Nitrogen Trifluoride",
+        "symbol": "NF<sub>3</sub>",
+        "symbol_unformatted": "NF3",
+        "specific_heat": "0.1797",
+        "density": "3.168",
+        "gcf": "0.48"
+    },
+    "63": {
+        "gas": "Ammonia",
+        "symbol": "NH<sub>3</sub>",
+        "symbol_unformatted": "NH3",
+        "specific_heat": "0.492",
+        "density": "0.760",
+        "gcf": "0.73"
+    },
+    "64": {
+        "gas": "Nitric Oxide",
+        "symbol": "NO",
+        "symbol_unformatted": "NO",
+        "specific_heat": "0.2328",
+        "density": "1.339",
+        "gcf": "0.99"
+    },
+    "65": {
+        "gas": "Nitrogen Dioxide",
+        "symbol": "NO<sub>2</sub>",
+        "symbol_unformatted": "NO2",
+        "specific_heat": "0.1933",
+        "density": "2.052",
+        "gcf": "**"
+    },
+    "66": {
+        "gas": "Oxygen",
+        "symbol": "O<sub>2</sub>",
+        "symbol_unformatted": "O2",
+        "specific_heat": "0.2193",
+        "density": "1.427",
+        "gcf": "0.993"
+    },
+    "67": {
+        "gas": "Phosphine",
+        "symbol": "PH<sub>3</sub>",
+        "symbol_unformatted": "PH3",
+        "specific_heat": "0.2374",
+        "density": "1.517",
+        "gcf": "0.76"
+    },
+    "68": {
+        "gas": "Sulfur Hexafluoride",
+        "symbol": "SF<sub>6</sub>",
+        "symbol_unformatted": "SF6",
+        "specific_heat": "0.1592",
+        "density": "6.516",
+        "gcf": "0.26"
+    },
+    "69": {
+        "gas": "Silicon Tetrachloride",
+        "symbol": "SiCl<sub>4</sub>",
+        "symbol_unformatted": "SiCl4",
+        "specific_heat": "0.1270",
+        "density": "7.580",
+        "gcf": "0.28"
+    },
+    "70": {
+        "gas": "Silicon Tetrafluoride",
+        "symbol": "SiF<sub>4</sub>",
+        "symbol_unformatted": "SiF4",
+        "specific_heat": "0.1691",
+        "density": "4.643",
+        "gcf": "0.35"
+    },
+    "71": {
+        "gas": "Dichlorosilane",
+        "symbol": "SiH<sub>2</sub>Cl<sub>2</sub>",
+        "symbol_unformatted": "SiH2Cl2",
+        "specific_heat": "0.150",
+        "density": "4.506",
+        "gcf": "0.40"
+    },
+    "72": {
+        "gas": "Silane",
+        "symbol": "SiH<sub>4</sub>",
+        "symbol_unformatted": "SiH4",
+        "specific_heat": "0.3189",
+        "density": "1.433",
+        "gcf": "0.60"
+    },
+    "73": {
+        "gas": "Trichlorosilane",
+        "symbol": "SiHCl<sub>3</sub>",
+        "symbol_unformatted": "SiHCl3",
+        "specific_heat": "0.1380",
+        "density": "6.043",
+        "gcf": "0.33"
+    },
+    "74": {
+        "gas": "Sulfur Dioxide",
+        "symbol": "SO<sub>2</sub>",
+        "symbol_unformatted": "SO2",
+        "specific_heat": "0.1488",
+        "density": "2.858",
+        "gcf": "0.69"
+    },
+    "75": {
+        "gas": "Tungsten Hexafluoride",
+        "symbol": "WF<sub>6</sub>",
+        "symbol_unformatted": "WF6",
+        "specific_heat": "0.0810",
+        "density": "13.28",
+        "gcf": "0.25"
+    },
+    "76": {
+        "gas": "xenon",
+        "symbol": "xe",
+        "symbol_unformatted": "xe",
+        "specific_heat": "0.0378",
+        "density": "5.858",
+        "gcf": "1.32"
+    }
+}
