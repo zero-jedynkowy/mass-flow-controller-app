@@ -22,14 +22,15 @@
 
 enum
 {
-	AUTOMATIC,
-	MANUALLY_CLOSE,
-	MANUALLY_OPENED
+	MANUALLY_CLOSED,
+	MANUALLY_OPENED,
+	AUTO_CONTROL
 } typedef valve;
 
 struct
 {
 	char gasFormula[SIZE_4];
+	uint8_t gasID;
 	double flow;
 } typedef Gas;
 
