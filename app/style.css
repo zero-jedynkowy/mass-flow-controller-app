@@ -111,7 +111,22 @@ body
   padding: 1em;
 }
 
+.topBar{
+  z-index: 1002;
+}
 
+.modal
+{
+  z-index: 1001;
+  margin-top: 2em;
+
+}
+
+
+.modal-backdrop
+{
+  z-index: 1000;
+}
 
 *::-webkit-scrollbar {
   height: 10px;

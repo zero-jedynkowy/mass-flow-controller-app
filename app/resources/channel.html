@@ -7,8 +7,10 @@
       </button>
     </h2>
     <div id="channel%dcollapseOne" class="accordion-collapse collapse hide alert alert-primary m-0 p-0" data-bs-parent="#channel%d">
-      <div class="d-flex flex-column accordion-body">
-        <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
+      <div class="d-flex flex-row accordion-body">
+        <div class="d-flex flex-column w-50 pe-3 border-end border-primary">
+
+          <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check turnOnButton" name="channel%dbtnradio" id="channel%dTurnOnButton" autocomplete="off" checked  channel="%d">
             <label class="btn btn-outline-primary" for="channel%dTurnOnButton">Turn ON</label>
           
@@ -46,8 +48,16 @@
           <button class="btn btn-outline-secondary bg-secondary-subtle setTempButton" type="button"  channel="%d">Ustaw</button>
         </div>   
 
-        <p class="m-0 p-0 mt-3 fs-5">Gases</p>
-        <ol class="bg-light-subtle list-group list-group-numbered mt-3 p-0" style="overflow-y: scroll; max-height: 200px; min-height: 200px;">
+        </div>
+        <div class="d-flex flex-column w-50 ps-3 border-start border-primary">
+          <p class="m-0 p-0 mt-3 fs-5">Set auto-control flow</p>
+          <div class="input-group mt-3">
+            <input type="number" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <span class="input-group-text" id="basic-addon2">sccm</span>
+            <button class="btn btn-outline-secondary bg-secondary-subtle setAutoControlFlowButton" type="button"  channel="%d">Ustaw</button>
+          </div>   
+          <p class="m-0 p-0 mt-3 fs-5">Gases</p>
+        <ol class="bg-light-subtle list-group list-group-numbered mt-3 p-0" id="channel%dGasesList" style="overflow-y: scroll; max-height: 350px; min-height: 200px;" channel="%s">
           <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
           <div class="fw-bold">Subheading</div>
@@ -92,15 +102,18 @@
           </li> -->
         </ol>
           <div class="d-flex flex-row mt-3">
-            <button type="button" class="btn btn-primary me-3" id="channel%1AddNewGas"><i class="bi bi-plus"></i></button>
-            <button type="button" class="btn btn-primary me-3"><i class="bi bi-x-circle"></i></button>
-            <button type="button" class="btn btn-primary"><i class="bi bi-pencil"></i></button>
+            <!-- <button type="button" class="btn btn-primary me-3" id="channel%1AddNewGas"><i class="bi bi-plus"></i></button>
+            <button type="button" class="btn btn-primary me-3"><i class="bi bi-x-circle"></i></button> -->
+            <button type="button" class="btn btn-primary">Edit gases</i></button>
           </div>
-          <p class="m-0 p-0 mt-3 fs-5">Set flow</p>
-          <div class="input-group mt-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <span class="input-group-text" id="basic-addon2">sccm</span>
-          </div>          
+           
+        </div>
+
+
+
+        
+
+              
       </div>
     </div>
   </div>

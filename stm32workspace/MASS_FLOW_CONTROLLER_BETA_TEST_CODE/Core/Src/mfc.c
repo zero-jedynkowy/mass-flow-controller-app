@@ -105,8 +105,6 @@ void MFC_SetSettings(MFC * myMFC, cJSON *json)
 			myMFC->channels[i].turnedOn = false;
 		}
 		myMFC->channels[i].referenceTemperature = cJSON_GetObjectItem(newObj, "referenceTemperature")->valuedouble;
-
-
 		myMFC->channels[i].normalGCF = cJSON_GetObjectItem(newObj, "normalGCF")->valuedouble;
 		myMFC->channels[i].afterTempCalibrateGCF = cJSON_GetObjectItem(newObj, "afterTempCalibrateGCF")->valuedouble;
 		myMFC->channels[i].amountGases = cJSON_GetObjectItem(newObj, "amountGases")->valuedouble;
@@ -124,13 +122,74 @@ void MFC_UpdateHardware(MFC * myMFC)
 		if(myMFC->channels[i].turnedOn == 0)
 		{
 			myMFC->channels[i].currentFlow = 0;
+//			myMFC->channels[i].valveMode = MANUALLY_CLOSED;
 		}
 		else
 		{
-			HAL_ADC_Start(&hadc);
-			HAL_ADC_PollForConversion(&hadc, 10);
-			myMFC->channels[i].currentFlow = HAL_ADC_GetValue(&hadc);
+			MFC_SetValve(myMFC);
+			MFC_ReadFlow(myMFC);
+
+
+//			HAL_ADC_Start(&hadc);
+//			HAL_ADC_PollForConversion(&hadc, 10);
+//			myMFC->channels[i].currentFlow = HAL_ADC_GetValue(&hadc);
 		}
+	}
+}
+
+void MFC_SetValve(MFC * myMFC)
+{
+	for(uint8_t i=0; i<MAX_CHANNELS_AMOUNT; i++)
+	{
+		switch(myMFC->channels[i].valveMode)
+		{
+			case AUTO_CONTROL: //0 gnd I dac
+			{
+				double temp = (5.0*myMFC->channels[i].settedFlow);
+				double temp2 = myMFC->channels[i].afterTempCalibrateGCF;
+				temp *= myMFC->channels[i].channelMaxN2Flow;
+				temp /= temp2;
+				//PLACEHOLDER START
+
+
+				//PLACEHOLDER END
+				break;
+			}
+			case MANUALLY_CLOSED: //-15
+			{
+				//PLACEHOLDER START
+
+
+				//PLACEHOLDER END
+				break;
+			}
+			case MANUALLY_OPENED: //+5
+			{
+				//PLACEHOLDER START
+
+
+				//PLACEHOLDER END
+				break;
+			}
+		}
+	}
+}
+
+void MFC_ReadFlow(MFC * myMFC)
+{
+	for(uint8_t i=0; i<MAX_CHANNELS_AMOUNT; i++)
+	{
+		double currentFlowAsVoltage = 0;
+		uint32_t currentFlowAsVoltageInt = 0;
+			//place holder
+
+
+
+			//place holder
+		currentFlowAsVoltage /= 3.3;
+		currentFlowAsVoltage *= myMFC->channels[i].channelMaxN2Flow;
+		currentFlowAsVoltage *= myMFC->channels[i].afterTempCalibrateGCF;
+		myMFC->channels[i].currentFlow = currentFlowAsVoltage;
 	}
 }
 

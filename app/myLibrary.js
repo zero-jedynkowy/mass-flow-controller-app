@@ -329,7 +329,13 @@ function refreshDeviceList()
         {
             let tempPortName = newPorts[i].path
             newPortsKeys.push(tempPortName)
-            if(!connectionObj.portsKeys.includes(tempPortName))
+            let flag = false
+            if(newPorts[i].manufacturer != null)
+            {
+                
+                flag = newPorts[i].manufacturer.includes("PZE")
+            }
+            if(!connectionObj.portsKeys.includes(tempPortName) && flag) //manufacturer
             {
                 connectionObj.portsKeys.unshift(tempPortName)
                 connectionObj.ports.unshift(newPorts[i])
@@ -467,8 +473,9 @@ function processReceivedData()
             
             for(let i=0; i<connectionObj.receivingData["channels"]; i++)
             {
-                if(i % 2 == 0) document.querySelector("#channelsLeftList").innerHTML += rawData.replaceAll("%d", i+1)
-                else document.querySelector("#channelsRightList").innerHTML += rawData.replaceAll("%d", i+1)
+                // if(i % 2 == 0) document.querySelector("#channelsLeftList").innerHTML += rawData.replaceAll("%d", i+1)
+                // else document.querySelector("#channelsRightList").innerHTML += rawData.replaceAll("%d", i+1)
+                document.querySelector("#channelsList").innerHTML += rawData.replaceAll("%d", i+1)
                 connectionObj.channelsNewSettings.push(new Channel(i+1))
                 connectionObj.channelsNewSettings[i].turnedOn = connectionObj.receivingData[format("channel_%s", i+1)]["turnedOn"]
                 connectionObj.channelsNewSettings[i].referenceTemperature = connectionObj.receivingData[format("channel_%s", i+1)]["referenceTemperature"]
@@ -490,6 +497,7 @@ function processReceivedData()
                 $(".controlValveButton").on('click', updateSettings)
                 $('.maxN2FlowSelector').on('change', updateSettings)
                 $(".setTempButton").on('click', updateSettings)
+                $('.setAutoControlFlowButton').on('click', updateSettings)
             }
             connectionObj.processingStage = 1
             // setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 50)
@@ -500,6 +508,8 @@ function processReceivedData()
             $("#lastUpdateField").text(format(settingsObj.languageContent["devicePanel"]["lastUpdateField"][0], connectionObj.receivedDataDate))
             $("#deviceIdField").text(format(settingsObj.languageContent["devicePanel"]["deviceIdField"][0], connectionObj.receivingData["deviceName"]))
             $("#deviceVersionField").text(format(settingsObj.languageContent["devicePanel"]["deviceVersionField"][0], connectionObj.receivingData["deviceVersion"]))
+            myPath = path.join(__dirname, "resources", "gasElement" + '.html');
+            let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
             for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
             {
                 document.querySelector(format("#channel%dTitle", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dTitle"][0], i)
@@ -515,6 +525,17 @@ function processReceivedData()
                 }
                 $(format("#channel%dMaxN2Flow option[selected]", i)).removeAttr("selected")
                 $(format("#channel%dMaxN2Flow option[value='%d']", i, connectionObj.receivingData[format("channel_%s", i)]["channelMaxN2Flow"])).attr("selected", "")
+                let temp2 = connectionObj.receivingData[format("channel_%s", i)]["amountGases"]
+                for(let j=0; j<temp2; j++)
+                {
+                    let el = connectionObj.receivingData[format("channel_%s", i)]["gases"][j]
+                    document.querySelector(format("#channel%dGasesList", i)).innerHTML += format(rawData, el[1], el[0], el[2])
+                }
+                
+                
+                
+                
+                
                 updateChart()
             }
             // for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
@@ -599,6 +620,14 @@ function updateSettings(event)
         temp.placeholder = temp.value
         
         connectionObj.channelsNewSettings[id-1]["referenceTemperature"] = parseInt(temp.value)
+        temp.value = ''
+        connectionObj.requestMode = "SET"
+    }
+    else if(temp.includes('setAutoControlFlowButton'))
+    {
+        let temp = event.currentTarget.parentElement.querySelector('input')
+        temp.placeholder = temp.value
+        connectionObj.channelsNewSettings[id-1]["settedFlow"] = parseInt(temp.value)
         temp.value = ''
         connectionObj.requestMode = "SET"
     }
