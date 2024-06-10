@@ -11,6 +11,6 @@
     {
         "channel%dTitle": ["Channel %s"],
         "channel%dCurrentFlow": ["%.1f sccm"],
-        "channel%dValveStatus":["AUTOMATICALLY CLOSED", "AUTOMATICALLY OPENED", "MANUALLY CLOSED", "MANUALLY OPENED"]
+        "channel%dValveStatus":["MANUALLY CLOSED", "MANUALLY OPENED", "AUTO CONTROL"]
     }
 }

@@ -5,7 +5,8 @@ const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 window.$ = window.jQuery = require('jquery');
 const chartjs = require('chart.js/auto')
-const format = require('@stdlib/string-format')
+const format = require('@stdlib/string-format');
+const { parse } = require('path');
 
 //OTHER
 function addContent(filePath, destination)
@@ -196,6 +197,21 @@ function initWindow()
     currentWindow.on("resize", myLibrary.resizeWindowUpdater)
     currentWindow.on("maximize", myLibrary.resizeWindowUpdater)
     window.addEventListener('afterprint', myLibrary.resizeWindowUpdater);
+    $("#fullscreenAppButton").click(() => 
+    {
+        if(!currentWindow.isMaximized()) currentWindow.maximize()
+        else  currentWindow.unmaximize()
+    })
+
+    $("#closeAppButton").click(() => 
+    {
+        currentWindow.close()
+    })
+
+    $("#minimalizeButton").click(() => 
+    {
+        currentWindow.minimize()
+    })
 }
 
 //CONNECTION
@@ -214,7 +230,34 @@ connectionObj =
     localDeviceSettings: null,
     firstAttempt: true,
     processingStage: 0,
-    channelsElements: []
+    channelsElements: [],
+    requestMode: "GET",
+    channelsNewSettings: [],
+}
+
+class Channel
+{
+    constructor(id)
+    {
+        this.id = id
+        this.turnedOn = false
+        this.referenceTemperature = 0
+        this.gases = [[59, "N2", 0], [59, "N2", 0], [59, "N2", 0], [59, "N2", 0], [59, "N2", 0]]
+        this.normalGCF = 1
+        this.afterTempCalibrateGCF = 1
+        this.amountGases = 1
+        this.settedFlow = 0
+        this.channelMaxN2Flow = 0
+        this.channelMaxCurrentGasFlow = 0
+        this.valveMode = 0
+    }
+
+    parse()
+    {
+        let temp = {}
+        temp[format("channel_%d:", this.id)] = this
+        return temp
+    }
 }
 
 function waitForConnecting()
@@ -426,8 +469,30 @@ function processReceivedData()
             {
                 if(i % 2 == 0) document.querySelector("#channelsLeftList").innerHTML += rawData.replaceAll("%d", i+1)
                 else document.querySelector("#channelsRightList").innerHTML += rawData.replaceAll("%d", i+1)
+                connectionObj.channelsNewSettings.push(new Channel(i+1))
+                connectionObj.channelsNewSettings[i].turnedOn = connectionObj.receivingData[format("channel_%s", i+1)]["turnedOn"]
+                connectionObj.channelsNewSettings[i].referenceTemperature = connectionObj.receivingData[format("channel_%s", i+1)]["referenceTemperature"]
+                connectionObj.channelsNewSettings[i].gases = connectionObj.receivingData[format("channel_%s", i+1)]["gases"]
+                connectionObj.channelsNewSettings[i].normalGCF = connectionObj.receivingData[format("channel_%s", i+1)]["normalGCF"]
+                connectionObj.channelsNewSettings[i].afterTempCalibrateGCF = connectionObj.receivingData[format("channel_%s", i+1)]["afterTempCalibrateGCF"]
+                connectionObj.channelsNewSettings[i].amountGases = connectionObj.receivingData[format("channel_%s", i+1)]["amountGases"]
+                connectionObj.channelsNewSettings[i].settedFlow = connectionObj.receivingData[format("channel_%s", i+1)]["settedFlow"]
+                connectionObj.channelsNewSettings[i].channelMaxN2Flow = connectionObj.receivingData[format("channel_%s", i+1)]["channelMaxN2Flow"]
+                connectionObj.channelsNewSettings[i].channelMaxCurrentGasFlow = connectionObj.receivingData[format("channel_%s", i+1)]["channelMaxCurrentGasFlow"]
+                connectionObj.channelsNewSettings[i].valveMode = connectionObj.receivingData[format("channel_%s", i+1)]["valveMode"]
+            }
+            for(let i=0; i<connectionObj.receivingData["channels"]; i++)
+            {
+                $(".turnOnButton").on('click', updateSettings)
+                $(".turnOffButton").on('click', updateSettings)
+                $(".openValveButton").on('click', updateSettings)
+                $(".closeValveButton").on('click', updateSettings)
+                $(".controlValveButton").on('click', updateSettings)
+                $('.maxN2FlowSelector').on('change', updateSettings)
+                $(".setTempButton").on('click', updateSettings)
             }
             connectionObj.processingStage = 1
+            // setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 50)
             break;
         }
         case 1: //UDATE ALL GUI ELEMENTS
@@ -452,11 +517,12 @@ function processReceivedData()
                 $(format("#channel%dMaxN2Flow option[value='%d']", i, connectionObj.receivingData[format("channel_%s", i)]["channelMaxN2Flow"])).attr("selected", "")
                 updateChart()
             }
-            for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
-            {
-                $(format("#channel%d", i)).click((event) => {console.log(event.currentTarget.id)})
-            }
+            // for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
+            // {
+            //     $(format("#channel%d", i)).click((event) => {console.log(event.currentTarget.id)})
+            // }
             connectionObj.processingStage = 3
+            // setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 50)
             break;
         }
         case 3: //UPDATE ONLY READABLE ELEMENTS
@@ -476,6 +542,67 @@ function processReceivedData()
 
         }
     }
+}
+
+function updateSettings(event)
+{
+    let temp = event.currentTarget.classList
+    temp = Array.from(temp)
+    id = event.currentTarget.getAttribute('channel')
+    // console.log(connectionObj.channelsNewSettings[id-1]["turnedOn"])
+    if(temp.includes("turnOnButton"))
+    {
+        if(!connectionObj.channelsNewSettings[id-1]["turnedOn"])
+        {
+            connectionObj.channelsNewSettings[id-1]["turnedOn"] = true
+            connectionObj.requestMode = "SET"
+        }
+    }
+    else if(temp.includes("turnOffButton"))
+    {
+        // console.log('sss')
+        if(connectionObj.channelsNewSettings[id-1]["turnedOn"])
+        {
+            connectionObj.channelsNewSettings[id-1]["turnedOn"] = false
+            connectionObj.requestMode = "SET"
+        }
+    }
+    else if(temp.includes("openValveButton"))
+    {
+        connectionObj.channelsNewSettings[id-1]["valveMode"] = 1
+        connectionObj.requestMode = "SET"
+    }
+    else if(temp.includes("closeValveButton"))
+    {
+        connectionObj.channelsNewSettings[id-1]["valveMode"] = 0
+        connectionObj.requestMode = "SET"
+    }
+    else if(temp.includes("controlValveButton"))
+    {
+        connectionObj.channelsNewSettings[id-1]["valveMode"] = 2
+        connectionObj.requestMode = "SET"
+    }
+    else if(temp.includes("maxN2FlowSelector"))
+    {
+        connectionObj.channelsNewSettings[id-1]["channelMaxN2Flow"] = parseInt(event.currentTarget.value)
+        connectionObj.requestMode = "SET"
+        // console.log(connectionObj.channelsNewSettings[id-1])
+    }
+    else if(temp.includes("setTempButton"))
+    {
+        let temp = event.currentTarget.parentElement.querySelector('input')
+        // if(temp.value != "")
+        // {
+        //     // temp.placeholder = temp.value
+        //     // temp.value = ''
+        // }
+        temp.placeholder = temp.value
+        
+        connectionObj.channelsNewSettings[id-1]["referenceTemperature"] = parseInt(temp.value)
+        temp.value = ''
+        connectionObj.requestMode = "SET"
+    }
+    // connectionObj.processingStage = 2
 }
 
 function setListeners()
@@ -505,8 +632,8 @@ function setListeners()
     {
         connectionObj.receivingData = JSON.parse(data)
         connectionObj.receivedDataDate = getCurrentTime()
-        console.log(connectionObj.receivedDataDate)
-        console.log(data);
+        // console.log(connectionObj.receivedDataDate)
+        // console.log(data);
         if(connectionObj.receivingData.deviceName == 'Mass Flow Controller Device Prototype')
         {
             clearInterval(connectionObj.myConnectionInterval)
@@ -518,9 +645,32 @@ function setListeners()
                     });
             
         }
-        
-        setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 50)
+        // connectionObj.requestMode = "GET"
+        sendRequest()
     });
+}
+
+function sendRequest()
+{
+    setTimeout(() => 
+    {
+        if(connectionObj.requestMode == "GET")
+        {
+            port.write('{"request":"GET_DATA"}', function(err) {})
+        }
+        else
+        {
+            let x = {request:"SET_DATA"}
+            console.log(x)
+            for(el of connectionObj.channelsNewSettings)
+            {
+                x[format("channel_%d", el.id)] = el
+            }
+            console.log(JSON.stringify(x))
+            connectionObj.requestMode = "GET"
+            port.write(JSON.stringify(x), function(err) {console.log(err)})
+        }
+    }, 10)
 }
 
 function initGasesList()
@@ -577,6 +727,7 @@ chartObj =
     config: null,
     labels: null,
     data: null,
+    counter: 0,
     shiftModeCounter: 5
 }
 
@@ -597,7 +748,7 @@ function createDataSets(index)
     {
         label: format("Channel %d", index),
         // yAxisID             : 'yAxes',
-        data: [0, 0, 0, 0, 0, 0],
+        data: Array.from({ length: 60 }, () => 0),
         fill: false,
         borderColor: getRandomColor(),
         tension: 0.1
@@ -608,7 +759,7 @@ function createDataSets(index)
 function initChart(channelsAmount)
 {
     chartObj.deviceChart = document.getElementById('deviceChart')
-    chartObj.labels = [-5, -4, -3,-2,-1, "Teraz"]
+    chartObj.labels = ["Minute temu", "30 sekund temu", "Teraz"]
     let temp = []
     for(let i=0; i<channelsAmount; i++)
     {
@@ -642,16 +793,17 @@ function updateChart(dataIndex)
 {
     try
     {
+
         dataIndex--
         // console.log(dataIndex)
+        chartObj.counter = 0;
         chartObj.data.datasets[dataIndex].data.shift()
         chartObj.data.datasets[dataIndex].data.push(connectionObj.receivingData[format("channel_%d", dataIndex+1)]["currentFlow"])
         
         // chartObj.data.datasets[dataIndex].shift()
         
-        console.log(chartObj.data.datasets[dataIndex].data)
+        // console.log(chartObj.data.datasets[dataIndex].data)
         chartObj.chart.update('none')
-        
     }
     catch(err){}
 }

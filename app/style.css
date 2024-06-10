@@ -7,11 +7,24 @@ body, html
   user-select: none;
   width: 100%;
   font-weight: bold;
+  
 }
 
 body
 {
   display: none;
+
+}
+
+.topBar
+{
+  -webkit-app-region: drag;
+}
+
+
+#closeAppButton, #fullscreenAppButton, #minimalizeButton
+{
+  -webkit-app-region: no-drag !important;
 }
 
 *
@@ -22,15 +35,20 @@ body
 
 #showMenuButton, #toggleConsoleButton
 {
-  margin: 1em;
   height: fit-content;
   width: fit-content;
   font-size: 1.2em;
 }
 
+#showMenuButton
+{
+  margin: 3em 1em 0 0;
+}
+
 #toggleConsoleButton
 {
   display: none;
+  margin: 1em;
 }
 
 #sideBar

@@ -10,6 +10,8 @@ function createWindow ()
     minWidth: 800,
     title: "Mass Flow Controller App",
     autoHideMenuBar: true,
+    frame: false,
+    resizable: true,
     webPreferences: 
     {
       // preload: path.join(__dirname, 'preload.js'),
@@ -18,7 +20,7 @@ function createWindow ()
       contextIsolation: false
     }
   })
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
   win.loadFile('index.html')
   win.settings = settings
   

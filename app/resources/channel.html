@@ -1,4 +1,4 @@
-<div class="w-100 accordion hide mt-2 z-0 channel" id="channel%d" channel="%d">
+<div class="w-100 accordion hide mt-2 z-0 channel" id="channel%d" channel="%d" disabled>
   <div class="accordion-item p-0">
     
     <h2 class="accordion-header">
@@ -9,10 +9,10 @@
     <div id="channel%dcollapseOne" class="accordion-collapse collapse hide alert alert-primary m-0 p-0" data-bs-parent="#channel%d">
       <div class="d-flex flex-column accordion-body">
         <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="channel%dbtnradio" id="channel%dTurnOnButton" autocomplete="off" checked  channel="%d">
+            <input type="radio" class="btn-check turnOnButton" name="channel%dbtnradio" id="channel%dTurnOnButton" autocomplete="off" checked  channel="%d">
             <label class="btn btn-outline-primary" for="channel%dTurnOnButton">Turn ON</label>
           
-            <input type="radio" class="btn-check" name="channel%dbtnradio" id="channel%dTurnOffButton" autocomplete="off"  channel="%d">
+            <input type="radio" class="btn-check turnOffButton" name="channel%dbtnradio" id="channel%dTurnOffButton" autocomplete="off"  channel="%d">
             <label class="btn btn-outline-primary" for="channel%dTurnOffButton">Turn OFF</label>
         </div>
         <p class="m-0 p-0 mt-3 fs-5">Current flow</p>
@@ -20,29 +20,30 @@
         <p class="m-0 p-0 mt-3 fs-5">Valve status</p>
         <p class="m-0 p-0 fs-4" id="channel%dValveStatus">AUTOMATICALLY CLOSED</p>
         <div class="d-flex flex-column w-100">
-            <button type="button" class="btn btn-primary w-100 me-2 fs-5 mt-3"  id="channel%dOpenButton" channel="%d">OTWÓRZ</button>
-            <button type="button" class="btn btn-primary w-100 me-2 fs-5 mt-3"  id="channel%dCloseButton" channel="%d">ZAMKNIJ</button>
-            <button type="button" class="btn btn-primary w-100 fs-5 mt-3"  id="channel%dFlowControllButton"  channel="%d">KONTROLA PRZEPŁYWU</button>
+            <button type="button" class="btn btn-primary w-100 me-2 fs-5 mt-3 openValveButton"  id="channel%dOpenButton" channel="%d">OTWÓRZ</button>
+            <button type="button" class="btn btn-primary w-100 me-2 fs-5 mt-3 closeValveButton"  id="channel%dCloseButton" channel="%d">ZAMKNIJ</button>
+            <button type="button" class="btn btn-primary w-100 fs-5 mt-3 controlValveButton"  id="channel%dFlowControllButton"  channel="%d">KONTROLA PRZEPŁYWU</button>
         </div>
         <p class="m-0 p-0 mt-3 fs-5 mt-3">Maximum N2 controller flow</p>
-        <select class="form-select form-select-lg m-0 mt-3" aria-label="Large select example" id="channel%dMaxN2Flow">
-            <option value="10" >10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="200">200</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-            <option value="2000">2000</option>
-            <option value="5000" selected>5000</option>
-            <option value="10.000">10.000</option>
-            <option value="20.000">20.000</option>
+        <select class="form-select form-select-lg m-0 mt-3 maxN2FlowSelector" aria-label="Large select example" id="channel%dMaxN2Flow" channel="%d">
+            <option value="10" channel="%d">10</option>
+            <option value="20" channel="%d">20</option>
+            <option value="50" channel="%d">50</option>
+            <option value="100" channel="%d">100</option>
+            <option value="200" channel="%d">200</option>
+            <option value="500" channel="%d">500</option>
+            <option value="1000" channel="%d">1000</option>
+            <option value="2000" channel="%d">2000</option>
+            <option value="5000" channel="%d">5000</option>
+            <option value="10.000" channel="%d">10.000</option>
+            <option value="20.000" channel="%d">20.000</option>
         </select>          
         <p class="m-0 p-0 mt-3 fs-5">Reference temperature</p>
 
-        <div class="input-group mt-3">
-          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" id="channel%dTemperature">
+        <div class="input-group mt-3" channel="%d">
+          <input type="number" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" id="channel%dTemperature">
           <span class="input-group-text" id="basic-addon2">C&deg;</span>
+          <button class="btn btn-outline-secondary bg-secondary-subtle setTempButton" type="button"  channel="%d">Ustaw</button>
         </div>   
 
         <p class="m-0 p-0 mt-3 fs-5">Gases</p>
