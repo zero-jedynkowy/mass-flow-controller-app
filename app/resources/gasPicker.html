@@ -1,5 +1,5 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-  <div class="modal-dialog" >
+<div class="modal fade" id="gasesPickerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-fullscreen" id="gasesPickerContentModal" >
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Pick a gas</h1>
@@ -8,7 +8,7 @@
       <div class="modal-body m-1">
         <div class="d-flex flex-column">
           <p>List of gases</p>
-          <div class="w-100 overflow-auto" style="max-height: 300px;">
+          <div class="w-100 overflow-auto p-3 border border-3 border-primary-subtle rounded p-4" style="max-height: 300px;">
             <table class="table table-bordered m-0" style="min-width: 200px;">
               <thead>
                 <tr>
@@ -34,24 +34,34 @@
             </table>
           </div>
           <div class="d-flex flex-row mt-4">
-            <div class="input-group me-4 w-50">
+            <div class="d-flex flex-column w-50 me-2 border border-3 border-primary-subtle rounded p-4">
+              <ol class="bg-light-subtle list-group list-group-numbered p-0" style="overflow-y: scroll; max-height: 350px; min-height: 200px;" id="gasPickerChoosenList">
+               
+              </ol>
+            </div>
+            <div class="d-flex flex-column w-50 ms-2 border border-3 border-primary-subtle rounded p-4">
+              <div class="input-group me-4">
               <span class="input-group-text">Find</span>
               <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
               <span class="input-group-text"></span>
             </div>
 
-            <div class="input-group w-50">
+            <div class="input-group mt-3">
               <span class="input-group-text">Flow</span>
-              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="setFlowMixedGasValueInput">
               <span class="input-group-text">sccm</span>
+              <button class="btn btn-outline-secondary bg-secondary-subtle" id="setFlowMixedGasButton" type="button" >Ustaw</button>
             </div>
-
-
+            <div class="d=flex flex-row mt-3">
+              <button type="button" class="btn btn-primary me-3" id="addGasButton"><i class="bi bi-plus"></i></button>
+              <button type="button" class="btn btn-primary me-3" id="removeGasButton"><i class="bi bi-x-circle"></i></button>
+            </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Pick</button>
+        <button type="button" class="btn btn-primary" id="setNewGasesButton">Set</button>
       </div>
     </div>
   </div>

@@ -19,7 +19,6 @@
 
 #define RECEIVE_USB_DATA_BUFFER_SIZE 500
 
-
 enum
 {
 	MANUALLY_CLOSED,
@@ -43,7 +42,7 @@ struct
 	Gas gases[MAX_GASES_AMOUNT];
 	double normalGCF;
 	double afterTempCalibrateGCF;
-	double amountGases;
+	uint8_t amountGases;
 	double settedFlow;
 	double currentFlow;
 	double channelMaxN2Flow;
@@ -60,10 +59,6 @@ struct
 	Channel channels[MAX_CHANNELS_AMOUNT];
 } typedef MFC;
 
-
-
-
-
 enum
 {
 	IDLE,
@@ -76,25 +71,28 @@ struct
 	usb_state status;
 } typedef TR;
 
-
-
-
-
-
-
+struct
+{
+	uint32_t adcValue;
+	double adcFloat;
+	uint8_t currentScreen;
+} typedef Screen;
 
 void MFC_Init(MFC * myMFC);
 void MFC_SendData(MFC * myMFC, TR * myTR);
 void MFC_ProcessReceivedData(MFC * myMFC, TR * myTR);
-
-
-
-
+void MFC_SetValve(MFC * myMFC);
+void MFC_ReadFlow(MFC * myMFC);
 
 
 void TR_Init(TR * myTR);
 bool TR_IsReceiveStatus(TR * myTR);
 void TR_SetFlag(TR *myTR, usb_state value);
 void TR_SendData(char * str);
+
+void Screen_Init(Screen * myScreen);
+void Screen_Update(Screen * myScreen, MFC * myMFC);
+
+void ADC_SetChannel(uint32_t channel, uint32_t rank);
 
 #endif

@@ -1,6 +1,6 @@
 const {app, BrowserWindow} = require('electron/main')
 const settings = require("electron-settings")
-
+const { dialog } = require('electron')
 
 function createWindow () 
 {
@@ -8,6 +8,8 @@ function createWindow ()
   {
     minHeight: 500,
     minWidth: 800,
+    height: 500,
+    width: 800,
     title: "Mass Flow Controller App",
     autoHideMenuBar: true,
     frame: false,

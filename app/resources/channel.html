@@ -8,8 +8,10 @@
     </h2>
     <div id="channel%dcollapseOne" class="accordion-collapse collapse hide alert alert-primary m-0 p-0" data-bs-parent="#channel%d">
       <div class="d-flex flex-row accordion-body">
+        
         <div class="d-flex flex-column w-50 pe-3 border-end border-primary">
-
+          <p class="m-0 p-0 mt-3 fs-5 mt-3">Current state</p>
+          <p class="m-0 p-0 fs-1" id="channel%dCurrentState">OFF</p>
           <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check turnOnButton" name="channel%dbtnradio" id="channel%dTurnOnButton" autocomplete="off" checked  channel="%d">
             <label class="btn btn-outline-primary" for="channel%dTurnOnButton">Turn ON</label>
@@ -27,6 +29,7 @@
             <button type="button" class="btn btn-primary w-100 fs-5 mt-3 controlValveButton"  id="channel%dFlowControllButton"  channel="%d">KONTROLA PRZEPŁYWU</button>
         </div>
         <p class="m-0 p-0 mt-3 fs-5 mt-3">Maximum N2 controller flow</p>
+        <p class="m-0 p-0 fs-1" id="channel%dcurrentMaxN2ControllerFlow">10 sccm</p>
         <select class="form-select form-select-lg m-0 mt-3 maxN2FlowSelector" aria-label="Large select example" id="channel%dMaxN2Flow" channel="%d">
             <option value="10" channel="%d">10</option>
             <option value="20" channel="%d">20</option>
@@ -37,11 +40,11 @@
             <option value="1000" channel="%d">1000</option>
             <option value="2000" channel="%d">2000</option>
             <option value="5000" channel="%d">5000</option>
-            <option value="10.000" channel="%d">10.000</option>
-            <option value="20.000" channel="%d">20.000</option>
+            <option value="10000" channel="%d">10000</option>
+            <option value="20000" channel="%d">20000</option>
         </select>          
         <p class="m-0 p-0 mt-3 fs-5">Reference temperature</p>
-
+        <p class="m-0 p-0 fs-1" id="channel%dreferenceTemperature">0 &deg;C</p>
         <div class="input-group mt-3" channel="%d">
           <input type="number" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" id="channel%dTemperature">
           <span class="input-group-text" id="basic-addon2">C&deg;</span>
@@ -51,13 +54,14 @@
         </div>
         <div class="d-flex flex-column w-50 ps-3 border-start border-primary">
           <p class="m-0 p-0 mt-3 fs-5">Set auto-control flow</p>
+          <p class="m-0 p-0 fs-1" id="channel%dautoControlFlow">0 sccm</p>
           <div class="input-group mt-3">
-            <input type="number" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <input type="number" min="0" class="form-control" placeholder="0" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <span class="input-group-text" id="basic-addon2">sccm</span>
             <button class="btn btn-outline-secondary bg-secondary-subtle setAutoControlFlowButton" type="button"  channel="%d">Ustaw</button>
           </div>   
           <p class="m-0 p-0 mt-3 fs-5">Gases</p>
-        <ol class="bg-light-subtle list-group list-group-numbered mt-3 p-0" id="channel%dGasesList" style="overflow-y: scroll; max-height: 350px; min-height: 200px;" channel="%s">
+        <ol class="d-none bg-light-subtle list-group list-group-numbered mt-3 p-0" id="channel%dGasesList" style="overflow-y: scroll; max-height: 350px; min-height: 200px;" channel="%s">
           <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
           <div class="fw-bold">Subheading</div>
@@ -104,7 +108,7 @@
           <div class="d-flex flex-row mt-3">
             <!-- <button type="button" class="btn btn-primary me-3" id="channel%1AddNewGas"><i class="bi bi-plus"></i></button>
             <button type="button" class="btn btn-primary me-3"><i class="bi bi-x-circle"></i></button> -->
-            <button type="button" class="btn btn-primary">Edit gases</i></button>
+            <button type="button" class="btn btn-primary editGasesButton" channel="%d">Edit gases</i></button>
           </div>
            
         </div>

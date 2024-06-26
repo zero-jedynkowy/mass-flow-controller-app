@@ -233,6 +233,7 @@ connectionObj =
     channelsElements: [],
     requestMode: "GET",
     channelsNewSettings: [],
+    gasesList: null
 }
 
 class Channel
@@ -422,7 +423,7 @@ async function connectActionButton()
         }
         catch(err)
         {
-            console.log(err)
+            // console.log(err)
             connectionObj.connected = false
             connectionObj.port = null
             $("#errorConnectingModal").modal('show')
@@ -498,6 +499,49 @@ function processReceivedData()
                 $('.maxN2FlowSelector').on('change', updateSettings)
                 $(".setTempButton").on('click', updateSettings)
                 $('.setAutoControlFlowButton').on('click', updateSettings)
+                $('.editGasesButton').on('click', (e) =>
+                {
+                    let parentElement = document.getElementById('gasPickerChoosenList');
+                    let gasElements = parentElement.getElementsByClassName('gasElement');
+                    let gasElementsArray = Array.prototype.slice.call(gasElements);
+
+                    gasElementsArray.forEach(function(element) {
+                        parentElement.removeChild(element);
+                    });
+
+                    let myPath = path.join(__dirname, "resources", "gasElement" + '.html');
+                    let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
+                    let channel = e.target.getAttribute('channel')
+                    let temp2 = connectionObj.receivingData[format("channel_%s", channel)]["amountGases"]
+                    for(let j=0; j<temp2; j++)
+                    {
+                        let el = connectionObj.receivingData[format("channel_%s", channel)]["gases"][j]
+                        let a = connectionObj.gasesList[el[0]]
+                        document.querySelector("#gasPickerChoosenList").innerHTML += format(rawData,  a.gas, a.symbol, el[0], el[2])
+                    }
+                    $("#gasPickerChoosenList .gasElement").on('click', (event) => 
+                        {
+                            if(event.currentTarget.classList.contains('gasSubmarked'))
+                            {
+                                document.querySelectorAll('#gasPickerChoosenList .gasElement').forEach(element => 
+                                {
+                                    element.classList.remove('gasSubmarked')
+                                    element.classList.remove('bg-primary-subtle')
+                                });
+                            }
+                            else
+                            {
+                                document.querySelectorAll('#gasPickerChoosenList .gasElement').forEach(element => 
+                                {
+                                    element.classList.remove('bg-primary-subtle')
+                                    element.classList.remove('gasSubmarked')
+                                });
+                                event.currentTarget.classList.toggle('gasSubmarked')
+                                event.currentTarget.classList.toggle('bg-primary-subtle')
+                            }
+                        })
+                    $("#gasesPickerModal").modal("show")
+                })
             }
             connectionObj.processingStage = 1
             // setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 50)
@@ -529,21 +573,13 @@ function processReceivedData()
                 for(let j=0; j<temp2; j++)
                 {
                     let el = connectionObj.receivingData[format("channel_%s", i)]["gases"][j]
-                    document.querySelector(format("#channel%dGasesList", i)).innerHTML += format(rawData, el[1], el[0], el[2])
+                    let a = connectionObj.gasesList[el[0]]
+                    document.querySelector(format("#channel%dGasesList", i)).innerHTML += format(rawData,  a.gas, a.symbol, el[0], el[2])
                 }
-                
-                
-                
-                
-                
                 updateChart()
             }
-            // for(let i=1; i<=connectionObj.receivingData["channels"]; i++)
-            // {
-            //     $(format("#channel%d", i)).click((event) => {console.log(event.currentTarget.id)})
-            // }
+            
             connectionObj.processingStage = 3
-            // setTimeout(() => {port.write('{"request":"GET_DATA"}', function(err) {console.log(err)})}, 50)
             break;
         }
         case 3: //UPDATE ONLY READABLE ELEMENTS
@@ -554,13 +590,18 @@ function processReceivedData()
                 document.querySelector(format("#channel%dCurrentFlow", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dCurrentFlow"][0], connectionObj.receivingData[format("channel_%s", i)]["currentFlow"])
                 document.querySelector(format("#channel%dValveStatus", i)).innerHTML = settingsObj.languageContent["channel"]["channel%dValveStatus"][connectionObj.receivingData[format("channel_%s", i)]["valveMode"]]
                 document.querySelector(format("#channel%dTemperature", i)).setAttribute("placeholder", connectionObj.receivingData[format("channel_%s", i)]["referenceTemperature"])
+                document.querySelector(format("#channel%dCurrentState", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dCurrentState"][(connectionObj.receivingData[format("channel_%s", i)]["turnedOn"])? 1:0])
+                document.querySelector(format("#channel%dcurrentMaxN2ControllerFlow", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dcurrentMaxN2ControllerFlow"][0], connectionObj.receivingData[format("channel_%s", i)]["channelMaxN2Flow"])
+                document.querySelector(format("#channel%dautoControlFlow", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dautoControlFlow"][0], connectionObj.receivingData[format("channel_%s", i)]["settedFlow"])
+
+                document.querySelector(format("#channel%dreferenceTemperature", i)).innerHTML = format(settingsObj.languageContent["channel"]["channel%dreferenceTemperature"][0], connectionObj.receivingData[format("channel_%s", i)]["referenceTemperature"])
+                
+                // document.querySelector(format("#channel%dreferenceTemperature", i)).innerHTML = "ssss"
+                // document.querySelector(format("#channel%dcurrentMaxN2ControllerFlow", i)).innerHTML = connectionObj.receivingData[format("channel_%s", i)]["channelMaxN2Flow"]
                 updateChart(i)
                 
             }
-        }
-        case 4: //UPDATE DEVICE SETTINGS
-        {
-
+            break;
         }
     }
 }
@@ -690,12 +731,12 @@ function sendRequest()
         else
         {
             let x = {request:"SET_DATA"}
-            console.log(x)
+            // console.log(x)
             for(el of connectionObj.channelsNewSettings)
             {
                 x[format("channel_%d", el.id)] = el
             }
-            console.log(JSON.stringify(x))
+            // console.log(JSON.stringify(x))
             connectionObj.requestMode = "GET"
             port.write(JSON.stringify(x), function(err) {console.log(err)})
         }
@@ -708,6 +749,7 @@ function initGasesList()
     myPath = path.join(__dirname, 'resources', 'gases.json');
     let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
     let temp = JSON.parse(rawData)
+    connectionObj.gasesList = temp
     let myList = document.querySelector('#gasesPickerListContent')
     let element = '<tr class="gas">'
     element+= '<th scope="row">%d</th>'
@@ -724,8 +766,129 @@ function initGasesList()
     document.querySelectorAll('.gas').forEach(element => 
     {
         element.addEventListener('click', gasMark)
-        // console.log(element)
     });
+
+    $("#addGasButton").on('click', (e) => 
+    {
+        if(document.querySelector('.gasMarked') != null && document.querySelector("#gasPickerChoosenList").children.length < 5)
+        {
+            let myPath = path.join(__dirname, "resources", "gasElement" + '.html');
+            let rawData = fs.readFileSync(myPath,  { encoding: 'utf8', flag: 'r' })
+         
+            let a = connectionObj.gasesList[Number(document.querySelector('.gasMarked').children[0].innerHTML)]
+            
+            document.querySelector("#gasPickerChoosenList").innerHTML += format(rawData,  a.gas, a.symbol, Number(document.querySelector('.gasMarked').children[0].innerHTML), 0)
+        }
+        $("#gasPickerChoosenList .gasElement").on('click', (event) => 
+        {
+            if(event.currentTarget.classList.contains('gasSubmarked'))
+            {
+                document.querySelectorAll('#gasPickerChoosenList .gasElement').forEach(element => 
+                {
+                    element.classList.remove('gasSubmarked')
+                    element.classList.remove('bg-primary-subtle')
+                });
+            }
+            else
+            {
+                document.querySelectorAll('#gasPickerChoosenList .gasElement').forEach(element => 
+                {
+                    element.classList.remove('bg-primary-subtle')
+                    element.classList.remove('gasSubmarked')
+                });
+                event.currentTarget.classList.toggle('gasSubmarked')
+                event.currentTarget.classList.toggle('bg-primary-subtle')
+            }
+        })
+    })
+
+    $('#removeGasButton').on('click', () => 
+    {
+        try
+        {
+            document.querySelector('.gasSubmarked').remove()
+        }
+        catch(err)
+        {
+
+        }
+    })
+
+    $('#setFlowMixedGasButton').on('click', (e) => 
+    {
+        document.querySelector('.gasSubmarked').children[1].innerHTML = document.querySelector('#setFlowMixedGasValueInput').value + " sccm"
+    })
+
+    $('#setNewGasesButton').on('click', (e) => 
+    {       
+        let x = document.querySelectorAll('#gasPickerChoosenList .gasElement')
+        let tempList = []
+        let tempID = []
+        let tempFlow = []
+        for(el of x)
+        {
+            let temp = el.children;
+            let subchildren = el.children[0].children;
+            // console.log(temp[1].innerHTML.replaceAll("sccm", ""))
+            // console.log()
+            tempList.push(connectionObj.gasesList[subchildren[2].innerHTML.replaceAll("ID: ", "")])
+            tempID.push(Number(subchildren[2].innerHTML.replaceAll("ID: ", "")))
+            tempFlow.push(Number(temp[1].innerHTML.replaceAll("sccm", "")))
+        }
+        for(let i=0; i<tempList.length; i++)
+        {
+            connectionObj.channelsNewSettings[0]["gases"][i][0] = tempID[i]
+            connectionObj.channelsNewSettings[0]["gases"][i][1] = tempList[i]["symbol_unformatted"]
+            connectionObj.channelsNewSettings[0]["gases"][i][2] = tempFlow[i]
+        }
+        // console.log(connectionObj.channelsNewSettings[0]["gases"])
+        // console.log(tempID)
+        connectionObj.channelsNewSettings[0]["amountGases"] = tempList.length;
+
+        let tempGCF = 0;
+        let part1 = 0;
+        let part2 = 0;
+
+        let temptemptemp = 0;
+
+        for(let i=0; i<connectionObj.channelsNewSettings[0]["amountGases"]; i++)
+        {
+            temptemptemp += connectionObj.channelsNewSettings[0]["gases"][i][2]
+        }
+
+        for(let i=0; i<connectionObj.channelsNewSettings[0]["amountGases"]; i++)
+        {
+            let tempA = connectionObj.channelsNewSettings[0]["gases"][i][2]/temptemptemp
+            let tempGCF = connectionObj.gasesList[connectionObj.channelsNewSettings[0]["gases"][i][0]]["gcf"]
+            let tempDensity = connectionObj.gasesList[connectionObj.channelsNewSettings[0]["gases"][i][0]]["density"]
+            let tempSpecific_heat = connectionObj.gasesList[connectionObj.channelsNewSettings[0]["gases"][i][0]]["specific_heat"]
+            let tempS = (tempGCF*tempDensity*tempSpecific_heat)/(0.3106)
+            part1 += tempS*tempA
+            part2 += tempA*tempDensity*tempSpecific_heat
+        }
+        part1 *= 0.3106
+        tempGCF = part1/part2
+        // console.log(part1)
+        // console.log(part2)
+        // console.log(tempGCF)
+        connectionObj.channelsNewSettings[0]["normalGCF"] = tempGCF;
+        connectionObj.channelsNewSettings[0]["afterTempCalibrateGCF"] = tempGCF*((connectionObj.channelsNewSettings[0]["referenceTemperature"]+273.15)/273.15)
+        connectionObj.processingStage = 1
+        try
+        {
+            document.querySelectorAll("#channel1GasesList .gasElement").forEach(e => e.remove());
+        }
+        catch(err)
+        {
+
+        }
+        // console.log(connectionObj.channelsNewSettings[0]["gases"])
+        $("#gasesPickerModal").modal("hide")
+        console.log(connectionObj.channelsNewSettings[0]["gases"])
+        console.log(connectionObj.channelsNewSettings[0]["amountGases"])
+        connectionObj.requestMode = "SET"
+
+    })
 }
 
 function gasMark(event)
@@ -735,15 +898,18 @@ function gasMark(event)
         document.querySelectorAll('.gas').forEach(element => 
         {
             element.classList.remove('gasMarked')
+            element.classList.remove('bg-primary-subtle')
         });
     }
     else
     {
         document.querySelectorAll('.gas').forEach(element => 
         {
-            element.classList.remove('bg-primary')
+            element.classList.remove('bg-primary-subtle')
+            element.classList.remove('gasMarked')
         });
-        event.currentTarget.classList.toggle('bg-primary')
+        event.currentTarget.classList.toggle('gasMarked')
+        event.currentTarget.classList.toggle('bg-primary-subtle')
     }
     
 }

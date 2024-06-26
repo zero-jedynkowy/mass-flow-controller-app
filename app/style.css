@@ -118,7 +118,7 @@ body
 .modal
 {
   z-index: 1001;
-  margin-top: 2em;
+  margin-top: 3em;
 
 }
 
@@ -161,4 +161,13 @@ body
 .table>:not(caption)>*>*
 {
   background-color: transparent;
+}
+
+#gasesPickerContentModal
+{
+  /* max-width: calc(100% - 2em); */
+  /* margin: 1em auto auto auto; */
+  /* max-height: calc(100% - 5em); */
+  max-height: calc(100% - 3em);
+  /* border-radius: 7px; */
 }
