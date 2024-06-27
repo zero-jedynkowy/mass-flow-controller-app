@@ -331,12 +331,13 @@ function refreshDeviceList()
             let tempPortName = newPorts[i].path
             newPortsKeys.push(tempPortName)
             let flag = false
-            if(newPorts[i].manufacturer != null)
-            {
+            // if(newPorts[i].manufacturer != null)
+            // {
                 
-                flag = newPorts[i].manufacturer.includes("PZE")
-            }
-            if(!connectionObj.portsKeys.includes(tempPortName) && flag) //manufacturer
+            //     flag = newPorts[i].manufacturer.includes("PZE")
+            // }
+            // if(!connectionObj.portsKeys.includes(tempPortName) && flag) //manufacturer
+            if(!connectionObj.portsKeys.includes(tempPortName)) //manufacturer
             {
                 connectionObj.portsKeys.unshift(tempPortName)
                 connectionObj.ports.unshift(newPorts[i])
