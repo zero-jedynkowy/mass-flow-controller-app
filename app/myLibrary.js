@@ -731,12 +731,10 @@ function sendRequest()
         else
         {
             let x = {request:"SET_DATA"}
-            // console.log(x)
             for(el of connectionObj.channelsNewSettings)
             {
                 x[format("channel_%d", el.id)] = el
             }
-            // console.log(JSON.stringify(x))
             connectionObj.requestMode = "GET"
             port.write(JSON.stringify(x), function(err) {console.log(err)})
         }
